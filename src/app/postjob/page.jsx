@@ -72,7 +72,7 @@ function page() { const [modal, setModal] = useState(false)
                           </div>
             </div> : null }
           
-              <h1 className='text-[1.5rem] md:text-[2rem] leading-[2rem] md:leading-[2.5rem]'>Recruit top talent! Broadcast your job post to thousands of eager job seekers.</h1>
+              <h1 className='text-[1.5rem] md:text-[2rem] leading-[2rem] md:leading-[2.5rem]'><span className='underline decoration-blue-700'>Recruit top talent!</span> Broadcast your job post to thousands of eager job seekers.</h1>
   
               <Form onSubmit={onSubmit} setJobDetails={setJobDetails} jobDetails={jobDetails} isEdit={false}/>
   
