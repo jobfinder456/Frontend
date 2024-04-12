@@ -45,7 +45,7 @@ function page() {
           // After deleting, close the modal and reset postIdToDelete
           setModal(false);
           setPostIdToDelete(null);
-          router.push('/dashboard')
+          window.location.reload();
         } catch (error) {
           console.log(error);
         }
@@ -96,12 +96,12 @@ function page() {
 
                             <h3 className='w-[20%]'>{post.is_ok ? "Success" : "Payment Needed!"}</h3>
 
-                            <Link href={`/editpost/${post.id}`} className='w-[10%] bg-blue-200 text-blue-700 p-[0.5rem] text-center'>Edit</Link>
+                            <Link href={`/editpost/${post.id}`} className='w-[10%] bg-blue-100 text-blue-600 p-[0.5rem] text-center'>Edit</Link>
 
                             <button onClick={() => {
                                                    setModal(true);
                                                    setPostIdToDelete(post.id);
-                                                 }} className='w-[10%] bg-red-200 text-red-700 p-[0.5rem]'>Delete</button>
+                                                 }} className='w-[10%] bg-red-100 text-red-600 p-[0.5rem]'>Delete</button>
 
                     </div>) )}
 

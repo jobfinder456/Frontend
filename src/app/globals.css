@@ -2,3 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+    .form-label {
+      @apply text-[1rem] font-normal text-zinc-400;
+    }
+
+    .form-inp {
+        @apply border-[1.2px] rounded-md px-[1rem] py-[0.5rem] border-zinc-800 text-zinc-800 font-normal;
+    }
+  }
