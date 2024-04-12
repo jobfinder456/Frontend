@@ -68,6 +68,10 @@ function page() {
 
             <h1 className='text-[2rem] md:text-[3rem] text-blue-700 font-medium'>48 <span className='text-[1rem] md:text-[1.2rem] text-black'>total jobs ceated</span></h1>
 
+            <h1 className='text-[2rem] md:text-[3rem] text-blue-700 font-medium'>48 <span className='text-[1rem] md:text-[1.2rem] text-black'>Jobs require payment</span></h1>
+
+            <Link href={'/checkout'} className='px-[1rem] py-[0.5rem] rounded-[10px] bg-blue-700 text-white font-medium text-center'>Pay for all Jobs</Link>
+
             <div className='overflow-x-scroll w-full'> {/* container scroll chart */}
 
                 <div className='flex flex-col w-[36rem] sm:w-[100%] gap-[1rem] justify-between'>
