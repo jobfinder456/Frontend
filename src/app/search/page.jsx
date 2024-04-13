@@ -12,6 +12,7 @@ export default function page() {
   const [loc, setLoc] = useState('');
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
+  const [searchChanged, setSearchChanged] = useState(false);
 
   const debouncedSearchTerm = useDebounce(search, 500);
   const debouncedLoc = useDebounce(loc, 500);
@@ -21,15 +22,30 @@ export default function page() {
       try {
         const url = `${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/list?page=${page}&search=${debouncedSearchTerm}&loc=${debouncedLoc}`;
         const response = await axios.get(url);
-        console.log("called - ", url)
-        setPost(prevPost => [...prevPost, ...response.data.all.rows]);
+        console.log("called - ", url);
+        if (searchChanged) {
+          setPost(response.data.all.rows);
+          setSearchChanged(false);
+        } else {
+          setPost(prevPost => [...prevPost, ...response.data.all.rows]);
+        }
       } catch (error) {
         console.log(error);
       }
     }
 
     getJob();
-  }, [debouncedSearchTerm, debouncedLoc, page]);
+  }, [debouncedSearchTerm, debouncedLoc, page, searchChanged]);
+
+  const handleSearchChange = value => {
+    setSearch(value);
+    setSearchChanged(true);
+  };
+
+  const handleLocationChange = value => {
+    setLoc(value);
+    setSearchChanged(true);
+  };
 
   return (
     <div className="w-[100%] flex flex-col items-center justify-center gap-[2rem] p-[1rem]">
@@ -41,7 +57,7 @@ export default function page() {
         <h1 className="text-[2rem] md:text-[3rem] text-white leading-[2.5rem]">Get your dream job today</h1>
         <h3 className="text-[#ffffffbf] text-[0.85rem] md:text-[1.2rem] mt-[0.5rem] md:mt-[1.5rem]">Boost your career growth, by joining one of the the latest growing company, browse through our immense library of jobs of the growing staartups </h3>
 
-        <Search setLoc={setLoc} setSearch={setSearch} />
+        <Search setLoc={handleLocationChange} setSearch={handleSearchChange} />
 
       </div>
 
