@@ -11,9 +11,9 @@ function Navbar() {
 
         <div className="flex justify-center items-center text-[0.95rem] md:text-[1.2rem] gap-[0.5rem] md:gap-[1rem]">
 
-          <Link href={'/dashboard'} className="px-[1rem] md:px-[1.5rem] py-[0.5rem] md:py-[0.75rem] border border-blue-500 rounded-[2rem]">For Employers</Link>
+          <Link href={'/dashboard'} className="px-[1rem] md:px-[1.5rem] py-[0.5rem] md:py-[0.75rem] border border-blue-700 rounded-[2rem]">For Employers</Link>
 
-          <Link href={'/postjob'} className="px-[1rem] md:px-[1.5rem] py-[0.5rem] md:py-[0.75rem] bg-blue-500 rounded-[2rem] text-white font-semibold">Post a Job</Link>
+          <Link href={'/postjob'} className="px-[1rem] md:px-[1.5rem] py-[0.5rem] md:py-[0.75rem] bg-blue-700 rounded-[2rem] text-white font-semibold">Post a Job</Link>
 
         </div>
 
