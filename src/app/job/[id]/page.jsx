@@ -27,7 +27,7 @@ function page() {
 
         <Navbar />
 
-        <div className='relative max-w-[42rem] mx-auto flex flex-col md:flex-row justify-between py-[2rem] gap-[2rem] md:gap-[0rem] px-[1rem] sm:px-[2rem]'>
+        <div className='relative max-w-[56rem] mx-auto flex flex-col md:flex-row justify-between py-[2rem] gap-[2rem] md:gap-[0rem] px-[1rem] sm:px-[2rem]'>
 
              <div className='w-[100%] md:w-[70%] flex flex-col items-start justify-center gap-[0.5rem] '>
                    <a href={details.website} className='w-[4rem] h-[4rem] bg-zinc-400 rounded-md'>
