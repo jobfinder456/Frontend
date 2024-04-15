@@ -2,6 +2,7 @@
 import React, {useState} from 'react'
 import axios from 'axios'
 import Form from '@/components/Form'
+import Link from 'next/link'
 
 function page() { const [modal, setModal] = useState(false)
     const [jobDetails, setJobDetails] = useState({
@@ -46,7 +47,7 @@ function page() { const [modal, setModal] = useState(false)
   
       try {
   
-          const response = await axios.post("http://localhost:3000/api/v1/insert", formData, {
+          const response = await axios.post(`${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/insert`, formData, {
             headers: {
                 // Inform the server about the data type
                 "Content-Type": "multipart/form-data",
@@ -65,10 +66,10 @@ function page() { const [modal, setModal] = useState(false)
             { modal ? <div className='sticky top-[2rem] rounded-[8px] p-[1rem] bg-white w-[90%] h-[10rem] mx-auto'>
                         
                           <div>
-                            New here ? <Link className='underline' to={'/signup'}>Signup</Link>
+                            New here ? <Link className='underline' href={'/signup'}>Signup</Link>
                           </div>
                           <div>
-                            Already have an account ? <Link className='underline' to={'/login'}>Login</Link>
+                            Already have an account ? <Link className='underline' href={'/signin'}>Login</Link>
                           </div>
             </div> : null }
           

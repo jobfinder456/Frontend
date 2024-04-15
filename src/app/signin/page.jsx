@@ -14,7 +14,7 @@ function page() {
 
      const onSubmit = async () => {
        try {
-         const response = await axios.post('http://localhost:3000/api/v1/user/login', userDetails);
+         const response = await axios.post(`${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/user/login`, userDetails);
          localStorage.setItem('jf_token', response.data.token);
          router.push('/dashboard');
        } catch (error) {
