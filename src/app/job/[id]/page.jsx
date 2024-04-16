@@ -11,8 +11,9 @@ function page() {
       try {
         const id = window.location.href.split("/")[4]
         const response = await axios.get(`${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/job/${id}`)
-        setDetails(response.data.result.rows[0])
-        console.log(response.data.result.rows[0])
+        console.log(response.data.result[0])
+        setDetails(response.data.result[0])
+        
       } catch (error) {
         console.log(error)
       }
@@ -45,7 +46,9 @@ function page() {
                    <h3 className='text-[1.5rem] text-zinc-500'>{details.company_name} is hiring for </h3>
                    <h1 className='text-[2rem] font-bold'>{details.job_title}</h1>
                    <h3 className='text-[1rem]'>{details.work_loc} <span className='text-[0.8rem] pl-[1rem]'>{details.remote ? "Remote" : null}</span></h3>
-                   <p className='mt-[1rem]'>{details.description}</p>
+                   {details.description && (
+            <p className='mt-[1rem]' dangerouslySetInnerHTML={{ __html: details.description }} />
+          )}
              </div>
                               
              <div className='w-[100%] md:w-[28%] flex flex-col gap-[1rem]'>

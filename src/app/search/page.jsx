@@ -41,7 +41,7 @@ export default function Page() {
 
   const handleLocationChange = value => {
     setLoc(value);
-    etPage(1)
+    setPage(1)
     setSearchChanged(true);
   };
 

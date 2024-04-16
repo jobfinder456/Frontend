@@ -11,3 +11,13 @@
         @apply border-[1.2px] rounded-md px-[1rem] py-[0.5rem] border-zinc-800 text-zinc-800 font-normal;
     }
   }
+
+/* Add this CSS to your stylesheets */
+ul {
+  list-style-type: disc; /* or circle or square */
+}
+
+/* Optionally, you can style the list items */
+li {
+  margin-bottom: 0.5rem; /* Adjust as needed */
+}

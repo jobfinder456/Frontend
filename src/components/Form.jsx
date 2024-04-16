@@ -1,4 +1,5 @@
 import React from 'react'
+import Tiptap from './Tiptap';
 
 function Form({onSubmit, setJobDetails, jobDetails, isEdit}) {
 
@@ -6,6 +7,10 @@ function Form({onSubmit, setJobDetails, jobDetails, isEdit}) {
         const file = e.target.files[0]; // Get the first file
         setJobDetails(prevState => ({ ...prevState, image: file }));
       };
+
+      const handleDescriptionChange = (content) => {
+        setJobDetails(prevState => ({ ...prevState, description: content }));
+    };
 
   return (
     <div>
@@ -106,12 +111,7 @@ function Form({onSubmit, setJobDetails, jobDetails, isEdit}) {
 
             <div className='flex flex-col w-[100%] gap-[0.5rem]'>
                 <label htmlFor="jobDesc" className='form-label'>Job Description</label>
-                <textarea id="jobDesc" cols="30" rows="10" 
-                          value={jobDetails.description}
-                          onChange={(e) => setJobDetails(prevState => ({ ...prevState, description: e.target.value }))}
-                          className='w-[100%] form-inp'
-                          placeholder='The Full Stack Software Engineer will contribute to the development and optimization of our proprietary compression software. The ideal candidate will have strong experience with Python, Go, and distributed systems. They will be responsible for writing clean, efficient code and contributing to various stages of the software development lifecycle. Experience with machine learning algorithms is a plus.'
-                ></textarea>
+                <Tiptap setDesc={handleDescriptionChange} />
             </div>
 
             <hr className='border-[1px] border-zinc-200 w-[100%]' />

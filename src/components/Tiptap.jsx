@@ -16,7 +16,7 @@ import React, {useCallback} from 'react'
 import { cn } from "@/lib/utils"
 import classNames from 'classnames'
 
-const Tiptap = () => {
+const Tiptap = ({setDesc}) => {
   const editor = useEditor({
     editorProps: {
       attributes: {
@@ -48,6 +48,9 @@ const Tiptap = () => {
     <li>And another one</li>
   </ul>
       `,
+      onUpdate({ editor }) {
+        setDesc(editor.getHTML());
+      },
   })
 
   const setLink = useCallback(() => {
@@ -86,67 +89,56 @@ const Tiptap = () => {
     console.log('Typed content:', content);
   };
 
+
+
   return (
     <div className='flex flex-col gap-[1rem] p-[1rem]'>
+
+      <div className='flex items-center justify-start gap-[1rem]'>
+
+      
       {/* Bold */}
       <button
         onClick={() => editor.chain().focus().toggleBold().run()}
-        className={editor.isActive('bold') ? 'is-active' : ''}
+        className={`${editor.isActive('bold') ? 'is-active' : ''} border border-black p-[0.5rem] rounded-[8px]`}
       >
-        toggleBold
+        B
       </button>
 
       {/* Italic */}
       <button
         onClick={() => editor.chain().focus().toggleItalic().run()}
-        className={editor.isActive('italic') ? 'is-active' : ''}
+        className={`${editor.isActive('italic') ? 'is-active' : ''} border border-black p-[0.5rem] rounded-[8px]`}
       >
-        toggleItalic
-      </button>
-
-      {/* Heading */}
-
-      <button
-        onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
-        className={editor.isActive('heading', { level: 1 }) ? 'is-active' : ''}
-      >
-        H1
-      </button>
-      <button
-        onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-        className={editor.isActive('heading', { level: 2 }) ? 'is-active' : ''}
-      >
-        H2
-      </button>
-      <button
-        onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
-        className={editor.isActive('heading', { level: 3 }) ? 'is-active' : ''}
-      >
-        H3
+        I
       </button>
 
       {/* Link */}
 
-      <button onClick={setLink} className={editor.isActive('link') ? 'is-active' : ''}>
-        setLink
+      <button onClick={setLink} className={`${editor.isActive('link') ? 'is-active' : ''} border border-black p-[0.5rem] rounded-[8px]`}>
+        Set Link
       </button>
+
       <button
+        className='border border-black p-[0.5rem] rounded-[8px]'
         onClick={() => editor.chain().focus().unsetLink().run()}
         disabled={!editor.isActive('link')}
       >
-        unsetLink
+        Unset Link
       </button>
 
       {/* List */}
 
       <button
         onClick={() => editor.chain().focus().toggleBulletList().run()}
-        className={editor.isActive('bulletList') ? 'is-active' : ''}
+        className={`${editor.isActive('bulletList') ? 'is-active' : ''} border border-black p-[0.5rem] rounded-[8px]`}
       >
-        toggleBulletList
+        List
       </button>
 
-      <EditorContent editor={editor} />
+      </div>
+
+      <EditorContent editor={editor} className='border border-black px-[0.5rem] rounded-[8px]' />
 
       <button onClick={printContent}>print</button>
     </div>
