@@ -4,7 +4,8 @@ import axios from 'axios'
 import Navbar from '@/components/Navbar'
 
 function page() {
-
+  
+  const [email, setEmail] = useState('')
     const [details, setDetails] = useState({})
   useEffect( () => {
     async function get () {
@@ -22,6 +23,20 @@ function page() {
     get()
       
   }, [])
+
+  async function submitMail () {
+    if(!email) {
+      console.log("provide email")
+      return
+    }
+
+    try {
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/insert-user-email`, {email: email})
+      console.log(response)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <div className='relative w-full mx-auto flex flex-col justify-between '>
@@ -55,12 +70,14 @@ function page() {
 
                    <a href={details.job_link} className='bg-blue-700 px-[1rem] py-[0.5rem] text-white rounded-md'>Apply for this job</a>
 
-                   <div className='bg-zinc-200 p-[0.5rem] rounded-md flex flex-col gap-[1rem]'>
+                   <div className='bg-blue-200 p-[0.5rem] rounded-md flex flex-col gap-[1rem]'>
 
                          <label htmlFor='email' className='text-[0.85rem] font-medium'> Want to apply interview first ? Drop your mail, we will send the notification as soon as new Job post drops</label>
                          <input type="text" placeholder='your mail' id='email' autoComplete='off'
                                  className='w-[100%] border-[2px] rounded-md px-[1rem] py-[0.25rem] border-zinc-600' 
+                                 onChange={e => {setEmail(e.target.value)}}
                          />
+                         <button className='bg-blue-100 text-blue-900 font-medium rounded-[8px] py-[0.5rem]' onClick={submitMail}>Submit</button>
 
                    </div>
              </div>

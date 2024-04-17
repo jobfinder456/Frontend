@@ -3,6 +3,7 @@ import React, {useState} from 'react'
 import axios from 'axios'
 import Form from '@/components/Form'
 import Link from 'next/link'
+import Navbar from '@/components/Navbar'
 
 function page() { const [modal, setModal] = useState(false)
     const [jobDetails, setJobDetails] = useState({
@@ -61,6 +62,11 @@ function page() { const [modal, setModal] = useState(false)
   
   
     return (
+
+      <div>
+
+      <Navbar />
+
       <div className='relative max-w-[42rem] mx-auto my-[2rem] flex flex-col items-start justify-center gap-[1rem] p-[1rem]'>
   
             { modal ? <div className='sticky top-[2rem] rounded-[8px] p-[1rem] bg-white w-[90%] h-[10rem] mx-auto'>
@@ -77,6 +83,8 @@ function page() { const [modal, setModal] = useState(false)
   
               <Form onSubmit={onSubmit} setJobDetails={setJobDetails} jobDetails={jobDetails} isEdit={false}/>
   
+      </div>
+
       </div>
   )
 }

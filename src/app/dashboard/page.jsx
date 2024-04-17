@@ -20,11 +20,11 @@ function page() {
                 if(!token){
                   return
                 }
-                const responseVerify = await axios.get(`http://localhost:3000/api/v1/verifyuser`, { headers: { "Authorization": `Bearer ${token}` } });
+                const responseVerify = await axios.get(`${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/verifyuser`, { headers: { "Authorization": `Bearer ${token}` } });
                 setEmail(responseVerify.data.email);
                 console.log(responseVerify.data.email);
     
-                const responseSubmit = await axios.post("http://localhost:3000/api/v1/users-list", { email: responseVerify.data.email }, { headers: { "Authorization": `Bearer ${token}` } });
+                const responseSubmit = await axios.post(`${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/users-list`, { email: responseVerify.data.email }, { headers: { "Authorization": `Bearer ${token}` } });
                 console.log(responseSubmit);
                 setPostData(responseSubmit.data.all);
             } catch (error) {
@@ -40,7 +40,7 @@ function page() {
         console.log(id)
         try {
           const token = localStorage.getItem("jf_token") || false;
-          const response = await axios.delete(`http://localhost:3000/api/v1/delete/${id}`, { headers: { "Authorization": `Bearer ${token}` }} );
+          const response = await axios.delete(`${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/delete/${id}`, { headers: { "Authorization": `Bearer ${token}` }} );
           console.log(response);
           // After deleting, close the modal and reset postIdToDelete
           setModal(false);

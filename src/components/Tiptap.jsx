@@ -16,7 +16,7 @@ import React, {useCallback} from 'react'
 import { cn } from "@/lib/utils"
 import classNames from 'classnames'
 
-const Tiptap = ({setDesc}) => {
+const Tiptap = ({setDesc, oldDesc}) => {
   const editor = useEditor({
     editorProps: {
       attributes: {
@@ -43,10 +43,9 @@ const Tiptap = ({setDesc}) => {
       }),
     ],
     content: `
-    <ul>
-    <li>A list item</li>
-    <li>And another one</li>
-  </ul>
+    ${oldDesc ? oldDesc : `<ul>
+    <li> Here goes Job Description</li>
+  </ul>`} 
       `,
       onUpdate({ editor }) {
         setDesc(editor.getHTML());
@@ -78,17 +77,6 @@ const Tiptap = ({setDesc}) => {
   if (!editor) {
     return null
   }
-
-  const printContent = () => {
-    if (!editor) {
-      console.error('No editor found');
-      return;
-    }
-    
-    const content = editor.getHTML();
-    console.log('Typed content:', content);
-  };
-
 
 
   return (
@@ -140,7 +128,6 @@ const Tiptap = ({setDesc}) => {
 
       <EditorContent editor={editor} className='border border-black px-[0.5rem] rounded-[8px]' />
 
-      <button onClick={printContent}>print</button>
     </div>
   )
 }

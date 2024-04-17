@@ -111,7 +111,7 @@ function Form({onSubmit, setJobDetails, jobDetails, isEdit}) {
 
             <div className='flex flex-col w-[100%] gap-[0.5rem]'>
                 <label htmlFor="jobDesc" className='form-label'>Job Description</label>
-                <Tiptap setDesc={handleDescriptionChange} />
+                <Tiptap setDesc={handleDescriptionChange} oldDesc={jobDetails.description} />
             </div>
 
             <hr className='border-[1px] border-zinc-200 w-[100%]' />

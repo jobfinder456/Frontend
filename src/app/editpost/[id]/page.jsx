@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Form from '@/components/Form';
 import { useParams } from 'next/navigation';
+import Navbar from '@/components/Navbar';
 
 function Page() {
     const params = useParams();
@@ -22,11 +23,12 @@ function Page() {
     useEffect(() => {
         async function getJobDetails() {
             try {
-                const response = await axios.get(`http://localhost:3000/api/v1/job/${id}`);
-                if (response.data.result.rows.length === 0) {
+                const response = await axios.get(`${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/job/${id}`);
+                console.log(response)
+                if (response.data.result.length === 0) {
                     setNotFound(true);
                 } else {
-                    setJobDetails(response.data.result.rows[0]);
+                    setJobDetails(response.data.result[0]);
                 }
                 setLoading(false);
             } catch (error) {
@@ -40,7 +42,7 @@ function Page() {
     const onSubmit = async () => {
         try {
             const token = localStorage.getItem("jf_token") || false;
-            const response = await axios.put(`http://localhost:3000/api/v1/update/${id}`, jobDetails, { headers: { "Authorization": `Bearer ${token}` } });
+            const response = await axios.put(`${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/update/${id}`, jobDetails, { headers: { "Authorization": `Bearer ${token}` } });
             console.log(response);
         } catch (error) {
             console.log(error);
@@ -56,9 +58,15 @@ function Page() {
     }
 
     return (
+        <div>
+
+        <Navbar />
+        
         <div className='max-w-[42rem] mx-auto my-[2rem] flex flex-col items-start justify-center gap-[1rem] p-[1rem]'>
             <h1 className='text-[1.5rem] md:text-[2rem]'>Edit your Job Post - <span className='text-blue-600 font-medium'>ID {id}</span></h1>
             <Form onSubmit={onSubmit} setJobDetails={setJobDetails} jobDetails={jobDetails} isEdit={true} />
+        </div>
+
         </div>
     );
 }
