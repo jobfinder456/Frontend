@@ -2,6 +2,7 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import axios from 'axios';
+import toast, { Toaster } from 'react-hot-toast';
 
 function page() {
 
@@ -11,6 +12,7 @@ function page() {
 
     const onEmailSubmit = async () => {
         try {
+            toast('🟢 OTP send succesfully')
           const response = await axios.post(`${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/sendemail`, {email: email});
           console.log("send success")
           setDisable(false)
@@ -30,6 +32,8 @@ function page() {
 
   return (
     <div className='w-[100%] p-[1rem]'>
+
+    <Toaster />
 
     <div className="relative mx-auto mt-[2rem] max-w-[32rem] p-[1rem] md:p-[2rem] rounded-[10px] text-black flex flex-col justify-center items-start gap-4 shadow-md">
 
