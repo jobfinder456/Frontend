@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import Link from 'next/link'
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
+import Navbar from '@/components/Navbar';
 
 function page() {
 
@@ -32,6 +33,8 @@ function page() {
 
   return (
     <div className='w-[100%] p-[1rem]'>
+
+        <Navbar />
 
     <Toaster />
 
