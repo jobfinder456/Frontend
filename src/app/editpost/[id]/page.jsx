@@ -4,8 +4,11 @@ import axios from 'axios';
 import Form from '@/components/Form';
 import { useParams } from 'next/navigation';
 import Navbar from '@/components/Navbar';
+import { useRouter } from 'next/navigation';
 
 function Page() {
+
+    const router = useRouter();
     const params = useParams();
     const id = params.id;
     const [jobDetails, setJobDetails] = useState({
@@ -44,6 +47,7 @@ function Page() {
             const token = localStorage.getItem("jf_token") || false;
             const response = await axios.put(`${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/update/${id}`, jobDetails, { headers: { "Authorization": `Bearer ${token}` } });
             console.log(response);
+            router.push(`/job/${id}`)
         } catch (error) {
             console.log(error);
         }

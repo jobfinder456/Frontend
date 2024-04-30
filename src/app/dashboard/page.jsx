@@ -4,6 +4,7 @@ import React, {useState, useEffect} from 'react'
 import { useRouter } from 'next/navigation';
 import Link from 'next/link'
 import axios from 'axios'
+import toast, { Toaster } from 'react-hot-toast';
 
 function page() {
 
@@ -29,7 +30,7 @@ function page() {
                 setPostData(responseSubmit.data.all);
             } catch (error) {
                 console.error("Error:", error);
-                console.log("please login")
+                toast('Please login again')
             }
         };
     
@@ -55,6 +56,8 @@ function page() {
     <div className='w-full min-h-screen relative overflow-hidden'>
         
         <Navbar />
+
+        <Toaster />
 
         {modal && (
         <div className='fixed bottom-10 w-[80%] mx-auto bg-slate-100 p-[1rem] flex flex-wrap justify-evenly items-center gap-[0.5rem]'>

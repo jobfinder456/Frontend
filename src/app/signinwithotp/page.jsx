@@ -4,9 +4,11 @@ import Link from 'next/link'
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
 import Navbar from '@/components/Navbar';
+import { useRouter } from 'next/navigation';
 
 function page() {
 
+    const router = useRouter();
     const[email, setEmail] = useState('')
     const[otp, setOtp] = useState('')
     const[disable, setDisable] = useState(true)
@@ -14,7 +16,7 @@ function page() {
     const onEmailSubmit = async () => {
         try {
             toast('🟢 OTP send succesfully')
-          const response = await axios.post(`http://localhost:8282/api/v1/sendemail`, {email: email});
+          const response = await axios.post(`${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/sendemail`, {email: email});
           console.log("send success")
           setDisable(false)
         } catch (error) {
@@ -26,6 +28,7 @@ function page() {
         try {
           const response = await axios.post(`${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/verify-otpp`, {otp: otp});
           console.log("send success", response)
+          router.push('/dashboard');
         } catch (error) {
           console.error('Email sending error:', error);
         }

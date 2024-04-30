@@ -4,8 +4,13 @@ import axios from 'axios'
 import Form from '@/components/Form'
 import Link from 'next/link'
 import Navbar from '@/components/Navbar'
+import { useRouter } from 'next/navigation';
+import toast, { Toaster } from 'react-hot-toast';
 
-function page() { const [modal, setModal] = useState(false)
+function page() { 
+  
+    const router = useRouter();
+    const [modal, setModal] = useState(false)
     const [jobDetails, setJobDetails] = useState({
       company_name: '', //
       website: '', //
@@ -55,8 +60,15 @@ function page() { const [modal, setModal] = useState(false)
             },
         })
           console.log(response)
+          router.push('/dashboard')
       } catch (error) {
           console.log(error)
+          if (error.response && error.response.status === 400) {
+            toast(" Enter details properly")
+        } else {
+          setModal(true)
+        }
+          
       }
   }
   
@@ -66,6 +78,8 @@ function page() { const [modal, setModal] = useState(false)
       <div>
 
       <Navbar />
+
+      <Toaster />
 
       <div className='relative max-w-[42rem] mx-auto my-[2rem] flex flex-col items-start justify-center gap-[1rem] p-[1rem]'>
   
