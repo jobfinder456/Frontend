@@ -95,7 +95,7 @@ function page() {
 
                     {postData.map((post) => (
                         
-                        <div className='flex justify-between w-full' key={post.id}>
+                        <Link href={`/job/${post.id}`} className='flex justify-between w-full' key={post.id}>
 
                             <h3 className='w-[20%]'>22-09-24</h3>
 
@@ -110,7 +110,7 @@ function page() {
                                                    setPostIdToDelete(post.id);
                                                  }} className='w-[10%] bg-red-100 text-red-600 p-[0.5rem]'>Delete</button>
 
-                    </div>) )}
+                    </Link>) )}
 
 
                 </div>

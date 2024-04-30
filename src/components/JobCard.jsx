@@ -4,7 +4,7 @@ import Link from 'next/link'
 function JobCard({jobTitle, companyName, isRemote, loc, id, img}) {
 
   return (
-    <Link href={`/job/${id}`} className="w-[100%] flex justify-between items-center border border-[#87878754] p-[1rem] rounded-[20px]">
+    <Link href={`/job/${id}`} target='_blank' className="w-[100%] flex justify-between items-center border border-[#87878754] p-[1rem] rounded-[20px]">
 
                     <div className=" flex items-start justify-start gap-[1rem]">
 

@@ -7,6 +7,7 @@ import toast, { Toaster } from 'react-hot-toast';
 function page() {
   
   const [email, setEmail] = useState('')
+  const [notFound, setNotFound] = useState(false);
     const [details, setDetails] = useState({})
   useEffect( () => {
     async function get () {
@@ -14,7 +15,11 @@ function page() {
         const id = window.location.href.split("/")[4]
         const response = await axios.get(`${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/job/${id}`)
         console.log(response.data.result[0])
-        setDetails(response.data.result[0])
+        if (response.data.result.length === 0) {
+          setNotFound(true);
+      } else {
+          setDetails(response.data.result[0]);
+      }
         
       } catch (error) {
         console.log(error)
@@ -39,6 +44,10 @@ function page() {
     } catch (error) {
       console.log(error)
     }
+  }
+
+  if (notFound) {
+    return <div>404 - Job not found</div>;
   }
 
   return (

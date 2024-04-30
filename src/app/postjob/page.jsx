@@ -26,6 +26,11 @@ function page() {
   })
   
   const onSubmit = async() => {
+
+    if (!jobDetails.job_link.startsWith("https://")) {
+        // If it doesn't start with "https://", prepend it
+        jobDetails.job_link = "https://" + jobDetails.job_link;
+    }
   
     const token = localStorage.getItem("jf_token") || false
     if(!token){
