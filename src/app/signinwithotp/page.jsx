@@ -14,7 +14,7 @@ function page() {
     const onEmailSubmit = async () => {
         try {
             toast('🟢 OTP send succesfully')
-          const response = await axios.post(`${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/sendemail`, {email: email});
+          const response = await axios.post(`http://localhost:8282/api/v1/sendemail`, {email: email});
           console.log("send success")
           setDisable(false)
         } catch (error) {
@@ -24,8 +24,8 @@ function page() {
 
       const onOtpSubmit = async () => {
         try {
-          const response = await axios.post(`${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/login`, {otp: otp});
-          console.log("send success")
+          const response = await axios.post(`${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/verify-otpp`, {otp: otp});
+          console.log("send success", response)
         } catch (error) {
           console.error('Email sending error:', error);
         }
