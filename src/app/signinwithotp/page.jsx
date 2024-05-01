@@ -6,7 +6,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import Navbar from '@/components/Navbar';
 import { useRouter } from 'next/navigation';
 
-function page() {
+function Page() {
 
     const router = useRouter();
     const[email, setEmail] = useState('')
@@ -84,4 +84,4 @@ function page() {
   )
 }
 
-export default page
+export default Page

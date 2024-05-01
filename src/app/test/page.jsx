@@ -2,7 +2,7 @@
 import Tiptap from '@/components/Tiptap'
 import React, { useEffect, useState } from 'react'
 
-function page() {
+function Page() {
 
   const [desc, setDesc] = useState("")
 
@@ -24,4 +24,4 @@ function page() {
   )
 }
 
-export default page
+export default Page

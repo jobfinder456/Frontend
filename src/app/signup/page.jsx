@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link'
 
-function page() {
+function Page() {
 
   const router = useRouter()
   const [userDetails, setUserDetails] = useState({
@@ -82,4 +82,4 @@ function page() {
   )
 }
 
-export default page
+export default Page

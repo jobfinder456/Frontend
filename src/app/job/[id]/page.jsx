@@ -4,7 +4,7 @@ import axios from 'axios'
 import Navbar from '@/components/Navbar'
 import toast, { Toaster } from 'react-hot-toast';
 
-function page() {
+function Page() {
   
   const [email, setEmail] = useState('')
   const [notFound, setNotFound] = useState(false);
@@ -104,4 +104,4 @@ function page() {
   )
 }
 
-export default page
+export default Page

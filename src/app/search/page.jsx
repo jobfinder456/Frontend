@@ -23,7 +23,8 @@ export default function Page() {
         const response = await axios.get(url);
         console.log(response);
         console.log('called - ', url);
-        setPosts(response.data.all); // Append new posts to existing posts
+        setPosts(prevPosts => [...prevPosts, ...response.data.all]);
+        //setPosts(response.data.all); // Append new posts to existing posts
         
       } catch (error) {
         console.log(error);

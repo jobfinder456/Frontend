@@ -6,7 +6,7 @@ import Link from 'next/link'
 import axios from 'axios'
 import toast, { Toaster } from 'react-hot-toast';
 
-function page() {
+function Page() {
 
     const router = useRouter();
     const [email, setEmail] = useState('');
@@ -103,7 +103,7 @@ function page() {
 
                             <h3 className='w-[20%]'>{post.is_ok ? "Success" : "Payment Needed!"}</h3>
 
-                            <Link href={`/editpost/${post.id}`} className='w-[10%] bg-blue-100 text-blue-600 p-[0.5rem] text-center'>Edit</Link>
+                            <button onClick={() => router.push(`/editpost/${post.id}`)} className='w-[10%] bg-blue-100 text-blue-600 p-[0.5rem] text-center'>Edit</button>
 
                             <button onClick={() => {
                                                    setModal(true);
@@ -125,4 +125,4 @@ function page() {
   )
 }
 
-export default page
+export default Page

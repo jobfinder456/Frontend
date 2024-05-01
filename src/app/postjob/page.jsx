@@ -7,7 +7,7 @@ import Navbar from '@/components/Navbar'
 import { useRouter } from 'next/navigation';
 import toast, { Toaster } from 'react-hot-toast';
 
-function page() { 
+function Page() { 
   
     const router = useRouter();
     const [modal, setModal] = useState(false)
@@ -108,4 +108,4 @@ function page() {
   )
 }
 
-export default page
+export default Page
