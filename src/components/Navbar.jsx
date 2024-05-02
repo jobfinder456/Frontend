@@ -7,8 +7,8 @@ function Navbar() {
   return (
     <div className="w-[100%] p-[0.5rem] md:px-[2rem] flex justify-between items-center py-[1rem]">
 
-        <Link href={'/'} className="w-[2rem] h-[2rem] bg-blue-700">
-
+        <Link href={'/'} className="w-[2rem] h-[2rem] bg-blue-700 flex items-center justify-center text-white rounded-[4px]">
+          job
         </Link>
 
         <div className="flex justify-center items-center text-[0.95rem] md:text-[1.2rem] gap-[0.5rem] md:gap-[1rem]">
