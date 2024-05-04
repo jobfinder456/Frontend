@@ -37,12 +37,14 @@ export default function Page() {
   const handleSearchChange = value => {
     setSearch(value);
     setPage(1)
+    setPosts([]);
     setSearchChanged(true);
   };
 
   const handleLocationChange = value => {
     setLoc(value);
     setPage(1)
+    setPosts([]);
     setSearchChanged(true);
   };
 
