@@ -56,7 +56,9 @@ function Page() {
 
             </div>
             
-            <button onClick={onSubmit} className=' w-[100%] text-center p-[0.5rem] rounded-[10px] bg-blue-700 text-white font-medium'>Sign Up</button>
+            <button onClick={onSubmit} className=' w-[100%] text-center p-[0.5rem] rounded-[10px] bg-blue-700 text-white font-medium'>Sign In</button>
+
+            <Link href={'/signinwithotp'} className=' w-[100%] text-center p-[0.5rem] rounded-[10px] border border-[#131313] font-medium'>Sign In with OTP</Link>
 
             <h3 className='text-[0.95rem] w-[100%] text-center'>New here ? <Link href={'/signup'} className='underline'>Create an account</Link></h3>
 

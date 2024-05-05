@@ -17,7 +17,7 @@ function Page() {
         try {
             toast('🟢 OTP send succesfully')
           const response = await axios.post(`${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/sendemail`, {email: email});
-          console.log("send success")
+          console.log(response)
           setDisable(false)
         } catch (error) {
           console.error('Email sending error:', error);

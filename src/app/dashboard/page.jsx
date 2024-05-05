@@ -13,12 +13,14 @@ function Page() {
     const [postData, setPostData] = useState([]);
     const [modal, setModal] = useState(false);
     const [postIdToDelete, setPostIdToDelete] = useState(null);
+    const [notLive, setNotLive] = useState(0)
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const token = localStorage.getItem("jf_token") || false;
                 if(!token){
+                  router.push('/signin')
                   return
                 }
                 const responseVerify = await axios.get(`${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/verifyuser`, { headers: { "Authorization": `Bearer ${token}` } });
@@ -27,7 +29,8 @@ function Page() {
     
                 const responseSubmit = await axios.post(`${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/users-list`, { email: responseVerify.data.email }, { headers: { "Authorization": `Bearer ${token}` } });
                 console.log(responseSubmit);
-                setPostData(responseSubmit.data.all);
+                setPostData(responseSubmit.data.all.jobResult);
+                setNotLive(responseSubmit.data.all.is_ok)
             } catch (error) {
                 console.error("Error:", error);
                 toast('Please login again')
@@ -69,9 +72,9 @@ function Page() {
 
         <div className='flex flex-col justify-start items-start gap-[1rem] p-[1rem] md:max-w-[56rem] mx-auto'>
 
-            <h1 className='text-[2rem] md:text-[3rem] text-blue-700 font-medium'>48 <span className='text-[1rem] md:text-[1.2rem] text-black'>total jobs ceated</span></h1>
+            <h1 className='text-[2rem] md:text-[3rem] text-blue-700 font-medium'>{postData.length} <span className='text-[1rem] md:text-[1.2rem] text-black'> total jobs ceated</span></h1>
 
-            <h1 className='text-[2rem] md:text-[3rem] text-blue-700 font-medium'>48 <span className='text-[1rem] md:text-[1.2rem] text-black'>Jobs require payment</span></h1>
+            <h1 className='text-[2rem] md:text-[3rem] text-blue-700 font-medium'>{notLive} <span className='text-[1rem] md:text-[1.2rem] text-black'> Jobs require payment</span></h1>
 
             <Link href={'/checkout'} className='px-[1rem] py-[0.5rem] rounded-[10px] bg-blue-700 text-white font-medium text-center'>Pay for all Jobs</Link>
 
