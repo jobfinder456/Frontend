@@ -26,9 +26,8 @@ function Page() {
 
       const onOtpSubmit = async () => {
         try {
-          const response = await axios.post(`${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/verify-otpp`, {otp: otp});
+          const response = await axios.post(`${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/verify-otpp`, {email: email, otp: otp});
           console.log("send success", response)
-          router.push('/dashboard');
         } catch (error) {
           console.error('Email sending error:', error);
         }
