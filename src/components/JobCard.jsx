@@ -4,9 +4,9 @@ import Link from 'next/link'
 function JobCard({jobTitle, companyName, isRemote, loc, id, img}) {
 
   return (
-    <Link href={`/job/${id}`} target='_blank' className="w-[100%] flex justify-between items-center px-[24px] py-[1rem] rounded-[12px] hover:bg-background">
+    <div className="w-[100%] flex justify-between items-center px-[24px] py-[1rem] rounded-[12px] hover:bg-background">
 
-                    <div className=" flex items-start justify-start gap-[1rem]">
+                    <Link href={`/job/${id}`} target='_blank' className=" flex flex-grow items-start justify-start gap-[1rem]">
 
                       <div className="w-[40px] h-[40px] md:w-[56px] md:h-[56px] bg-background overflow-hidden text-center">
 
@@ -27,21 +27,21 @@ function JobCard({jobTitle, companyName, isRemote, loc, id, img}) {
 
                         <h3 className="text-[1rem] md:text-[20px] font-medium text-base-1">{jobTitle}</h3>
 
-                        <h5 className="text-[14px] md:text-[1rem] font-normal text-base-2">{companyName} <bold className="font-extrabold">·</bold> {isRemote ? 'Remote' : `${loc}`}</h5>
+                        <h5 className="text-[14px] md:text-[1rem] font-normal text-base-2">{companyName} <span className="font-extrabold">·</span> {isRemote ? 'Remote' : `${loc}`}</h5>
 
                       </div>
 
-                    </div>
+                    </Link>
 
                     <div className='flex items-center justify-center gap-[1rem] text-[1rem]'>
 
-                      <Link href={`/job/${id}`} className='button-secondary'>View</Link>
+                      <Link href={`/job/${id}`} target='_blank' className='button-secondary'>View</Link>
 
-                      <Link href={'/'} className='button-primary'>Apply Now</Link>
+                      <Link href={'/'} target='_blank' className='button-primary'>Apply Now</Link>
 
                     </div>
 
-            </Link>
+            </div>
   )
 }
 

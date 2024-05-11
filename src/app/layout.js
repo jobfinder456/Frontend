@@ -12,7 +12,7 @@ export const metadata = {
       },
     ],
   },
-  title: "Get Gobs Today",
+  title: "Get Jobs Today",
   description: "A job platform where job seekers can apply to a wide range of jobs, and a versatile job hosting site for comapnies and startup to get excellent talent",
 };
 

@@ -39,7 +39,7 @@ export default function Home() {
 
       <div className="w-[100%] text-center flex flex-col items-center justify-center gap-[1rem]">
 
-        <h1 className="text-[4rem] font-light"><bold className="font-medium">Get</bold> your dream <bold className="font-medium">job today</bold></h1>
+        <h1 className="text-[4rem] font-light"><span className="font-medium">Get</span> your dream <span className="font-medium">job today</span></h1>
 
         <h3 className="md:px-[4rem] text-[20px]">Boost your career growth, by joining one of the the latest growing company, browse through our immense library of jobs of the growing startups </h3>
 
