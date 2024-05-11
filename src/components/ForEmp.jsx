@@ -1,6 +1,7 @@
 "use client"
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { IoChevronDownOutline } from "react-icons/io5";
 
 function ForEmp() {
 
@@ -31,8 +32,16 @@ function ForEmp() {
   return (
     <>
         <div onClick={toggleVisibility} className="for-emp-container relative">
+
+            <div className='flex items-center justify-center gap-[0.5rem] button-secondary'>
+
+            <h3 className=''>For Employers</h3>
+
+            <IoChevronDownOutline />
+
+            </div>
         
-            <h3 className='text-base-1 p-[1rem] md:p-[12px] rounded-[12px] border-[1px] border-base-1 font-medium'>For Employers </h3>
+            
 
             <div className={`absolute top-[3rem] md:top-[4rem] ${visible ? '' : 'hidden'} w-[100%] bg-background flex flex-col items-start-start gap-[0.5rem] text-base-1 p-[1rem] md:p-[12px] rounded-[12px] border-[1px] border-background font-medium`}>
 

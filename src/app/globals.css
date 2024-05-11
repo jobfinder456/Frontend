@@ -14,6 +14,10 @@
     .button-primary {
       @apply text-white bg-base-1 p-[1rem] md:p-[12px] rounded-[12px] border-[1px] border-base-1 font-medium;
     }
+
+    .button-secondary {
+      @apply text-base-1 p-[1rem] md:p-[12px] rounded-[12px] border-[1px] border-base-1 font-medium;
+    }
   }
 
 /* Add this CSS to your stylesheets */

@@ -1,8 +1,7 @@
-
 import Navbar from "@/components/Navbar";
-import Search from "@/components/Search";
 import JobCard from "@/components/JobCard";
 import Link from 'next/link'
+import { BsArrowRight } from "react-icons/bs";
 
 export default function Home() {
 
@@ -34,26 +33,32 @@ export default function Home() {
   ]  
 
   return (
-    <div className="w-[100%] flex flex-col items-center justify-center gap-[2rem] p-[1rem]">
+    <div className="max-w-[73.75rem] mx-auto flex flex-col items-center justify-center gap-[2rem] p-[1rem]">
       
       <Navbar />
 
-      <div className="text-center flex flex-col items-center justify-center gap-[1rem]">
+      <div className="w-[100%] text-center flex flex-col items-center justify-center gap-[1rem]">
 
         <h1 className="text-[4rem] font-light"><bold className="font-medium">Get</bold> your dream <bold className="font-medium">job today</bold></h1>
 
-        <h3 className="w-[800px] text-[20px]">Boost your career growth, by joining one of the the latest growing company, browse through our immense library of jobs of the growing startups </h3>
+        <h3 className="md:px-[4rem] text-[20px]">Boost your career growth, by joining one of the the latest growing company, browse through our immense library of jobs of the growing startups </h3>
+
+        <div className="flex items-center justify-center gap-[1rem] mt-[1rem] text-[20px] p-[16px] button-primary bg-accent-blue-1 border-accent-blue-1">
+
+          <Link href={'/search'} className="">Browse Jobs Now </Link>
+
+          <BsArrowRight />
+
+        </div>
         
-        <Link href={'/search'} className="mt-[1rem] text-[20px] p-[16px] button-primary bg-accent-blue-1 border-accent-blue-1">Browse Jobs Now</Link>
 
       </div>
 
-      <div className="w-[100%] md:p-[2rem] max-w-[72rem] mx-auto flex flex-col items-start justify-start gap-[1rem] md:gap-[2rem]">
+      <div className="w-[100%] max-w-[73.75rem] px-[1rem] mx-auto flex flex-col items-start justify-start gap-[1rem]">
 
-        <h2 className="text-[20px] md:text-[32px] font-medium pl-[1rem]">Latest Jobs</h2>
+        <h2 className="text-[20px] md:text-[20px] font-medium">Latest Jobs</h2>
 
-        
-        <div className="w-[100%] flex flex-col justify-center items-center gap-[1rem]">
+        <div className="w-[100%] flex flex-col justify-center items-center gap-[0.5rem]">
 
         {latestPosts.map((job) => (
           <JobCard  key={job.id}

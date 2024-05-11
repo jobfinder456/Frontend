@@ -5,9 +5,9 @@ import ForEmp from './ForEmp'
 function Navbar() {
 
   return (
-    <div className="w-[100%] px-[2rem] py-[1rem] md:px-[2rem] flex justify-between items-center">
+    <div className="w-[100%] py-[1rem] md:px-[2rem] flex justify-between items-center">
 
-        <Link href={'/'} className="w-[2rem] h-[2rem] flex items-center justify-center">
+        <Link href={'/'} className="w-[2.5rem] h-[2.5rem] flex items-center justify-center">
           <img src='/images/logo.svg' />
         </Link>
 

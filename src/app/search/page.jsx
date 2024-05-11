@@ -5,6 +5,7 @@ import Navbar from '@/components/Navbar';
 import Search from '@/components/Search';
 import JobCard from '@/components/JobCard';
 import useDebounce from '@/hooks/useDebounce';
+import Link from 'next/link'
 
 export default function Page() {
   const [posts, setPosts] = useState([]);
@@ -53,19 +54,24 @@ export default function Page() {
   };
 
   return (
-    <div className="w-[100%] flex flex-col items-center justify-center gap-[2rem] p-[1rem]">
+    <div className="max-w-[73.75rem] mx-auto flex flex-col items-center justify-center gap-[2rem] p-[1rem]">
       <Navbar />
-      <div className="p-[1rem] md:p-[2rem] max-w-[80rem] mx-auto bg-blue-700 rounded-[20px] md:rounded-[40px]">
-        <h1 className="text-[2rem] md:text-[3rem] text-white leading-[2.5rem]">Get your dream job today</h1>
-        <h3 className="text-[#ffffffbf] text-[0.85rem] md:text-[1.2rem] mt-[0.5rem] md:mt-[1.5rem]">
-          Boost your career growth, by joining one of the the latest growing company, browse through our immense
-          library of jobs of the growing startups
-        </h3>
-        <Search setLocValue={handleLocationChange} setSearchValue={handleSearchChange} />
+
+      <div className="flex flex-col gap-[1rem]">
+        
+      <div className="w-[100%] text-center flex flex-col items-center justify-center gap-[1rem]">
+
+          <h1 className="text-[4rem] font-light"><bold className="font-medium">Get</bold> your dream <bold className="font-medium">job today</bold></h1>
+
+          <h3 className="md:px-[4rem] text-[20px]">Boost your career growth, by joining one of the the latest growing company, browse through our immense library of jobs of the growing startups </h3>
+
       </div>
-      <div className="w-[100%] md:p-[2rem] max-w-[72rem] mx-auto flex flex-col items-start justify-start gap-[1rem] md:gap-[2rem]">
-        <h2 className="text-[20px] md:text-[32px] font-medium pl-[1rem]">Latest Jobs</h2>
-        <div className="w-[100%] flex flex-col justify-center items-center gap-[1rem]">
+
+        <Search setLocValue={handleLocationChange} setSearchValue={handleSearchChange} />
+
+      </div>
+
+        <div className="w-[100%] flex flex-col justify-center items-center">
           {posts.length > 0 ? (
             posts.map((job, index) => (
               <JobCard
@@ -82,7 +88,7 @@ export default function Page() {
             <p>No jobs found</p>
           )}
         </div>
-      </div>
+
       {posts.length > 0 && (
         <button className="px-[1rem] py-[0.5rem] bg-zinc-100 rounded-[8px]" onClick={handleShowMoreResults}>
           Show more results
