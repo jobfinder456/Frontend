@@ -96,7 +96,7 @@ function Page() {
 
                     </div>
 
-                    {postData.map((post) => (
+                    {postData.length > 0 && postData.map((post) => (
                         
                         <Link href={`/job/${post.id}`} className='flex justify-between w-full' key={post.id}>
 

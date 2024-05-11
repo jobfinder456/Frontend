@@ -33,10 +33,7 @@ function Page() {
     }
   
     const token = localStorage.getItem("jf_token") || false
-    if(!token){
-      setModal(true)
-      return
-    }
+
     
     const formData = new FormData();
       // Append all text fields to formData
@@ -66,6 +63,7 @@ function Page() {
         })
           console.log(response)
           router.push('/dashboard')
+
       } catch (error) {
           console.log(error)
           if (error.response && error.response.status === 400) {

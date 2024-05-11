@@ -38,35 +38,15 @@ export default function Home() {
       
       <Navbar />
 
-      <Link href={'/search'} className="p-[1rem] md:p-[2rem] max-w-[80rem] mx-auto bg-blue-700 rounded-[20px] md:rounded-[40px]">
+      <div className="text-center flex flex-col items-center justify-center gap-[1rem]">
 
-        <h1 className="text-[2rem] md:text-[3rem] text-white leading-[2.5rem]">Get your dream job today</h1>
-        <h3 className="text-[#ffffffbf] text-[0.85rem] md:text-[1.2rem] mt-[0.5rem] md:mt-[1.5rem]">Boost your career growth, by joining one of the the latest growing company, browse through our immense library of jobs of the growing staartups </h3>
+        <h1 className="text-[4rem] font-light"><bold className="font-medium">Get</bold> your dream <bold className="font-medium">job today</bold></h1>
 
-        <div className="mt-[1rem] md:mt-[3rem] flex flex-col md:flex-row justify-between items-center gap-[1rem] md:gap-[2rem]">
-      <input
-        type="text"
-        placeholder="search for role"
-        className="text-[1rem] md:text-[1.2rem] rounded-[10px] md:rounded-[20px] w-[100%] md:w-[49%] p-[0.5rem] md:p-[1rem]"
-      />
-      <div className="w-[100%] md:w-[49%] bg-white rounded-[10px] md:rounded-[20px] flex items-center justify-between">
-        <input
-          type="text"
-          placeholder="location"
-          className="text-[1rem] md:text-[1.2rem] rounded-[10px] md:rounded-[20px] w-[60%] md:w-[70%] p-[0.5rem] md:p-[1rem]"
-        />
-        <div className="w-[40%] flex items-center gap-[0.5rem] md:gap-[1rem]">
-          <input
-            type="checkbox"
-            placeholder="Remote"
-            className="w-[1.2rem] h-[1.2rem] rounded-[10px] md:rounded-[20px] p-[0.5rem] md:p-[1rem]"
-          />
-          <label className="text-[1rem] md:text-[1.2rem] text-[#13131391]">Remote ?</label>
-        </div>
+        <h3 className="w-[800px] text-[20px]">Boost your career growth, by joining one of the the latest growing company, browse through our immense library of jobs of the growing startups </h3>
+        
+        <Link href={'/search'} className="mt-[1rem] text-[20px] p-[16px] button-primary bg-accent-blue-1 border-accent-blue-1">Browse Jobs Now</Link>
+
       </div>
-    </div>
-
-      </Link>
 
       <div className="w-[100%] md:p-[2rem] max-w-[72rem] mx-auto flex flex-col items-start justify-start gap-[1rem] md:gap-[2rem]">
 

@@ -4,11 +4,15 @@
 
 @layer components {
     .form-label {
-      @apply text-[1rem] font-normal text-zinc-400;
+      @apply text-[1rem] font-normal text-base-1;
     }
 
     .form-inp {
-        @apply border-[1.2px] rounded-md px-[1rem] py-[0.5rem] border-zinc-800 text-zinc-800 font-normal;
+        @apply border-[1.2px] rounded-md px-[1rem] py-[0.5rem] border-base-1 text-base-1 font-normal;
+    }
+
+    .button-primary {
+      @apply text-white bg-base-1 p-[1rem] md:p-[12px] rounded-[12px] border-[1px] border-base-1 font-medium;
     }
   }
 
