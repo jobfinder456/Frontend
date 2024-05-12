@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link'
 import axios from 'axios'
 import toast, { Toaster } from 'react-hot-toast';
+import { RxExternalLink } from "react-icons/rx";
 
 function Page() {
 
@@ -56,7 +57,7 @@ function Page() {
       };
 
   return (
-    <div className='w-full min-h-screen relative overflow-hidden'>
+    <div className='max-w-[73.75rem] mx-auto min-h-screen relative overflow-hidden'>
         
         <Navbar />
 
@@ -70,50 +71,79 @@ function Page() {
         </div>
       )}
 
-        <div className='flex flex-col justify-start items-start gap-[1rem] p-[1rem] md:max-w-[56rem] mx-auto'>
+        <div className='flex flex-col justify-start items-start gap-[4rem] p-[20px]'>
 
-            <h1 className='text-[2rem] md:text-[3rem] text-blue-700 font-medium'>{postData.length} <span className='text-[1rem] md:text-[1.2rem] text-black'> total jobs ceated</span></h1>
+          <div className='w-[100%] bg-background flex flex-wrap gap-[0.5rem] md:gap-[1rem] p-[0.5rem] md:p-[1rem] rounded-[24px]'>
 
-            <h1 className='text-[2rem] md:text-[3rem] text-blue-700 font-medium'>{notLive} <span className='text-[1rem] md:text-[1.2rem] text-black'> Jobs require payment</span></h1>
+            <div className='bg-white flex-grow flex flex-col items-start justify-center rounded-[1rem] p-[0.75rem] md:p-[2rem]'>
 
-            <Link href={'/checkout'} className='px-[1rem] py-[0.5rem] rounded-[10px] bg-blue-700 text-white font-medium text-center'>Pay for all Jobs</Link>
+              <h3 className='text-[2.5rem] md:text-[4rem] font-medium text-accent-blue-1'>29.3K</h3>
+              <span className='text-[14px] md:text-[16px]'>Total impressions on your job posts</span>
 
-            <div className='overflow-x-scroll w-full'> {/* container scroll chart */}
+            </div>
 
-                <div className='flex flex-col w-[36rem] sm:w-[100%] gap-[1rem] justify-between'>
+            <div className='bg-white flex-grow flex flex-col items-start justify-center rounded-[1rem] p-[0.75rem] md:p-[2rem]'>
 
-                    <div className='flex justify-between w-full'>
+              <h3 className='text-[2.5rem] md:text-[4rem] font-medium text-accent-blue-1'>{postData.length - notLive}</h3>
+              <span className='text-[14px] md:text-[16px]'>Jobs are live now</span>
 
-                        <h3 className='w-[20%]'>Date posted</h3>
+            </div>
 
-                        <h3 className='w-[20%]'>Job Role</h3>
+            <div className='bg-white flex-grow flex flex-col items-start justify-center rounded-[1rem] p-[0.75rem] md:p-[2rem]'>
 
-                        <h3 className='w-[20%]'>Payment Status</h3>
+              <h3 className='text-[2.5rem] md:text-[4rem] font-medium text-accent-blue-1'>{notLive}</h3>
+              <span className='text-[14px] md:text-[16px]'>Jobs require payment. <Link href={'/checkout'} className='flex items-center gap-[0.5rem] underline'>Pay Now <RxExternalLink /></Link></span>
 
-                        <h3 className='w-[10%] '></h3>
+            </div>
 
-                        <button className='w-[10%]'></button>
+
+
+          </div>
+
+            <div className='relative overflow-x-scroll w-full'> {/* container scroll chart */}
+
+                <div className='flex flex-col w-[36rem] sm:w-[100%] justify-between'>
+
+                    <div className='flex justify-start items-center w-full bg-background rounded-[1rem] px-[24px] py-[1rem] mb-[1rem] md:mb-[2rem] text-[1rem]'>
+
+                        <h3 className='w-[15%] text-start'>Date posted</h3>
+
+                        <h3 className='w-[25%] text-start'>Job Role</h3>
+
+                        <h3 className='w-[20%] text-start'>Payment Status</h3>
 
                     </div>
 
                     {postData.length > 0 && postData.map((post) => (
                         
-                        <Link href={`/job/${post.id}`} className='flex justify-between w-full' key={post.id}>
+                        <div className='relative z-10 flex justify-start items-center w-full px-[24px] py-[0.5rem] hover:bg-background active:bg-background rounded-[8px] text-[1rem]' key={post.id}>
 
-                            <h3 className='w-[20%]'>22-09-24</h3>
+                            <h3 className='w-[15%] text-start'>22-09-24</h3>
 
-                            <h3 className='w-[20%]'>{post.job_title}</h3>
+                            <Link href={`/job/${post.id}`} className='w-[25%] text-start font-medium flex items-center gap-[0.5rem]'>{post.job_title} </Link>
 
-                            <h3 className='w-[20%]'>{post.is_ok ? "Success" : "Payment Needed!"}</h3>
+                            <Link href={'/checkout'} className='w-[20%] text-start flex items-center gap-[0.5rem]'>
+                                {post.is_ok ? "Success" : (
+                                    <>
+                                        Payment Needed!
+                                        <RxExternalLink />
+                                    </>
+                                )}
+                            </Link>
 
-                            <button onClick={() => router.push(`/editpost/${post.id}`)} className='w-[10%] bg-blue-100 text-blue-600 p-[0.5rem] text-center'>Edit</button>
+                            <div className='z-50 flex-grow flex justify-end items-center gap-[1rem]'>
 
-                            <button onClick={() => {
-                                                   setModal(true);
-                                                   setPostIdToDelete(post.id);
-                                                 }} className='w-[10%] bg-red-100 text-red-600 p-[0.5rem]'>Delete</button>
+                                <button onClick={() => router.push(`/editpost/${post.id}`)} className=' bg-accent-blue-2 text-accent-blue-1 p-[12px] rounded-[0.5rem]'>Edit</button>
 
-                    </Link>) )}
+                                <button onClick={() => {
+                                   setModal(true);
+                                   setPostIdToDelete(post.id);
+                                 }} className=' bg-accent-red-2 text-accent-red-1 p-[12px] rounded-[0.5rem]'>Delete</button>
+
+                            </div>
+
+
+                    </div>) )}
 
 
                 </div>
