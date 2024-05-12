@@ -27,9 +27,5 @@ ul {
 
 /* Optionally, you can style the list items */
 li {
-  margin-bottom: 0.5rem; /* Adjust as needed */
-}
-
-.browse-button:active {
-  width: 80%;
+  margin-left: 1rem; /* Adjust as needed */
 }
