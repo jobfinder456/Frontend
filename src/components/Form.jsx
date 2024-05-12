@@ -15,14 +15,16 @@ function Form({onSubmit, setJobDetails, jobDetails, isEdit}) {
   return (
     <div>
         
-       <div className='flex flex-col md:flex-row flex-wrap mx-auto w-[100%] justify-between gap-[1rem] text-zinc-800 font-normal'>
+       <div className='bg-background flex flex-col md:flex-row flex-wrap mx-auto w-[100%] justify-between gap-[1rem] p-[1rem] rounded-[1rem]'>
 
-            <div className='flex flex-col my-[1rem]'>
+            <div className='bg-white rounded-[12px] flex flex-wrap gap-[1rem] p-[16px]'>
+
+            <div className='w-[100%] flex flex-col mb-[1rem]'>
                   <h3 className='text-[1.2rem]'>Company Details</h3>
                   <p>We will automatically create a company profile with all your job listings.</p>
               </div>
 
-            <div className='flex flex-col w-[100%] md:w-[40%] gap-[0.5rem]'>
+            <div className='flex flex-col flex-grow gap-[0.5rem]'>
                 <label htmlFor="companyName" className='form-label'>Company Name</label>
                 <input  className='w-[100%] form-inp' 
                         id='companyName'
@@ -32,7 +34,7 @@ function Form({onSubmit, setJobDetails, jobDetails, isEdit}) {
                         onChange={(e) => setJobDetails(prevState => ({ ...prevState, company_name: e.target.value }))} />
             </div>
 
-            <div className='flex flex-col w-[100%] md:w-[40%] gap-[0.5rem]'>
+            <div className='flex flex-col flex-grow gap-[0.5rem]'>
                 <label htmlFor="companyWebsite" className='form-label'>Company Website</label>
                 <input className='w-[100%] form-inp' 
                         id='companyWebsite'
@@ -46,9 +48,11 @@ function Form({onSubmit, setJobDetails, jobDetails, isEdit}) {
                     <input type="file" name="image" id=""  onChange={handleFileChange}/>
             </div>
 
-            <hr className='border-[1px] border-zinc-200 w-[100%]' />
+            </div>
 
-            <div className='flex flex-col w-[100%] rounded-md my-[1rem]'>
+            <div className='bg-white rounded-[12px] flex flex-wrap gap-[1rem] p-[16px]'>
+
+            <div className='flex flex-col w-[100%] rounded-md mb-[1rem]'>
                 <h3 className='text-[1.2rem] font-medium'>Job Details</h3>
                 <p>Please be as detailed as possible describing the job opening.</p>
             </div>
@@ -114,7 +118,10 @@ function Form({onSubmit, setJobDetails, jobDetails, isEdit}) {
                 <Tiptap setDesc={handleDescriptionChange} oldDesc={jobDetails.description} />
             </div>
 
-            <hr className='border-[1px] border-zinc-200 w-[100%]' />
+            </div>
+
+
+            <div className='flex-grow bg-white rounded-[12px] flex flex-wrap gap-[1rem] p-[16px]'>
 
         {!isEdit && (
             <><div className='flex flex-col w-[100%] rounded-md my-[1rem]'>
@@ -122,14 +129,14 @@ function Form({onSubmit, setJobDetails, jobDetails, isEdit}) {
                       <p>This is just for the Startup Jobs team</p>
                   </div>
                   
-                  <div className='flex flex-col w-[100%] md:w-[40%] gap-[0.5rem]'>
+                  <div className='flex flex-col flex-grow gap-[0.5rem]'>
                           <label htmlFor="hrName">Name</label>
                           <input className='w-[100%] border-[2px] rounded-md px-[1rem] py-[0.5rem] border-zinc-600'
                               id='hrName' type="text"
                               placeholder='Richard Horlicks'
                               value={jobDetails.name}
                               onChange={(e) => setJobDetails(prevState => ({ ...prevState, name: e.target.value }))} />
-                      </div><div className='flex flex-col w-[100%] md:w-[40%] gap-[0.5rem]'>
+                      </div><div className='flex flex-col flex-grow gap-[0.5rem]'>
                           <label htmlFor="hrEmail">Email</label>
                           <input className='w-[100%] border-[2px] rounded-md px-[1rem] py-[0.5rem] border-zinc-600'
                               id='hrEmail' type="text"
@@ -139,9 +146,11 @@ function Form({onSubmit, setJobDetails, jobDetails, isEdit}) {
                       </div></>
             )}
 
-            <div className='w-[100%] flex justify-end'>
+            </div>
+
+            <div className='w-[100%] flex-grow'>
                 <button onClick={onSubmit}
-                        className='justify-self-end bg-zinc-600 px-[1rem] py-[0.5rem] text-[1.2rem] text-white rounded-md'> {isEdit ? "Update Job" : "Post Job for $100"}</button>
+                        className='w-[100%] justify-self-end button-primary'> {isEdit ? "Update Job" : "Post Job for $177"}</button>
             </div>
 
         </div>
