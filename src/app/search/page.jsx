@@ -54,16 +54,16 @@ export default function Page() {
   };
 
   return (
-    <div className="max-w-[73.75rem] mx-auto flex flex-col items-center justify-center gap-[2rem] p-[1rem]">
+    <div className="max-w-[73.75rem] mx-auto flex flex-col items-center justify-center gap-[2rem]">
       <Navbar />
 
-      <div className="flex flex-col gap-[2rem]">
+      <div className="flex flex-col gap-[2rem] px-[20px]">
         
       <div className="w-[100%] text-center flex flex-col items-center justify-center gap-[1rem]">
 
-          <h1 className="text-[4rem] font-light"><span className="font-medium">Get</span> your dream <span className="font-medium">job today</span></h1>
+          <h1 className="text-[2.5rem] md:text-[4rem] font-light leading-tight"><span className="font-medium">Get</span> your dream <span className="font-medium">job today</span></h1>
 
-          <h3 className="md:px-[4rem] text-[20px]">Boost your career growth, by joining one of the the latest growing company, browse through our immense library of jobs of the growing startups </h3>
+          <h3 className="md:px-[4rem] text-[14px] md:text-[20px] ">Boost your career growth, by joining one of the the latest growing company, browse through our immense library of jobs of the growing startups </h3>
 
       </div>
 
@@ -71,7 +71,7 @@ export default function Page() {
 
       </div>
 
-        <div className="w-[100%] flex flex-col justify-center items-center">
+        <div className="w-[100%] flex flex-col justify-center items-center px-[20px]">
           {posts.length > 0 ? (
             posts.map((job, index) => (
               <JobCard
@@ -90,7 +90,7 @@ export default function Page() {
         </div>
 
       {posts.length > 0 && (
-        <button className="px-[1rem] py-[0.5rem] bg-zinc-100 rounded-[8px]" onClick={handleShowMoreResults}>
+        <button className="px-[1rem] py-[0.5rem] bg-background text-[12px] rounded-[8px]" onClick={handleShowMoreResults}>
           Show more results
         </button>
       )}

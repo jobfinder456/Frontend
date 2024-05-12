@@ -4,7 +4,7 @@ function Search({ setSearchValue, setLocValue }) {
 
   return (
 
-    <div className="flex flex-col md:flex-row justify-between items-center gap-[1rem] md:gap-[1rem] bg-background p-[1rem] rounded-[24px]">
+    <div className="flex flex-col md:flex-row justify-between items-center gap-[0.5rem] md:gap-[1rem] bg-background p-[0.5rem] md:p-[1rem] rounded-[12px] md:rounded-[24px]">
 
       <input
         type="text"

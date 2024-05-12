@@ -5,9 +5,9 @@ import ForEmp from './ForEmp'
 function Navbar() {
 
   return (
-    <div className="w-[100%] py-[1rem] md:px-[2rem] flex justify-between items-center">
+    <div className="w-[100%] py-[1rem]  flex justify-between items-center px-[20px]">
 
-        <Link href={'/'} className="w-[2.5rem] h-[2.5rem] flex items-center justify-center">
+        <Link href={'/'} className="w-[1.8rem] h-[1.8rem] md:w-[2.5rem] md:h-[2.5rem] flex items-center justify-center">
           <img src='/images/logo.svg' />
         </Link>
 
@@ -15,7 +15,7 @@ function Navbar() {
 
           <ForEmp />
 
-          <Link href={'/postjob'} className="text-white bg-base-1 p-[1rem] md:p-[12px] rounded-[12px] border-[1px] border-base-1 font-medium">Post a Job</Link>
+          <Link href={'/postjob'} className="button-primary">Post a Job</Link>
 
         </div>
 
