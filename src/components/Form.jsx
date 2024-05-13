@@ -121,10 +121,13 @@ function Form({onSubmit, setJobDetails, jobDetails, isEdit}) {
             </div>
 
 
-            <div className='flex-grow bg-white rounded-[12px] flex flex-wrap gap-[1rem] p-[16px] md:p-[24px]'>
+            
 
         {!isEdit && (
-            <><div className='flex flex-col w-[100%] rounded-md mb-[1rem]'>
+            
+            <div className='flex-grow bg-white rounded-[12px] flex flex-wrap gap-[1rem] p-[16px] md:p-[24px]'>
+
+            <div className='flex flex-col w-[100%] rounded-md mb-[1rem]'>
                       <h3 className='text-[1.2rem] font-medium'>How can we reach you?</h3>
                       <p>Just for the Get Jobs Today team.</p>
                   </div>
@@ -143,10 +146,11 @@ function Form({onSubmit, setJobDetails, jobDetails, isEdit}) {
                               placeholder='RichardHorlicks@gmail.om'
                               value={jobDetails.email}
                               onChange={(e) => setJobDetails(prevState => ({ ...prevState, email: e.target.value }))} />
-                      </div></>
+                      </div>
+
+                    </div>
             )}
 
-            </div>
 
             <div className='w-[100%]'>
                 <button onClick={onSubmit}

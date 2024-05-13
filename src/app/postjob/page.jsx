@@ -84,7 +84,7 @@ function Page() {
 
       <Toaster />
 
-      <div className='relative my-[2rem] flex flex-col items-start justify-center gap-[1rem] p-[1rem]'>
+      <div className='relative max-w-[980px] mx-auto my-[2rem] flex flex-col items-start justify-center gap-[1rem] p-[1rem]'>
   
             { modal ? <div className='sticky top-[2rem] rounded-[8px] p-[1rem] bg-white w-[90%] h-[10rem] mx-auto'>
                         

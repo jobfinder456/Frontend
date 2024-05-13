@@ -62,12 +62,12 @@ function Page() {
     }
 
     return (
-        <div>
+        <div className='max-w-[73.75rem] mx-auto'>
 
         <Navbar />
         
-        <div className='max-w-[42rem] mx-auto my-[2rem] flex flex-col items-start justify-center gap-[1rem] p-[1rem]'>
-            <h1 className='text-[1.5rem] md:text-[2rem]'>Edit your Job Post - <span className='text-blue-600 font-medium'>ID {id}</span></h1>
+        <div className='max-w-[980px] mx-auto my-[2rem] flex flex-col items-start justify-center gap-[1rem] p-[1rem]'>
+            <h1 className='pl-[1rem] text-[24px] md:text-[2rem] leading-[2rem] md:leading-[2.5rem] font-light'>Edit your Job Post - <span className='font-medium'>ID {id}</span></h1>
             <Form onSubmit={onSubmit} setJobDetails={setJobDetails} jobDetails={jobDetails} isEdit={true} />
         </div>
 
