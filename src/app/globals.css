@@ -4,11 +4,11 @@
 
 @layer components {
     .form-label {
-      @apply text-[1rem] font-normal text-base-1;
+      @apply text-[1rem] text-base-1 font-medium;
     }
 
     .form-inp {
-        @apply border-[1.2px] rounded-md px-[1rem] py-[0.5rem] border-base-1 text-base-1 font-normal;
+        @apply w-[100%] border-[2px] rounded-[8px] px-[1rem] py-[0.5rem] border-base-1 focus:outline-none focus:border-accent-blue-1 focus:ring-1 focus:accent-accent-blue-1 text-base-1;
     }
 
     .button-primary {

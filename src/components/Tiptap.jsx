@@ -1,6 +1,7 @@
 'use client'
 
 import StarterKit from '@tiptap/starter-kit'
+import { FaListUl } from "react-icons/fa6";
 import './tiptap.css'
 import Italic from '@tiptap/extension-italic'
 import ListItem from '@tiptap/extension-list-item'
@@ -44,7 +45,7 @@ const Tiptap = ({setDesc, oldDesc}) => {
     ],
     content: `
     ${oldDesc ? oldDesc : `<ul>
-    <li> Here goes Job Description</li>
+    <li> Here goes Your Job Description</li>
   </ul>`} 
       `,
       onUpdate({ editor }) {
@@ -80,15 +81,14 @@ const Tiptap = ({setDesc, oldDesc}) => {
 
 
   return (
-    <div className='flex flex-col gap-[1rem] p-[1rem]'>
+    <div className='w-[100%] flex flex-col gap-[1rem]'>
 
-      <div className='flex items-center justify-start gap-[1rem]'>
-
+      <div className='flex-grow-0 bg-background flex justify-start gap-[1rem] p-[0.5rem] rounded-[12px] text-[1rem]'>
       
       {/* Bold */}
       <button
         onClick={() => editor.chain().focus().toggleBold().run()}
-        className={`${editor.isActive('bold') ? 'is-active' : ''} border border-black p-[0.5rem] rounded-[8px]`}
+        className={`${editor.isActive('bold') ? 'is-active' : ''} bg-white px-[0.75rem] py-[0.5rem] rounded-[8px] font-bold`}
       >
         B
       </button>
@@ -96,37 +96,37 @@ const Tiptap = ({setDesc, oldDesc}) => {
       {/* Italic */}
       <button
         onClick={() => editor.chain().focus().toggleItalic().run()}
-        className={`${editor.isActive('italic') ? 'is-active' : ''} border border-black p-[0.5rem] rounded-[8px]`}
+        className={`${editor.isActive('italic') ? 'is-active' : ''} bg-white px-[0.75rem] py-[0.5rem] rounded-[8px] font-serif italic`}
       >
         I
-      </button>
-
-      {/* Link */}
-
-      <button onClick={setLink} className={`${editor.isActive('link') ? 'is-active' : ''} border border-black p-[0.5rem] rounded-[8px]`}>
-        Set Link
-      </button>
-
-      <button
-        className='border border-black p-[0.5rem] rounded-[8px]'
-        onClick={() => editor.chain().focus().unsetLink().run()}
-        disabled={!editor.isActive('link')}
-      >
-        Unset Link
       </button>
 
       {/* List */}
 
       <button
         onClick={() => editor.chain().focus().toggleBulletList().run()}
-        className={`${editor.isActive('bulletList') ? 'is-active' : ''} border border-black p-[0.5rem] rounded-[8px]`}
+        className={`${editor.isActive('bulletList') ? 'is-active' : ''} bg-white px-[0.75rem] py-[0.5rem] rounded-[8px]`}
       >
-        List
+        <FaListUl />
+      </button>
+
+      {/* Link */}
+
+      <button onClick={setLink} className={`${editor.isActive('link') ? 'is-active' : ''} bg-white px-[0.75rem] py-[0.5rem] rounded-[8px]`}>
+        Set Link
+      </button>
+
+      <button
+        className='bg-white px-[0.75rem] py-[0.5rem] rounded-[8px]'
+        onClick={() => editor.chain().focus().unsetLink().run()}
+        disabled={!editor.isActive('link')}
+      >
+        Unset Link
       </button>
 
       </div>
 
-      <EditorContent editor={editor} className='border border-black px-[0.5rem] rounded-[8px]' />
+      <EditorContent editor={editor} className='form-inp rounded-[8px]' />
 
     </div>
   )

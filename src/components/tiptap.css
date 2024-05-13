@@ -4,7 +4,8 @@
     }
   
     a {
-      color: #68cef8;
+      color: #0000EE;
+      text-decoration: underline;
     }
   
     code {
@@ -13,7 +14,6 @@
       box-decoration-break: clone;
       color: #616161;
       font-size: 0.9rem;
-      padding: 0.25em;
     }
 
     > * + * {
