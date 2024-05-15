@@ -42,42 +42,42 @@ function Page() {
 
     <Toaster />
 
-    <div className="relative mx-auto mt-[2rem] max-w-[32rem] p-[1rem] md:p-[2rem] rounded-[10px] text-black flex flex-col justify-center items-start gap-4 shadow-md">
+    <div className="relative mx-auto mt-[2rem] max-w-[32rem] p-[1rem] md:p-[2rem] text-black flex flex-col justify-center items-start gap-4 rounded-[16px] shadow-[0px_0px_16px_4px_rgba(0,0,0,0.1)]">
 
             <h1 className='text-[1.2rem] md:text-[1.5rem] font-medium'>Login to your account with OTP to post Job, Supafast!!</h1>
 
             <div className='w-[100%] flex flex-col items-start justify-start gap-[0.25rem]'>
 
-              <label htmlFor='email' className=' font-medium'>Email</label>
+              <label htmlFor='email' className='form-label'>Email</label>
               <input
-                  className={`w-[100%] p-[0.5rem] md:p-[1rem] border border-[#13131344] rounded-[4px] ${disable ? '' : 'opacity-50'}`}
-                  type="email"
-                  id="email"
-                  autoComplete="on"
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Email"
-              />
+                        className='form-inp disabled:opacity-20'
+                        type="email"
+                        id="email"
+                        autoComplete="on"
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="Email"
+                        disabled={!disable}
+                    />
 
             </div>
 
             <div className='w-[100%] flex flex-col items-start justify-start gap-[0.25rem]'>
 
-              <label htmlFor='OTP' className=' font-medium'>OTP</label>
+              <label htmlFor='OTP' className=' form-label'>OTP</label>
               <input
-                  className={`w-[100%] p-[0.5rem] md:p-[1rem] border border-[#13131344] rounded-[4px] ${disable ? 'opacity-50' : ''}`}
-                  type="text"
-                id="OTP"
-                onChange={(e) => setOtp(e.target.value)}
-                placeholder=""
-              />
+                        className='form-inp disabled:opacity-20'
+                        type="text"
+                        id="OTP"
+                        onChange={(e) => setOtp(e.target.value)}
+                        placeholder=""
+                        disabled={disable}
+                    />
 
             </div>
             
-            <button onClick={onEmailSubmit} className={`w-[100%] button-primary ${disable ? '' : 'opacity-25'}`}>Send OTP</button>
+            <button onClick={onEmailSubmit} className='w-[100%] button-primary disabled:opacity-20' disabled={!disable}>Send OTP</button>
 
-            <button onClick={onOtpSubmit} className={`w-[100%] button-primary ${disable ? 'opacity-25' : ''} `}>Submit</button>
-
-            <h3 className='text-[0.95rem] w-[100%] text-center'>New here ? <Link href={'/signup'} className='underline'>Create an account</Link></h3>
+            <button onClick={onOtpSubmit} className={`w-[100%] button-primary disabled:opacity-20`} disabled={disable}>Submit</button>
 
         </div>
 
