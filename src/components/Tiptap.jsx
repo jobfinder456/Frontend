@@ -13,11 +13,12 @@ import Document from '@tiptap/extension-document'
 import Paragraph from '@tiptap/extension-paragraph'
 import Text from '@tiptap/extension-text'
 import { EditorContent, useEditor } from '@tiptap/react'
-import React, {useCallback} from 'react'
+import React, {useCallback, useEffect} from 'react'
 import { cn } from "@/lib/utils"
 import classNames from 'classnames'
 
 const Tiptap = ({setDesc, oldDesc}) => {
+  
   const editor = useEditor({
     editorProps: {
       attributes: {
@@ -43,15 +44,17 @@ const Tiptap = ({setDesc, oldDesc}) => {
         autolink: true,
       }),
     ],
-    content: `
-    ${oldDesc ? oldDesc : `<ul>
-    <li> Here goes Your Job Description</li>
-  </ul>`} 
-      `,
+    content: '',
       onUpdate({ editor }) {
         setDesc(editor.getHTML());
       },
   })
+
+  useEffect(() => {
+    if (editor && oldDesc) {
+      editor.commands.setContent(oldDesc, false); // Update content only if oldDesc is not empty
+    }
+  }, [editor, oldDesc]);
 
   const setLink = useCallback(() => {
     const previousUrl = editor.getAttributes('link').href

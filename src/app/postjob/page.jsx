@@ -38,58 +38,59 @@ function Page() {
 
   },[])
   
-  const onSubmit = async() => {
-
-    if (!jobDetails.job_link.startsWith("https://")) {
-        // If it doesn't start with "https://", prepend it
-        jobDetails.job_link = "https://" + jobDetails.job_link;
-    }
-
-    const token = localStorage.getItem("jf_token") || false
-    
+  const onSubmit = async () => {
+    const addHttps = (url) => url.startsWith("https://") ? url : `https://${url}`;
+  
+    const updatedJobDetails = {
+      ...jobDetails,
+      job_link: addHttps(jobDetails.job_link),
+      website: addHttps(jobDetails.website)
+    };
+  
+    const token = localStorage.getItem("jf_token") || false;
+  
     const formData = new FormData();
-      // Append all text fields to formData
-      for (const key in jobDetails) {
-          if (key !== "image") {
-              formData.append(key, jobDetails[key]);
-          }
+    Object.keys(updatedJobDetails).forEach(key => {
+      if (key !== "image") {
+        formData.append(key, updatedJobDetails[key]);
       }
-      // Append the file. Ensure 'image' matches your backend expectation
-      if (jobDetails.image) {
-          formData.append("image", jobDetails.image);
-      }
+    });
   
-      for (let [key, value] of formData.entries()) {
-        console.log(`${key}: ${value}`);
+    if (updatedJobDetails.image) {
+      formData.append("image", updatedJobDetails.image);
     }
   
-      console.log(formData)
+    try {
+      setLoad(true);
   
-      try {
-          setLoad(true)
-          const response = await axios.post(`${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/insert`, formData, {
-            headers: {
-                // Inform the server about the data type
-                "Content-Type": "multipart/form-data",
-                "Authorization": `Bearer ${token}`
-            },
-        })
-        toast(" Job succesfully Posted ")
-          console.log(response)
-          router.push('/dashboard')
-
-      } catch (error) {
-          console.log(error)
-          if (error.response && error.response.status === 400) {
-            toast(" Enter details properly")
-        } else {
-          setModal(true)
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/insert`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            "Authorization": `Bearer ${token}`
+          },
         }
-          
-      } finally {
-        setLoad(false)
+      );
+  
+      toast("Job successfully posted");
+      router.push('/dashboard');
+  
+    } catch (error) {
+      console.error(error);
+  
+      if (error.response && error.response.status === 400) {
+        toast("Enter details properly");
+      } else {
+        setModal(true);
       }
-  }
+  
+    } finally {
+      setLoad(false);
+    }
+  };
+  
   
   
     return (

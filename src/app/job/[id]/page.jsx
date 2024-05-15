@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import Navbar from '@/components/Navbar'
 import toast, { Toaster } from 'react-hot-toast';
+import NotFound from '@/components/NotFound';
 
 function Page() {
   
@@ -47,7 +48,7 @@ function Page() {
   }
 
   if (notFound) {
-    return <div>404 - Job not found</div>;
+    return <NotFound></NotFound>;
   }
 
   return (

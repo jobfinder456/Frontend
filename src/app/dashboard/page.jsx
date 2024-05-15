@@ -8,6 +8,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { RxExternalLink } from "react-icons/rx";
 import Modal from '@/components/Modal';
 import Loader from '@/components/Loader';
+import NotFound from '@/components/NotFound';
 
 function Page() {
 
@@ -130,7 +131,7 @@ function Page() {
 
                     </div>
 
-                    {postData.length > 0 && postData.map((post) => (
+                    {postData.length > 0 ? (postData.map((post) => (
                         
                         <div className='relative z-10 flex justify-start items-center w-full px-[24px] py-[0.5rem] hover:bg-background active:bg-background rounded-[8px] text-[1rem]' key={post.id}>
 
@@ -161,7 +162,15 @@ function Page() {
                             </div>
 
 
-                    </div>) )}
+                    </div>) ))
+                  
+                  : (<div className='flex flex-col gap-[2rem] justify-center items-center py-[2rem]'>
+
+                                  <img className='w-[96px] md:w-[156px]' src='/images/notFound.svg'></img>
+                                  <h1>No jobs to show please create one</h1>
+
+                      </div>)
+                  }
 
 
                 </div>
