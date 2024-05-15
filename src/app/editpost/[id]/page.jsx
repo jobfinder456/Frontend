@@ -5,6 +5,9 @@ import Form from '@/components/Form';
 import { useParams } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 import { useRouter } from 'next/navigation';
+import Loader from '@/components/Loader';
+import toast, { Toaster } from 'react-hot-toast';
+import NotFound from '@/components/NotFound';
 
 function Page() {
 
@@ -20,12 +23,13 @@ function Page() {
         job_link: '',
         description: ''
     });
-    const [loading, setLoading] = useState(true);
+    const [load, setLoad] = useState(true);
     const [notFound, setNotFound] = useState(false);
 
     useEffect(() => {
         async function getJobDetails() {
             try {
+                setLoad(true)
                 const response = await axios.get(`${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/job/${id}`);
                 console.log(response)
                 if (response.data.result.length === 0) {
@@ -33,10 +37,12 @@ function Page() {
                 } else {
                     setJobDetails(response.data.result[0]);
                 }
-                setLoading(false);
+                setLoad(false);
             } catch (error) {
                 console.log(error);
-                setLoading(false);
+                setLoad(false);
+            } finally{
+                setLoad(false)
             }
         }
         getJobDetails();
@@ -44,29 +50,33 @@ function Page() {
 
     const onSubmit = async () => {
         try {
+            setLoad(true)
             const token = localStorage.getItem("jf_token") || false;
             const response = await axios.put(`${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/update/${id}`, jobDetails, { headers: { "Authorization": `Bearer ${token}` } });
+            toast('Job Updated Successfully')
             console.log(response);
             router.push(`/job/${id}`)
         } catch (error) {
             console.log(error);
+        } finally {
+            setLoad(false)
         }
     };
 
-    if (loading) {
-        return <div>Loading...</div>;
-    }
-
     if (notFound) {
-        return <div>404 - Job not found</div>;
+        return <NotFound></NotFound>;
     }
 
     return (
-        <div className='max-w-[73.75rem] mx-auto'>
+        <div className='relative max-w-[73.75rem] mx-auto'>
 
         <Navbar />
+
+        <Toaster />
+
+        { load ? <Loader></Loader> : null}
         
-        <div className='max-w-[980px] mx-auto my-[2rem] flex flex-col items-start justify-center gap-[1rem] p-[1rem]'>
+        <div className={`max-w-[980px] mx-auto my-[2rem] flex flex-col items-start justify-center gap-[1rem] p-[1rem] ${ load ? 'opacity-50' : null}`}>
             <h1 className='pl-[1rem] text-[24px] md:text-[2rem] leading-[2rem] md:leading-[2.5rem] font-light'>Edit your Job Post - <span className='font-medium'>ID {id}</span></h1>
             <Form onSubmit={onSubmit} setJobDetails={setJobDetails} jobDetails={jobDetails} isEdit={true} />
         </div>

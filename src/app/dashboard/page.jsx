@@ -7,6 +7,7 @@ import axios from 'axios'
 import toast, { Toaster } from 'react-hot-toast';
 import { RxExternalLink } from "react-icons/rx";
 import Modal from '@/components/Modal';
+import Loader from '@/components/Loader';
 
 function Page() {
 
@@ -14,6 +15,7 @@ function Page() {
     const [email, setEmail] = useState('');
     const [postData, setPostData] = useState([]);
     const [modal, setModal] = useState(false);
+    const [load, setLoad] = useState(true)
     const [postIdToDelete, setPostIdToDelete] = useState(null);
     const [notLive, setNotLive] = useState(0)
 
@@ -22,7 +24,7 @@ function Page() {
             try {
                 const token = localStorage.getItem("jf_token") || false;
                 if(!token){
-                  router.push('/signin')
+                  router.push('/signinwithotp')
                   return
                 }
                 const responseVerify = await axios.get(`${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/verifyuser`, { headers: { "Authorization": `Bearer ${token}` } });
@@ -36,6 +38,8 @@ function Page() {
             } catch (error) {
                 console.error("Error:", error);
                 toast('Please login again')
+            } finally {
+              setLoad(false)
             }
         };
     
@@ -45,24 +49,31 @@ function Page() {
     const onDelete = async (id) => {
         console.log(id)
         try {
+          setLoad(true)
           const token = localStorage.getItem("jf_token") || false;
           const response = await axios.delete(`${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/delete/${id}`, { headers: { "Authorization": `Bearer ${token}` }} );
           console.log(response);
+          toast("Deleted Successfully")
           // After deleting, close the modal and reset postIdToDelete
           setModal(false);
           setPostIdToDelete(null);
-          //window.location.reload();
+          
         } catch (error) {
           console.log(error);
+        } finally{
+          setLoad(false)
+          window.location.reload();
         }
       };
 
   return (
-    <div className='max-w-[73.75rem] mx-auto min-h-screen relative overflow-hidden'>
+    <div className='realtive max-w-[73.75rem] mx-auto min-h-screen relative overflow-hidden'>
         
         <Navbar />
 
         <Toaster />
+
+        { load ? <Loader></Loader> : null}
 
         {modal && (
         <Modal 
@@ -74,7 +85,7 @@ function Page() {
         ></Modal>
       )}
 
-        <div className='flex flex-col justify-start items-start gap-[4rem] p-[20px]'>
+        <div className={`flex flex-col justify-start items-start gap-[4rem] p-[20px] ${ load ? 'opacity-50' : null}`}>
 
           <div className='w-[100%] bg-background flex flex-wrap gap-[0.5rem] md:gap-[1rem] p-[0.5rem] md:p-[1rem] rounded-[24px]'>
 

@@ -6,8 +6,11 @@ import Search from '@/components/Search';
 import JobCard from '@/components/JobCard';
 import useDebounce from '@/hooks/useDebounce';
 import Link from 'next/link'
+import Loader from '@/components/Loader';
 
 export default function Page() {
+
+  const [load, setLoad] = useState(false)
   const [posts, setPosts] = useState([]);
   const [search, setSearch] = useState('');
   const [loc, setLoc] = useState('');
@@ -20,6 +23,7 @@ export default function Page() {
   useEffect(() => {
     async function getJob() {
       try {
+        setLoad(true)
         const url = `${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/list?page=${page}&search=${debouncedSearchTerm}&loc=${debouncedLoc}`;
         const response = await axios.get(url);
         console.log(response);
@@ -29,6 +33,8 @@ export default function Page() {
         
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoad(false)
       }
     }
 
@@ -54,7 +60,7 @@ export default function Page() {
   };
 
   return (
-    <div className="max-w-[73.75rem] mx-auto flex flex-col items-center justify-center gap-[2rem]">
+    <div className=" max-w-[73.75rem] mx-auto flex flex-col items-center justify-center gap-[2rem]">
       <Navbar />
 
       <div className="flex flex-col gap-[2rem] px-[20px]">
@@ -71,6 +77,8 @@ export default function Page() {
 
       </div>
 
+      {/* { load ? <Loader></Loader> : null} */}
+
         <div className="w-[100%] flex flex-col justify-center items-center px-[20px]">
           {posts.length > 0 ? (
             posts.map((job, index) => (
@@ -85,12 +93,12 @@ export default function Page() {
               />
             ))
           ) : (
-            <p>No jobs found</p>
+            <p>No jobs found with title '{debouncedSearchTerm}'</p>
           )}
         </div>
 
       {posts.length > 0 && (
-        <button className="px-[1rem] py-[0.5rem] bg-background text-[12px] rounded-[8px]" onClick={handleShowMoreResults}>
+        <button className="px-[1rem] py-[0.5rem] bg-background text-[12px] rounded-[8px] font-light" onClick={handleShowMoreResults}>
           Show more results
         </button>
       )}

@@ -7,11 +7,13 @@ import Navbar from '@/components/Navbar'
 import { useRouter } from 'next/navigation';
 import toast, { Toaster } from 'react-hot-toast';
 import Modal from '@/components/Modal'
+import Loader from '@/components/Loader'
 
 function Page() { 
   
     const router = useRouter();
     const [modal, setModal] = useState(false)
+    const [load, setLoad] = useState(false)
     const [jobDetails, setJobDetails] = useState({
       company_name: '', //
       website: '', //
@@ -64,7 +66,7 @@ function Page() {
       console.log(formData)
   
       try {
-  
+          setLoad(true)
           const response = await axios.post(`${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/insert`, formData, {
             headers: {
                 // Inform the server about the data type
@@ -72,6 +74,7 @@ function Page() {
                 "Authorization": `Bearer ${token}`
             },
         })
+        toast(" Job succesfully Posted ")
           console.log(response)
           router.push('/dashboard')
 
@@ -83,27 +86,34 @@ function Page() {
           setModal(true)
         }
           
+      } finally {
+        setLoad(false)
       }
   }
   
   
     return (
 
-      <div className='max-w-[73.75rem] mx-auto'>
+      <div className=' realtive max-w-[73.75rem] mx-auto '>
 
       <Navbar />
 
       <Toaster />
 
-      <div className='relative max-w-[980px] mx-auto my-[2rem] flex flex-col items-start justify-center gap-[1rem] p-[1rem]'>
+      { load ? <Loader></Loader> : null}
 
-            { modal ? <Modal 
+      { modal ? <Modal 
                             title="First Sign In to Post a Job"
                             button1Title="Sign In /  Create a Account"
                             button2Title="false"
                             button1Action={() => router.push('/signinwithotp')}
                             button2Action=''
-                      ></Modal> : null }
+                      ></Modal> 
+                      
+            : null }
+
+      <div className={`relative max-w-[980px] mx-auto my-[2rem] flex flex-col items-start justify-center gap-[1rem] p-[1rem] ${ load || modal ? 'opacity-50' : null}`}>
+
           
               <h1 className='pl-[1rem] text-[24px] md:text-[2rem] leading-[2rem] md:leading-[2.5rem] font-light'><span className='font-medium'>Recruit top talent!</span> Broadcast your job post to thousands of eager job seekers.</h1>
   
