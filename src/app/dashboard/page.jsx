@@ -67,6 +67,22 @@ function Page() {
         }
       };
 
+      const onPay = async (jobId) => {
+
+        try {
+          setLoad(true)
+          console.log(jobId)
+          const response = await axios.post(`${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/create-payment`, {userId: email, jobId: jobId, price: '99'})
+          console.log(response)
+          router.push(response.data.paymentUrl)
+        } catch (error) {
+          console.log(error)
+        } finally {
+          setLoad(false)
+        }
+
+      }
+
   return (
     <div className='realtive max-w-[73.75rem] mx-auto min-h-screen relative overflow-hidden'>
         
@@ -139,14 +155,14 @@ function Page() {
 
                             <Link href={`/job/${post.id}`} className='w-[25%] text-start font-medium flex items-center gap-[0.5rem]'>{post.job_title} </Link>
 
-                            <Link href={'/checkout'} className='w-[20%] text-start flex items-center gap-[0.5rem]'>
+                            <button onClick={() => onPay(post.id)} className='w-[20%] text-start flex items-center gap-[0.5rem]'>
                                 {post.is_ok ? "Success" : (
                                     <>
                                         Payment Needed!
                                         <RxExternalLink />
                                     </>
                                 )}
-                            </Link>
+                            </button>
 
                             <h3>{post.name}</h3>
 
