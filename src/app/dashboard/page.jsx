@@ -6,6 +6,7 @@ import Link from 'next/link'
 import axios from 'axios'
 import toast, { Toaster } from 'react-hot-toast';
 import { RxExternalLink } from "react-icons/rx";
+import Modal from '@/components/Modal';
 
 function Page() {
 
@@ -50,7 +51,7 @@ function Page() {
           // After deleting, close the modal and reset postIdToDelete
           setModal(false);
           setPostIdToDelete(null);
-          window.location.reload();
+          //window.location.reload();
         } catch (error) {
           console.log(error);
         }
@@ -64,11 +65,13 @@ function Page() {
         <Toaster />
 
         {modal && (
-        <div className='fixed bottom-10 w-[80%] mx-auto bg-slate-100 p-[1rem] flex flex-wrap justify-evenly items-center gap-[0.5rem]'>
-          <h1 className='text-[1.2rem] w-[100%]'>Are you sure you want to delete the post?</h1>
-          <button onClick={() => setModal(false)} className='bg-blue-200 rounded-md text-blue-700 p-[0.5rem]'>No</button>
-          <button onClick={() => onDelete(postIdToDelete)} className='bg-red-200 rounded-md text-red-700 p-[0.5rem]'>Yes</button>
-        </div>
+        <Modal 
+              title="Are you sure you want to delete"
+              button1Title="No"
+              button2Title="Yes"
+              button1Action={() => setModal(false)}
+              button2Action={() => onDelete(postIdToDelete)}
+        ></Modal>
       )}
 
         <div className='flex flex-col justify-start items-start gap-[4rem] p-[20px]'>
@@ -112,6 +115,8 @@ function Page() {
 
                         <h3 className='w-[20%] text-start'>Payment Status</h3>
 
+                        <h3 className='w-[10%] text-start'>Created by</h3>
+
                     </div>
 
                     {postData.length > 0 && postData.map((post) => (
@@ -130,6 +135,8 @@ function Page() {
                                     </>
                                 )}
                             </Link>
+
+                            <h3>{post.name}</h3>
 
                             <div className='z-50 flex-grow flex justify-end items-center gap-[1rem]'>
 

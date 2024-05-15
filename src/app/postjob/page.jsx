@@ -1,11 +1,12 @@
 "use client"
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import axios from 'axios'
 import Form from '@/components/Form'
 import Link from 'next/link'
 import Navbar from '@/components/Navbar'
 import { useRouter } from 'next/navigation';
 import toast, { Toaster } from 'react-hot-toast';
+import Modal from '@/components/Modal'
 
 function Page() { 
   
@@ -24,6 +25,16 @@ function Page() {
       name: '',
       email: ''
   })
+
+  useEffect(() => {
+
+    const token = localStorage.getItem("jf_token") || false
+    if(!token){
+      setModal(true)
+      return
+    }
+
+  },[])
   
   const onSubmit = async() => {
 
@@ -31,9 +42,8 @@ function Page() {
         // If it doesn't start with "https://", prepend it
         jobDetails.job_link = "https://" + jobDetails.job_link;
     }
-  
-    const token = localStorage.getItem("jf_token") || false
 
+    const token = localStorage.getItem("jf_token") || false
     
     const formData = new FormData();
       // Append all text fields to formData
@@ -59,6 +69,7 @@ function Page() {
             headers: {
                 // Inform the server about the data type
                 "Content-Type": "multipart/form-data",
+                "Authorization": `Bearer ${token}`
             },
         })
           console.log(response)
@@ -85,16 +96,14 @@ function Page() {
       <Toaster />
 
       <div className='relative max-w-[980px] mx-auto my-[2rem] flex flex-col items-start justify-center gap-[1rem] p-[1rem]'>
-  
-            { modal ? <div className='sticky top-[2rem] rounded-[8px] p-[1rem] bg-white w-[90%] h-[10rem] mx-auto'>
-                        
-                          <div>
-                            New here ? <Link className='underline' href={'/signup'}>Signup</Link>
-                          </div>
-                          <div>
-                            Already have an account ? <Link className='underline' href={'/signin'}>Login</Link>
-                          </div>
-            </div> : null }
+
+            { modal ? <Modal 
+                            title="First Sign In to Post a Job"
+                            button1Title="Sign In /  Create a Account"
+                            button2Title="false"
+                            button1Action={() => router.push('/signinwithotp')}
+                            button2Action=''
+                      ></Modal> : null }
           
               <h1 className='pl-[1rem] text-[24px] md:text-[2rem] leading-[2rem] md:leading-[2.5rem] font-light'><span className='font-medium'>Recruit top talent!</span> Broadcast your job post to thousands of eager job seekers.</h1>
   

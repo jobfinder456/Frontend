@@ -44,9 +44,9 @@ export default function Home() {
 
         <h3 className="md:px-[4rem] text-[14px] md:text-[20px] ">Boost your career growth, by joining one of the the latest growing company, browse through our immense library of jobs of the growing startups </h3>
 
-        <div  className="w-[12rem] md:w-[16rem] browse-button ease-in-out flex items-center justify-center gap-[1rem] mt-[1rem] text-[16px] md:text-[20px] p-[12px] md:p-[16px] button-primary bg-accent-blue-1 border-accent-blue-1 active:w-[80%]"
+        <div  className="w-[12rem] md:w-[16rem] browse-button ease-in-out flex items-center justify-center gap-[1rem] mt-[1rem] text-[16px] md:text-[20px] p-[12px] md:p-[16px] button-primary bg-accent-blue-1 border-accent-blue-1 active:w-[80%] focus:w-[80%]"
                style={{
-                transition: 'width 0.5s ease',
+                transition: 'width 2s ease',
               }}>
 
           <Link href={'/search'} className="w-[100%]">Browse Jobs Now </Link>

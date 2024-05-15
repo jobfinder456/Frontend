@@ -73,9 +73,9 @@ function Page() {
 
             </div>
             
-            <button onClick={onEmailSubmit} className={` w-[100%] text-center p-[0.5rem] rounded-[10px] bg-blue-700 text-white font-medium ${disable ? '' : 'opacity-25'}`}>Send OTP</button>
+            <button onClick={onEmailSubmit} className={`w-[100%] button-primary ${disable ? '' : 'opacity-25'}`}>Send OTP</button>
 
-            <button onClick={onOtpSubmit} className={` w-[100%] text-center p-[0.5rem] rounded-[10px] bg-blue-700 text-white font-medium ${disable ? 'opacity-25' : ''} `}>Submit</button>
+            <button onClick={onOtpSubmit} className={`w-[100%] button-primary ${disable ? 'opacity-25' : ''} `}>Submit</button>
 
             <h3 className='text-[0.95rem] w-[100%] text-center'>New here ? <Link href={'/signup'} className='underline'>Create an account</Link></h3>
 

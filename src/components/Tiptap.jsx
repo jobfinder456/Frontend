@@ -55,7 +55,7 @@ const Tiptap = ({setDesc, oldDesc}) => {
 
   const setLink = useCallback(() => {
     const previousUrl = editor.getAttributes('link').href
-    const url = window.prompt('URL', previousUrl)
+    const url = window.prompt('Please enter the URL you want to embed "https://..." ', previousUrl)
 
     // cancelled
     if (url === null) {
