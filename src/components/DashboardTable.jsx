@@ -11,12 +11,18 @@ function DashboardTable({date, postId, jobTitle, onPay, isOk, createdBy, setModa
                             <Link href={`/job/${postId}`} className='w-[25%] text-start font-medium flex items-center gap-[0.5rem]'>{jobTitle} </Link>
 
                             <button onClick={() => onPay(postId)} className='w-[20%] text-start flex items-center gap-[0.5rem]'>
-                                {isOk ? "Success" : (
-                                    <>
-                                        Payment Needed!
-                                        <RxExternalLink />
-                                    </>
-                                )}
+                              {isOk ? "Success" : (
+                                isHeader ? (
+                                  <>
+                                    Payment Status
+                                  </>
+                                ) : (
+                                  <>
+                                    Payment Needed!
+                                    <RxExternalLink />
+                                  </>
+                                )
+                              )}
                             </button>
 
                             {!isHeader && <>
