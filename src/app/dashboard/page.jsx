@@ -104,7 +104,7 @@ function Page() {
           console.log(jobId)
           const response = await axios.post(`${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/create-payment`, {userId: email, jobId: jobId, price: '99'})
           console.log(response)
-          router.push(response.data.paymentUrl.approvalUrl)
+          router.push(response.data.paymentUrl)
         } catch (error) {
           console.log(error)
         } finally {
