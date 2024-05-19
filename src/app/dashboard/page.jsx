@@ -9,6 +9,7 @@ import { RxExternalLink } from "react-icons/rx";
 import Modal from '@/components/Modal';
 import Loader from '@/components/Loader';
 import NotFound from '@/components/NotFound';
+import DashboardTable from '@/components/DashboardTable';
 
 function Page() {
 
@@ -21,31 +22,60 @@ function Page() {
     const [notLive, setNotLive] = useState(0)
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const token = localStorage.getItem("jf_token") || false;
-                if(!token){
-                  router.push('/signinwithotp')
-                  return
-                }
-                const responseVerify = await axios.get(`${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/verifyuser`, { headers: { "Authorization": `Bearer ${token}` } });
-                setEmail(responseVerify.data.email);
-                console.log(responseVerify.data.email);
-    
-                const responseSubmit = await axios.post(`${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/users-list`, { email: responseVerify.data.email }, { headers: { "Authorization": `Bearer ${token}` } });
-                console.log(responseSubmit);
-                setPostData(responseSubmit.data.all.jobResult);
-                setNotLive(responseSubmit.data.all.is_ok)
-            } catch (error) {
-                console.error("Error:", error);
-                toast('Please login again')
-            } finally {
-              setLoad(false)
-            }
-        };
-    
-        fetchData();
-    }, []);
+      const fetchData = async () => {
+        const token = localStorage.getItem("jf_token")
+        if (!token) {
+          router.push('/signinwithotp')
+          return
+        }
+  
+        const mail = localStorage.getItem("userMail")
+        if (!mail) {
+          try {
+            const responseVerify = await axios.get(`${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/verifyuser`, {
+              headers: { "Authorization": `Bearer ${token}` }
+            })
+            const userEmail = responseVerify.data.email
+            localStorage.setItem('userMail', userEmail)
+            setEmail(userEmail)
+            return userEmail
+          } catch (error) {
+            console.error("Error verifying user:", error)
+            setModal(true)
+            setLoad(false)
+            return null
+          }
+        } else {
+          setEmail(mail)
+          return mail
+        }
+      }
+  
+      const fetchPostData = async (email) => {
+        if (!email) return
+  
+        try {
+          const token = localStorage.getItem("jf_token")
+          const responseSubmit = await axios.post(`${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/users-list`, { email }, {
+            headers: { "Authorization": `Bearer ${token}` }
+          })
+          setPostData(responseSubmit.data.all.jobResult)
+          setNotLive(responseSubmit.data.all.is_ok)
+        } catch (error) {
+          console.error("Error fetching post data:", error)
+          toast('Please login again')
+        } finally {
+          setLoad(false)
+        }
+      }
+  
+      const init = async () => {
+        const userEmail = await fetchData()
+        await fetchPostData(userEmail)
+      }
+  
+      init()
+    }, [router])
 
     const onDelete = async (id) => {
         console.log(id)
@@ -74,7 +104,7 @@ function Page() {
           console.log(jobId)
           const response = await axios.post(`${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/create-payment`, {userId: email, jobId: jobId, price: '99'})
           console.log(response)
-          router.push(response.data.paymentUrl)
+          router.push(response.data.paymentUrl.approvalUrl)
         } catch (error) {
           console.log(error)
         } finally {
@@ -108,14 +138,14 @@ function Page() {
 
             <div className='bg-white flex-grow flex flex-col items-start justify-center rounded-[1rem] p-[0.75rem] md:p-[2rem]'>
 
-              <h3 className='text-[2.5rem] md:text-[4rem] font-medium text-accent-blue-1'>29.3K</h3>
+              <h3 className='text-[1rem] md:text-[1.2rem] font-medium text-accent-blue-1'>Coming Soon !</h3>
               <span className='text-[14px] md:text-[16px]'>Total impressions on your job posts</span>
 
             </div>
 
             <div className='bg-white flex-grow flex flex-col items-start justify-center rounded-[1rem] p-[0.75rem] md:p-[2rem]'>
 
-              <h3 className='text-[2.5rem] md:text-[4rem] font-medium text-accent-blue-1'>{postData.length - notLive}</h3>
+              <h3 className='text-[2.5rem] md:text-[4rem] font-medium text-accent-blue-1'>{postData?.length - notLive}</h3>
               <span className='text-[14px] md:text-[16px]'>Jobs are live now</span>
 
             </div>
@@ -135,50 +165,34 @@ function Page() {
 
                 <div className='flex flex-col w-[36rem] sm:w-[100%] justify-between'>
 
-                    <div className='flex justify-start items-center w-full bg-background rounded-[1rem] px-[24px] py-[1rem] mb-[1rem] md:mb-[2rem] text-[1rem]'>
+                <DashboardTable
+              date='22-09-24'
+              postId=''
+              jobTitle="Job Title"
+              isOk=''
+              onPay={() => {}}
+              createdBy=''
+              setModal={() => {}}
+              setPostIdToDelete={() => {}}
+              isHeader={true}
+            />
 
-                        <h3 className='w-[15%] text-start'>Date posted</h3>
-
-                        <h3 className='w-[25%] text-start'>Job Role</h3>
-
-                        <h3 className='w-[20%] text-start'>Payment Status</h3>
-
-                        <h3 className='w-[10%] text-start'>Created by</h3>
-
-                    </div>
-
-                    {postData.length > 0 ? (postData.map((post) => (
+                    {postData?.length > 0 ? (postData?.map((post) => (
                         
-                        <div className='relative z-10 flex justify-start items-center w-full px-[24px] py-[0.5rem] hover:bg-background active:bg-background rounded-[8px] text-[1rem]' key={post.id}>
-
-                            <h3 className='w-[15%] text-start'>22-09-24</h3>
-
-                            <Link href={`/job/${post.id}`} className='w-[25%] text-start font-medium flex items-center gap-[0.5rem]'>{post.job_title} </Link>
-
-                            <button onClick={() => onPay(post.id)} className='w-[20%] text-start flex items-center gap-[0.5rem]'>
-                                {post.is_ok ? "Success" : (
-                                    <>
-                                        Payment Needed!
-                                        <RxExternalLink />
-                                    </>
-                                )}
-                            </button>
-
-                            <h3>{post.name}</h3>
-
-                            <div className='z-50 flex-grow flex justify-end items-center gap-[1rem]'>
-
-                                <button onClick={() => router.push(`/editpost/${post.id}`)} className=' bg-accent-blue-2 text-accent-blue-1 p-[12px] rounded-[0.5rem]'>Edit</button>
-
-                                <button onClick={() => {
-                                   setModal(true);
-                                   setPostIdToDelete(post.id);
-                                 }} className=' bg-accent-red-2 text-accent-red-1 p-[12px] rounded-[0.5rem]'>Delete</button>
-
-                            </div>
-
-
-                    </div>) ))
+                        <DashboardTable
+                        key={post.id}
+                        date='22-09-24'
+                        postId={post.id}
+                        jobTitle={post.job_title}
+                        onPay={onPay}
+                        isOk={post.is_ok}
+                        createdBy={post.name}
+                        setModal={setModal}
+                        setPostIdToDelete={setPostIdToDelete}
+                        isHeader={false}
+                      />
+                        
+                      ) ))
                   
                   : (<div className='flex flex-col gap-[2rem] justify-center items-center py-[2rem]'>
 

@@ -11,6 +11,7 @@ import Loader from '@/components/Loader'
 
 function Page() { 
   
+    const [userMail, setUserMail] = useState('')
     const router = useRouter();
     const [modal, setModal] = useState(false)
     const [load, setLoad] = useState(false)
@@ -29,14 +30,35 @@ function Page() {
   })
 
   useEffect(() => {
+    const fetchUserData = async () => {
+      const token = localStorage.getItem("jf_token") || false
+      if (!token) {
+        setModal(true)
+        return // Exit the function if there is no token
+      }
 
-    const token = localStorage.getItem("jf_token") || false
-    if(!token){
-      setModal(true)
-      return
+      const mail = localStorage.getItem("userMail") || false
+      if (!mail) {
+        try {
+          console.log("enetete")
+          const responseVerify = await axios.get(`${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/verifyuser`, {
+            headers: { "Authorization": `Bearer ${token}` }
+          })
+          const email = responseVerify.data.email
+          console.log(email)
+          localStorage.setItem('userMail', email)
+          setUserMail(email)
+        } catch (error) {
+          console.error("Error verifying user:", error)
+          setModal(true)
+        }
+      } else {
+        setUserMail(mail)
+      }
     }
 
-  },[])
+    fetchUserData()
+  }, [])
   
   const onSubmit = async () => {
     const addHttps = (url) => url.startsWith("https://") ? url : `https://${url}`;
@@ -118,7 +140,7 @@ function Page() {
           
               <h1 className='pl-[1rem] text-[24px] md:text-[2rem] leading-[2rem] md:leading-[2.5rem] font-light'><span className='font-medium'>Recruit top talent!</span> Broadcast your job post to thousands of eager job seekers.</h1>
   
-              <Form onSubmit={onSubmit} setJobDetails={setJobDetails} jobDetails={jobDetails} isEdit={false}/>
+              <Form onSubmit={onSubmit} setJobDetails={setJobDetails} userMail={userMail} jobDetails={jobDetails} isEdit={false}/>
   
       </div>
 

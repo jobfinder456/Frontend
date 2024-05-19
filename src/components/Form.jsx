@@ -1,7 +1,7 @@
 import React from 'react'
 import Tiptap from './Tiptap';
 
-function Form({onSubmit, setJobDetails, jobDetails, isEdit}) {
+function Form({onSubmit, setJobDetails, jobDetails, isEdit, userMail}) {
 
     const handleFileChange = (e) => {
         const file = e.target.files[0]; // Get the first file
@@ -144,7 +144,7 @@ function Form({onSubmit, setJobDetails, jobDetails, isEdit}) {
                           <input className='form-inp'
                               id='hrEmail' type="text"
                               placeholder='RichardHorlicks@gmail.om'
-                              value={jobDetails.email}
+                              value={userMail}
                               onChange={(e) => setJobDetails(prevState => ({ ...prevState, email: e.target.value }))} />
                       </div>
 
