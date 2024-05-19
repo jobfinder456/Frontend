@@ -4,7 +4,7 @@ import { RxExternalLink } from "react-icons/rx";
 
 function DashboardTable({date, postId, jobTitle, onPay, isOk, createdBy, setModal, setPostIdToDelete, isHeader}) {
   return (
-    <div className='relative z-10 flex justify-start items-center w-full px-[24px] py-[0.5rem] hover:bg-background active:bg-background rounded-[8px] text-[1rem]' key={postId}>
+    <div className={`${isHeader ? 'bg-background' : ''} relative z-10 flex justify-start items-center w-full px-[24px] py-[0.5rem] hover:bg-background active:bg-background rounded-[8px] text-[1rem]`} key={postId}>
 
                             <h3 className='w-[15%] text-start'>{date}</h3>
 
