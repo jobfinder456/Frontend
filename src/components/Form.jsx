@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Tiptap from './Tiptap';
 
 function Form({onSubmit, setJobDetails, jobDetails, isEdit, userMail}) {
@@ -11,6 +11,10 @@ function Form({onSubmit, setJobDetails, jobDetails, isEdit, userMail}) {
       const handleDescriptionChange = (content) => {
         setJobDetails(prevState => ({ ...prevState, description: content }));
     };
+
+    useEffect(() => {
+        setJobDetails(prevState => ({ ...prevState, email: userMail }));
+      }, [userMail]);
 
   return (
     <div>
@@ -141,11 +145,10 @@ function Form({onSubmit, setJobDetails, jobDetails, isEdit, userMail}) {
                               onChange={(e) => setJobDetails(prevState => ({ ...prevState, name: e.target.value }))} />
                       </div><div className='flex flex-col flex-grow gap-[0.5rem]'>
                           <label htmlFor="hrEmail" className='form-label'>Email</label>
-                          <input className='form-inp'
+                          <input className='form-inp' disabled
                               id='hrEmail' type="text"
-                              placeholder='RichardHorlicks@gmail.om'
                               value={userMail}
-                              onChange={(e) => setJobDetails(prevState => ({ ...prevState, email: e.target.value }))} />
+                              onChange={() => setJobDetails(prevState => ({ ...prevState, email: userMail }))} />
                       </div>
 
                     </div>
