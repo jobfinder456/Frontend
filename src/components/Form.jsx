@@ -14,7 +14,7 @@ function Form({onSubmit, setJobDetails, jobDetails, isEdit, userMail}) {
 
     useEffect(() => {
         setJobDetails(prevState => ({ ...prevState, email: userMail }));
-      }, [userMail]);
+    }, [userMail, setJobDetails]);
 
   return (
     <div>
@@ -25,7 +25,7 @@ function Form({onSubmit, setJobDetails, jobDetails, isEdit, userMail}) {
 
             <div className='w-[100%] flex flex-col mb-[1rem]'>
                   <h3 className='text-[20px] font-medium'>Company Details</h3>
-                  <p>We'll set up a cool analytics dashboard for your job listings.</p>
+                  <p>We will set up a cool analytics dashboard for your job listings.</p>
               </div>
 
             <div className='flex flex-col flex-grow gap-[0.5rem]'>
@@ -58,7 +58,7 @@ function Form({onSubmit, setJobDetails, jobDetails, isEdit, userMail}) {
 
             <div className='flex flex-col w-[100%] rounded-md mb-[1rem]'>
                 <h3 className='text-[1.2rem] font-medium'>Job Details</h3>
-                <p>Tell us everything about the job you're posting.</p>
+                <p>Tell us everything about the job you are posting.</p>
             </div>
 
             <div className='flex flex-col md:flex-row w-[100%] gap-[0.5rem] justify-between items-center'>

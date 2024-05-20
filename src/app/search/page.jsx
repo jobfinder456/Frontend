@@ -93,7 +93,7 @@ export default function Page() {
               />
             ))
           ) : (
-            <p>No jobs found with title '{debouncedSearchTerm}'</p>
+            <p>No jobs found </p>
           )}
         </div>
 
