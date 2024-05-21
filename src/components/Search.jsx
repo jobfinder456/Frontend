@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Search({ setSearchValue, setLocValue }) {
+function Search({ setSearchValue, setLocValue,setRemoteValue }) {
 
   return (
 
@@ -28,7 +28,7 @@ function Search({ setSearchValue, setLocValue }) {
             type="checkbox"
             placeholder="Remote"
             className="w-[1.2rem] h-[1.2rem] rounded-[10px] md:rounded-[1rem] p-[0.5rem] md:p-[1rem]"
-            onChange={() => setLocValue("")}
+            onChange={(e) => setRemoteValue(e.target.value)}
           />
 
           <label className="text-[1rem] md:text-[1.2rem] text-[#13131391]">Remote ?</label>

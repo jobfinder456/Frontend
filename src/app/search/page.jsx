@@ -16,6 +16,7 @@ export default function Page() {
   const [loc, setLoc] = useState('');
   const [page, setPage] = useState(1);
   const [searchChanged, setSearchChanged] = useState(false);
+  const [remote, setRemote] = useState(true);
 
   const debouncedSearchTerm = useDebounce(search, 500);
   const debouncedLoc = useDebounce(loc, 500);
@@ -24,7 +25,8 @@ export default function Page() {
     async function getJob() {
       try {
         setLoad(true)
-        const url = `${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/list?page=${page}&search=${debouncedSearchTerm}&loc=${debouncedLoc}`;
+        console.log(page, "---", debouncedSearchTerm, "---", debouncedLoc, "---", remote)
+        const url = `${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/list?page=${page}&search=${debouncedSearchTerm}&loc=${debouncedLoc}&remote=${remote}`;
         const response = await axios.get(url);
         console.log(response);
         console.log('called - ', url);
@@ -39,11 +41,18 @@ export default function Page() {
     }
 
     getJob();
-  }, [debouncedSearchTerm, debouncedLoc, page, searchChanged]);
+  }, [debouncedSearchTerm, debouncedLoc, page, searchChanged, remote]);
 
   const handleSearchChange = value => {
     setSearch(value);
     setPage(1)
+    setPosts([]);
+    setSearchChanged(true);
+  };
+
+  const handleRemoteChange = () => {
+    setRemote(!remote);
+    setPage(1);
     setPosts([]);
     setSearchChanged(true);
   };
@@ -73,7 +82,7 @@ export default function Page() {
 
       </div>
 
-        <Search setLocValue={handleLocationChange} setSearchValue={handleSearchChange} />
+        <Search setLocValue={handleLocationChange} setSearchValue={handleSearchChange} setRemoteValue={handleRemoteChange}/>
 
       </div>
 

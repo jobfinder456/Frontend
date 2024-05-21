@@ -27,7 +27,14 @@ export default function RootLayout({ children }) {
         <title>{metadata.title}</title>
         <meta name="description" content={metadata.description} />
         <link rel="icon" href={metadata.icons.icon[0].href} />
-        <GoogleTagManager gaId="G-S3V1MYKXW3" />
+        <Script strategy="afterInteractive" src="https://www.googletagmanager.com/gtag/js?id=G-S3V1MYKXW3"></Script>
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-S3V1MYKXW3');`}
+        </Script>
       </Head>
       <body className={inter.className}>{children}</body>
     </html>

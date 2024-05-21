@@ -105,7 +105,7 @@ function Page() {
 
                   <div className='top-[20px] sticky w-[100%] md:w-[40%] flex flex-col gap-[20px]'>
 
-                   <a href={details.job_link} className='bg-accent-blue-2 p-[1rem] text-white rounded-[16px] flex items-center '>
+                   <a href={`${details.job_link}/utm_source=getjobs.today&utm_medium=organic`} className='bg-accent-blue-2 p-[1rem] text-white rounded-[16px] flex items-center '>
                       <h3 className='bg-accent-blue-1 text-center w-[100%] p-[1rem] rounded-[12px] font-medium'>Apply for this job</h3>
                    </a>
 
