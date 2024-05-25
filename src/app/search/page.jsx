@@ -16,7 +16,7 @@ export default function Page() {
   const [loc, setLoc] = useState('');
   const [page, setPage] = useState(1);
   const [searchChanged, setSearchChanged] = useState(false);
-  const [remote, setRemote] = useState(true);
+  const [remote, setRemote] = useState(false);
 
   const debouncedSearchTerm = useDebounce(search, 500);
   const debouncedLoc = useDebounce(loc, 500);
