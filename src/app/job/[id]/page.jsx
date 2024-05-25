@@ -4,10 +4,10 @@ import axios from 'axios'
 import Navbar from '@/components/Navbar'
 import toast, { Toaster } from 'react-hot-toast';
 import NotFound from '@/components/NotFound';
+import EmailCollector from '@/components/EmailCollector';
 
 function Page() {
   
-  const [email, setEmail] = useState('')
   const [notFound, setNotFound] = useState(false);
     const [details, setDetails] = useState({})
   useEffect( () => {
@@ -31,21 +31,7 @@ function Page() {
       
   }, [])
 
-  async function submitMail () {
-    if(!email) {
-      toast('Enter email please')
-      console.log("provide email")
-      return
-    }
-
-    try {
-      toast('🟢 Email submitted successfully')
-      const response = await axios.post(`${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/insert-user-email`, {email: email})
-      console.log(response)
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  
 
   if (notFound) {
     return <NotFound></NotFound>;
@@ -109,16 +95,7 @@ function Page() {
                       <h3 className='bg-accent-blue-1 text-center w-[100%] p-[1rem] rounded-[12px] font-medium'>Apply for this job</h3>
                    </a>
 
-                   <div className='bg-background p-[1rem] rounded-[16px] flex flex-col gap-[1rem]'>
-
-                         <label htmlFor='email' className=' font-medium text-base-1 mb-[1rem]'> Be the first one to apply any job. We will send you similar job post Supafast!</label>
-                         <input type="text" placeholder='your mail' id='email' autoComplete='off'
-                                 className='w-[100%] border border-base-1 p-[0.8rem] rounded-[12px]' 
-                                 onChange={e => {setEmail(e.target.value)}}
-                         />
-                         <button className='bg-base-1 text-white font-medium rounded-[8px] py-[1rem]' onClick={submitMail}>Submit</button>
-
-                   </div>
+                   <EmailCollector isHome={true}></EmailCollector>
 
                   </div>
 
