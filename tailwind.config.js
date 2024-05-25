@@ -13,6 +13,23 @@ module.exports = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
     },
+      animation: {
+        marquee: 'marquee 120s linear infinite',
+        marquee2: 'marquee2 120s linear infinite',
+        marquee3: 'marquee 120s linear reverse infinite',
+        marquee4: 'marquee2 120s linear reverse infinite',
+      },
+      keyframes: {
+        marquee: {
+          '0%': { transform: 'translateX(0%)' },
+          '100%': { transform: 'translateX(-100%)' },
+        },
+        marquee2: {
+          '0%': { transform: 'translateX(100%)' },
+          '100%': { transform: 'translateX(0%)' },
+        },
+      },
+    
     colors: {
       'white': '#ffffff',
       'base-1': '#0e1111',
