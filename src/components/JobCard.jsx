@@ -13,7 +13,7 @@ function JobCard({jobTitle, companyName, isRemote, loc, id, img}) {
                       {img ? (
                               <img
                                 src={img}
-                                alt="logo"
+                                alt="company_logo"
                                 className="w-full h-full object-contain"
                                 style={{ objectFit: 'contain' }} // You can set object-fit through inline styles
                               />

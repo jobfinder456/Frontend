@@ -52,7 +52,7 @@ function Page() {
                         {details.logo_url ? (
                                <img
                                  src={details.logo_url}
-                                 alt="logo"
+                                 alt="company_logo"
                                  className="w-full h-full object-cover"
                                  style={{ objectFit: 'cover' }} // You can set object-fit through inline styles
                                />
