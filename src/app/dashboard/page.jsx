@@ -11,6 +11,7 @@ import Modal from '@/components/Modal';
 import Loader from '@/components/Loader';
 import DashboardTable from '@/components/DashboardTable';
 
+
 function Page() {
   const router = useRouter();
   const [email, setEmail] = useState('');
@@ -96,18 +97,19 @@ function Page() {
     try {
       setLoad(true);
       const response = await axios.post(`${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/create-payment`, { userId: email, jobId, price: 0.9 });
+      console.log(response)
       const { orderId } = response.data;
 
       const options = {
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID, // Replace with your Razorpay Key ID
         amount: 0.9 * 100, // Amount is in currency subunits. Default currency is INR.
         currency: "INR",
-        name: "Your Company Name",
+        name: "Get Jobs",
         description: "Payment for Job Posting",
         order_id: orderId,
         handler: function (response) {
           alert(`Payment successful. Payment ID: ${response.razorpay_payment_id}`);
-          router.push('/success');
+          router.push(`/success?payId=${response.razorpay_payment_id}`);
         },
         prefill: {
           name: "Your Name",
@@ -122,10 +124,16 @@ function Page() {
         }
       };
 
-      const rzp1 = new window.Razorpay(options);
-      rzp1.on('payment.failed', function (response) {
-        alert(`Payment failed. Error: ${response.error.reason}`);
-      });
+      console.log(options)
+      if (window.Razorpay) {
+        const rzp1 = new window.Razorpay(options);
+        rzp1.on('payment.failed', function (response) {
+          alert(`Payment failed. Error: ${response.error.reason}`);
+        });
+        rzp1.open();
+      } else {
+        console.error('Razorpay SDK not loaded');
+      }
       rzp1.open();
     } catch (error) {
       console.log(error);
@@ -135,7 +143,7 @@ function Page() {
   };
 
   return (
-    <div className='relative max-w-[73.75rem] mx-auto min-h-screen relative overflow-hidden'>
+    <div className='relative max-w-[73.75rem] mx-auto min-h-screen overflow-hidden'>
       <Navbar />
       <Toaster />
       {load && <Loader />}

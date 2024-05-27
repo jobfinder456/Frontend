@@ -42,6 +42,7 @@ export default function RootLayout({ children }) {
           gtag('js', new Date());
           gtag('config', 'G-S3V1MYKXW3');`}
         </Script>
+        <Script src="https://checkout.razorpay.com/v1/checkout.js"></Script>
       </body>
     </html>
   );
