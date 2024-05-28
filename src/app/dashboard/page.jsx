@@ -96,20 +96,25 @@ function Page() {
   const onPay = async (jobId) => {
     try {
       setLoad(true);
-      const response = await axios.post(`${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/create-payment`, { userId: email, jobId, price: 0.9 });
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/create-payment`, { userId: email, jobId, price: 5000 });
       console.log(response)
       const { orderId } = response.data;
 
       const options = {
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID, // Replace with your Razorpay Key ID
-        amount: 0.9 * 100, // Amount is in currency subunits. Default currency is INR.
+        amount: 5000, // Amount is in currency subunits. Default currency is INR.
         currency: "INR",
         name: "Get Jobs",
         description: "Payment for Job Posting",
         order_id: orderId,
-        handler: function (response) {
-          alert(`Payment successful. Payment ID: ${response.razorpay_payment_id}`);
-          router.push(`/success?payId=${response.razorpay_payment_id}`);
+        handler: async function (response) {
+          const pay_id = (`${response.razorpay_payment_id}`);
+          const ord_id = orderId
+          const sign = (`${response.razorpay_signature}`)
+          const validateRes = await axios.post(`${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/verify-payment`, { raz_pay_id: pay_id, raz_ord_id: ord_id, raz_sign: sign, jobId });
+          const jsonRes = await validateRes.json();
+          console.log(jsonRes);
+          router.push(`/success`);
         },
         prefill: {
           name: "Your Name",
