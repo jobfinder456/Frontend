@@ -112,8 +112,8 @@ function Page() {
           const ord_id = orderId
           const sign = (`${response.razorpay_signature}`)
           const validateRes = await axios.post(`${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/verify-payment`, { raz_pay_id: pay_id, raz_ord_id: ord_id, raz_sign: sign, jobId });
-          const jsonRes = await validateRes.json();
-          console.log(jsonRes);
+          //const jsonRes = await validateRes.json();
+          console.log(validateRes);
           router.push(`/success`);
         },
         prefill: {
