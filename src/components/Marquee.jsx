@@ -29,7 +29,7 @@ function Marquee() {
         <Link href={'/'} class="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]">UI/UX Designer</Link>
         <Link href={'/'} class="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]">Backend Developer</Link>
         <Link href={'/'} class="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]">Sales Associate</Link>
-        <Link href={'/'} class="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]">CLoud Architect</Link>
+        <Link href={'/'} class="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]">Cloud Architect</Link>
         <Link href={'/'} class="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]">Frontend Developer</Link>
         <Link href={'/'} class="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]">Interior Designer</Link>
         <Link href={'/'} class="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]">3D Animator</Link>
