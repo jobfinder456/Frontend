@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  nginx:
+    build:
+      context: ./nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - nextjs
+
+  nextjs:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
