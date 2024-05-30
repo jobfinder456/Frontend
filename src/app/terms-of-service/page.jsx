@@ -1,7 +1,7 @@
 import Navbar from "@/components/Navbar";
 import React from "react";
 
-const page = () => {
+const Page = () => {
   return (
     <div className="realtive max-w-[73.75rem] mx-auto">
       <Navbar></Navbar>
@@ -348,4 +348,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

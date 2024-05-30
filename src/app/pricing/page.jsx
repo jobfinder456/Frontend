@@ -64,7 +64,7 @@ const Page = () => {
 
             <Link
               href={"/postjob"}
-              className="button-primary text-center mt-[2rem]"
+              className="button-primary text-center mt-[2rem] bg-accent-blue-1 border-accent-blue-1"
             >
               Start Hiring
             </Link>
