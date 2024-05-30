@@ -1,151 +1,157 @@
-"use client"
-import React, {useEffect, useState} from 'react'
-import axios from 'axios'
-import Form from '@/components/Form'
-import Link from 'next/link'
-import Navbar from '@/components/Navbar'
-import { useRouter } from 'next/navigation';
-import toast, { Toaster } from 'react-hot-toast';
-import Modal from '@/components/Modal'
-import Loader from '@/components/Loader'
+"use client";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import Form from "@/components/Form";
+import Link from "next/link";
+import Navbar from "@/components/Navbar";
+import { useRouter } from "next/navigation";
+import toast, { Toaster } from "react-hot-toast";
+import Modal from "@/components/Modal";
+import Loader from "@/components/Loader";
 
-function Page() { 
-  
-    const [userMail, setUserMail] = useState('')
-    const router = useRouter();
-    const [modal, setModal] = useState(false)
-    const [load, setLoad] = useState(false)
-    const [jobDetails, setJobDetails] = useState({
-      company_name: '', //
-      website: '', //
-      job_title: '', //
-      image: '',
-      work_loc: '', //
-      remote: true, //
-      job_link: '', //
-      commitment: 'Fulltime',
-      description: '',
-      name: '',
-      email: ''
-  })
+function Page() {
+  const [userMail, setUserMail] = useState("");
+  const router = useRouter();
+  const [modal, setModal] = useState(false);
+  const [load, setLoad] = useState(false);
+  const [jobDetails, setJobDetails] = useState({
+    company_name: "", //
+    website: "", //
+    job_title: "", //
+    image: "",
+    work_loc: "", //
+    remote: true, //
+    job_link: "", //
+    commitment: "Fulltime",
+    description: "",
+    name: "",
+    email: "",
+  });
 
   useEffect(() => {
     const fetchUserData = async () => {
-      const token = localStorage.getItem("jf_token") || false
+      const token = localStorage.getItem("jf_token") || false;
       if (!token) {
-        setModal(true)
-        return // Exit the function if there is no token
+        setModal(true);
+        return; // Exit the function if there is no token
       }
 
-      const mail = localStorage.getItem("userMail") || false
+      const mail = localStorage.getItem("userMail") || false;
       if (!mail) {
         try {
-          console.log("enetete")
-          const responseVerify = await axios.get(`${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/verifyuser`, {
-            headers: { "Authorization": `Bearer ${token}` }
-          })
-          const email = responseVerify.data.email
-          console.log(email)
-          localStorage.setItem('userMail', email)
-          setUserMail(email)
+          console.log("enetete");
+          const responseVerify = await axios.get(
+            `${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/verifyuser`,
+            {
+              headers: { Authorization: `Bearer ${token}` },
+            }
+          );
+          const email = responseVerify.data.email;
+          console.log(email);
+          localStorage.setItem("userMail", email);
+          setUserMail(email);
         } catch (error) {
-          console.error("Error verifying user:", error)
-          setModal(true)
+          console.error("Error verifying user:", error);
+          setModal(true);
         }
       } else {
-        setUserMail(mail)
+        setUserMail(mail);
       }
-    }
+    };
 
-    fetchUserData()
-  }, [])
-  
+    fetchUserData();
+  }, []);
+
   const onSubmit = async () => {
-    const addHttps = (url) => url.startsWith("https://") ? url : `https://${url}`;
-  
+    const addHttps = (url) =>
+      url.startsWith("https://") ? url : `https://${url}`;
+
     const updatedJobDetails = {
       ...jobDetails,
       job_link: addHttps(jobDetails.job_link),
-      website: addHttps(jobDetails.website)
+      website: addHttps(jobDetails.website),
     };
-  
+
     const token = localStorage.getItem("jf_token") || false;
-  
+
     const formData = new FormData();
-    Object.keys(updatedJobDetails).forEach(key => {
+    Object.keys(updatedJobDetails).forEach((key) => {
       if (key !== "image") {
         formData.append(key, updatedJobDetails[key]);
       }
     });
-  
+
     if (updatedJobDetails.image) {
       formData.append("image", updatedJobDetails.image);
     }
-  
+
     try {
       setLoad(true);
-  
+
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/insert`,
         formData,
         {
           headers: {
             "Content-Type": "multipart/form-data",
-            "Authorization": `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
           },
         }
       );
-  
+
       toast("Job successfully posted");
-      router.push('/dashboard');
-  
+      router.push("/dashboard");
     } catch (error) {
       console.error(error);
-  
+
       if (error.response && error.response.status === 400) {
         toast("Enter details properly");
       } else {
         setModal(true);
       }
-  
     } finally {
       setLoad(false);
     }
   };
-  
-  
-  
-    return (
 
-      <div className=' realtive max-w-[73.75rem] mx-auto '>
-
+  return (
+    <div className=" realtive max-w-[73.75rem] mx-auto ">
       <Navbar />
 
       <Toaster />
 
-      { load ? <Loader></Loader> : null}
+      {load ? <Loader></Loader> : null}
 
-      { modal ? <Modal 
-                            title="First Sign In to Post a Job"
-                            button1Title="Sign In /  Create a Account"
-                            button2Title="false"
-                            button1Action={() => router.push('/signinwithotp')}
-                            button2Action=''
-                      ></Modal> 
-                      
-            : null }
+      {modal ? (
+        <Modal
+          title="First Sign In to Post a Job"
+          button1Title="Sign In /  Create a Account"
+          button2Title="false"
+          button1Action={() => router.push("/signinwithotp")}
+          button2Action=""
+        ></Modal>
+      ) : null}
 
-      <div className={`relative max-w-[980px] mx-auto my-[2rem] flex flex-col items-start justify-center gap-[1rem] p-[1rem] ${ load || modal ? 'opacity-50' : null}`}>
+      <div
+        className={`relative max-w-[980px] mx-auto my-[2rem] flex flex-col items-start justify-center gap-[1rem] p-[1rem] ${
+          load || modal ? "opacity-50" : null
+        }`}
+      >
+        <h1 className="pl-[1rem] text-[24px] md:text-[2rem] leading-[2rem] md:leading-[2.5rem] font-light">
+          <span className="font-medium">Recruit top talent!</span> Broadcast
+          your job post to thousands of eager job seekers.
+        </h1>
 
-          
-              <h1 className='pl-[1rem] text-[24px] md:text-[2rem] leading-[2rem] md:leading-[2.5rem] font-light'><span className='font-medium'>Recruit top talent!</span> Broadcast your job post to thousands of eager job seekers.</h1>
-  
-              <Form onSubmit={onSubmit} setJobDetails={setJobDetails} userMail={userMail} jobDetails={jobDetails} isEdit={false}/>
-  
+        <Form
+          onSubmit={onSubmit}
+          setJobDetails={setJobDetails}
+          userMail={userMail}
+          jobDetails={jobDetails}
+          isEdit={false}
+        />
       </div>
-
-      </div>
-  )
+    </div>
+  );
 }
 
-export default Page
+export default Page;
