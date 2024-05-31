@@ -1,23 +1,23 @@
-import { Inter } from 'next/font/google';
-import Head from 'next/head';
-import Script from 'next/script';
-import './globals.css';
-import { GoogleTagManager } from '@next/third-parties/google'
+import { Inter } from "next/font/google";
+import Head from "next/head";
+import Script from "next/script";
+import "./globals.css";
+import { GoogleTagManager } from "@next/third-parties/google";
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   icons: {
     icon: [
       {
-        url: '/images/favicon.png', // /public path
-        href: '/images/favicon.png', // /public path
+        url: "/images/favicon.png", // /public path
+        href: "/images/favicon.png", // /public path
       },
     ],
   },
-  title: 'Get your Dream Job today : Job Opening - Discover Developer, Designer, Finance, Sales and more jobs.',
+  title: "Discover Developer, Designer, Finance, Sales and more jobs. ",
   description:
-  'Discover top job opportunities and hire exceptional talent at GetJobs.Today. GetJobs.Today job board connects job seekers with a vast range of positions in startups, established companies, and diverse industries, offering roles such as Developer jobs, Design jobs, Accountant jobs, Finance jobs, Sales jobs, Manager roles, and more. Employers can easily post jobs for free and attract talented candidates. Start your job search or post your job listing today on GetJobs.Today and take the next step in your career or hiring process.'
+    "Explore top job opportunities and find exceptional talent at GetJobs.Today. Connect with Developer, Design, Accounting, Finance, Sales, and Management roles. Employers can post for free. Start your search or post a job now!",
 };
 
 export default function RootLayout({ children }) {
@@ -25,7 +25,10 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <Head>
         <title>{metadata.title}</title>
-        <meta property="og:title" content="Get your Dream Job today : Job Opening - Discover Developer, Designer, Finance, Sales and more jobs." />
+        <meta
+          property="og:title"
+          content="Discover Developer, Designer, Finance, Sales and more jobs."
+        />
         <meta property="og:description" content={metadata.description} />
         <meta property="og:site_name" content="Get Jobs Today" />
         <meta property="og:url" content="https://getjobs.today/" />
@@ -35,7 +38,10 @@ export default function RootLayout({ children }) {
       </Head>
       <body className={inter.className}>
         {children}
-        <Script strategy="afterInteractive" src="https://www.googletagmanager.com/gtag/js?id=G-S3V1MYKXW3"></Script>
+        <Script
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=G-S3V1MYKXW3"
+        ></Script>
         <Script id="google-analytics" strategy="afterInteractive">
           {`window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
