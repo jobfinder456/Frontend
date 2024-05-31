@@ -26,7 +26,7 @@ const Page = () => {
             <h2 className="font-medium text-[1.1rem]">Find Your Perfect Job</h2>
             <p>
               Browse a wide array of job listings in diverse fields such as
-              Development, Design, Finance, Sales, and more. Whether you're
+              Development, Design, Finance, Sales, and more. Whether you&apos;re
               kick-starting your career or seeking a significant change,
               GetJobs.Today offers numerous opportunities that align with your
               skills and goals.
@@ -40,7 +40,7 @@ const Page = () => {
             <p>
               We pride ourselves on being an independent, bootstrapped, and
               self-funded platform. Instead of relying on external funding, we
-              operate a profitable business sustained by our users' subscription
+              operate a profitable business sustained by our users&apos; subscription
               fees. This independence allows us to grow at our own pace and make
               decisions that best serve our users.
             </p>
