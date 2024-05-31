@@ -150,7 +150,7 @@ export default function Home() {
             Terms of service
           </Link>
 
-          <h5>Cancellation & Refund</h5>
+          <Link href={'/cancellation-refund-policy'}>Cancellation & Refund</Link>
 
           <Link target="_blank" href={"/contact"}>
             Help
