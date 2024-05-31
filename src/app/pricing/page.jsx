@@ -22,43 +22,42 @@ const Page = () => {
             <hr className="w-[100%] border-base-2 mt-[0.5rem] mb-[0.75rem]"></hr>
 
             <div className="flex gap-[1rem] items-start justify-start">
-              <div className="w-[1rem] h-[1rem] bg-[#131313] bg-opacity-40 rounded-full text-[#131313] text-[8px] p-[0.25rem] flex justify-center items-center">
+              <div className="mt-1 w-[1rem] h-[1rem] bg-[#131313] bg-opacity-40 rounded-full text-[#131313] text-[8px] p-[0.25rem] flex justify-center items-center">
                 <FaCheck />
               </div>
 
               <h3 className="title-sub font-medium text-start">
-                Job will be active for 30 days
+                Job post will remain active for 30 days
               </h3>
             </div>
 
             <div className="flex gap-[1rem] items-start justify-start">
-              <div className="w-[1rem] h-[1rem] bg-[#131313] bg-opacity-40 rounded-full text-[#131313] text-[8px] p-[0.25rem] flex justify-center items-center">
+              <div className="w-[1rem] h-[1rem] bg-[#131313] bg-opacity-40 rounded-full text-[#131313] text-[8px] p-[0.25rem] flex justify-center items-center mt-1">
                 <FaCheck />
               </div>
 
               <h3 className="title-sub font-medium text-start">
-                Exposure of your job to the largest talent pool
+                Gain exposure to the best talent pool
               </h3>
             </div>
 
             <div className="flex gap-[1rem] items-start justify-start">
-              <div className="w-[1rem] h-[1rem] bg-[#131313] bg-opacity-40 rounded-full text-[#131313] text-[8px] p-[0.25rem] flex justify-center items-center">
+              <div className="mt-1 w-[1rem] h-[1rem] bg-[#131313] bg-opacity-40 rounded-full text-[#131313] text-[8px] p-[0.25rem] flex justify-center items-center">
                 <FaCheck />
               </div>
 
               <h3 className="title-sub font-medium text-start">
-                Job post will be added to google jobs
+                Your job will be added to Google Jobs
               </h3>
             </div>
 
             <div className="flex gap-[1rem] items-start justify-start">
-              <div className="w-[1rem] h-[1rem] bg-[#131313] bg-opacity-40 rounded-full text-[#131313] text-[8px] p-[0.25rem] flex justify-center items-center">
+              <div className="mt-1 w-[1rem] h-[1rem] bg-[#131313] bg-opacity-40 rounded-full text-[#131313] text-[8px] p-[0.25rem] flex justify-center items-center">
                 <FaCheck />
               </div>
 
               <h3 className="title-sub font-medium text-start">
-                Proper marketing of your job post will be spread through
-                different medias
+                We will market your job post through various media channels
               </h3>
             </div>
 
@@ -72,15 +71,38 @@ const Page = () => {
 
           <div className="md:w-[50%] flex-grow flex flex-col  text-base-1 bg-white p-[1rem] rounded-[12px] gap-[0.5rem]">
             <h1 className=" text-[28px] md:text-[32px] font-bold">
-              Custom Pricing
-              <span className="text-[0.75rem] font-normal"> </span>
+              Custom
+              <span className="text-[0.75rem] font-normal">
+                {" "}
+                / best for bulk posts{" "}
+              </span>
             </h1>
 
-            <hr className="w-[100%] border-base-2 mt-[0.5rem]"></hr>
+            <hr className="w-[100%] border-base-2 mt-[0.5rem] mb-[0.75rem]"></hr>
+
+            <div className="flex gap-[1rem] items-start justify-start">
+              <div className="mt-1 w-[1rem] h-[1rem] bg-[#131313] bg-opacity-40 rounded-full text-[#131313] text-[8px] p-[0.25rem] flex justify-center items-center">
+                <FaCheck />
+              </div>
+
+              <h3 className="title-sub font-medium text-start">
+                All features of normal posting +
+              </h3>
+            </div>
+
+            <div className="flex gap-[1rem] items-start justify-start">
+              <div className="mt-1 w-[1rem] h-[1rem] bg-[#131313] bg-opacity-40 rounded-full text-[#131313] text-[8px] p-[0.25rem] flex justify-center items-center">
+                <FaCheck />
+              </div>
+
+              <h3 className="title-sub font-medium text-start">
+                Save up to 60% on bulk job posts.
+              </h3>
+            </div>
 
             <Link
               href={"/contact"}
-              className="button-primary text-center mt-[5rem]"
+              className="button-primary text-center mt-auto"
             >
               Contact Us
             </Link>
