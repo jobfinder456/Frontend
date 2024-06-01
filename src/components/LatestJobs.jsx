@@ -3,15 +3,17 @@ import JobCard from "./JobCard"; // Assuming JobCard is another component
 
 export default async function LatestJobs() {
   try {
-    const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/list?page=1&search=&loc=&remote=`,
-      {
-        next: {
-          revalidate: 36000,
-        },
-      }
-    );
+    const apiUrl = `${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/list?page=1&search=&loc=&remote=`;
+    console.log(`Fetching jobs from: ${apiUrl}`);
+
+    const response = await axios.get(apiUrl, {
+      next: {
+        revalidate: 36000,
+      },
+    });
     const data = response.data;
+
+    console.log("Received data:", data);
 
     // Access the 'all' property which contains the job list
     const jobs = data.all;
