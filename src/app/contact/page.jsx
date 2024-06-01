@@ -19,6 +19,13 @@ const page = () => {
             </a>
             . We usually respond within 12 hours.
           </p>
+          <p className="text-[1.2rem]">
+            Office Address{" - "}
+            <span className="font-medium">
+              P2 Belegata Road, Near Sales Tax Office, Kolkata - 700015, West
+              Bengal
+            </span>
+          </p>
 
           <Link
             href={"mailto:hq@getjobs.today"}

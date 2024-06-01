@@ -4,35 +4,9 @@ import Link from "next/link";
 import { BsArrowRight } from "react-icons/bs";
 import Marquee from "@/components/Marquee";
 import EmailCollector from "@/components/EmailCollector";
+import LatestJobs from "@/components/LatestJobs";
 
 export default function Home() {
-  const latestPosts = [
-    {
-      id: 56,
-      job_title: "SDE",
-      company_name: "Stripe",
-      remote: true,
-      loc: "Bangalore",
-      logo_url: "",
-    },
-    {
-      id: 58,
-      job_title: "SDE-II",
-      company_name: "Stripe",
-      remote: false,
-      work_loc: "Bangalore",
-      logo_url: "",
-    },
-    {
-      id: 58,
-      job_title: "SDE-II",
-      company_name: "Stripe",
-      remote: false,
-      work_loc: "Bangalore",
-      logo_url: "",
-    },
-  ];
-
   return (
     <div className="max-w-[73.75rem] mx-auto flex flex-col items-center justify-center gap-[2rem] overflow-x-hidden mb-[2rem]">
       <Navbar />
@@ -71,18 +45,7 @@ export default function Home() {
       <div className="w-[100%] max-w-[73.75rem] px-[0.5rem] md:px-[2rem] mx-auto flex flex-col items-start justify-start gap-[1rem] p-[1rem]">
         <h2 className="text-[20px] md:text-[20px] font-medium">Latest Jobs</h2>
 
-        <div className="w-[100%] flex flex-col justify-center items-center gap-[0.5rem]">
-          {latestPosts.map((job) => (
-            <JobCard
-              key={job.id}
-              id={job.id}
-              jobTitle={job.job_title}
-              companyName={job.company_name}
-              isRemote={job.remote}
-              loc={job.work_loc}
-            />
-          ))}
-        </div>
+        <LatestJobs></LatestJobs>
       </div>
 
       <div className="w-[100%] p-[1rem] md:p-[2rem]">
@@ -115,10 +78,6 @@ export default function Home() {
 
           <Link target="_blank" href={"/contact"}>
             Contact Us
-          </Link>
-
-          <Link target="_blank" href={"/contact-address"}>
-            Contact Address
           </Link>
 
           <Link target="_blank" href={"https://x.com/GetjobsT21103"}>
@@ -154,7 +113,9 @@ export default function Home() {
             Terms of service
           </Link>
 
-          <Link href={'/cancellation-refund-policy'}>Cancellation & Refund</Link>
+          <Link href={"/cancellation-refund-policy"}>
+            Cancellation & Refund
+          </Link>
 
           <Link target="_blank" href={"/contact"}>
             Help
