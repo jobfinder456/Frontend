@@ -1,10 +1,10 @@
 import Navbar from "@/components/Navbar";
 import JobCard from "@/components/JobCard";
 import Link from "next/link";
-import { BsArrowRight } from "react-icons/bs";
 import Marquee from "@/components/Marquee";
 import EmailCollector from "@/components/EmailCollector";
 import LatestJobs from "@/components/LatestJobs";
+import Button from "@/components/Button";
 
 export default function Home() {
   return (
@@ -23,18 +23,7 @@ export default function Home() {
           startups.
         </h3>
 
-        <div
-          className=" browse-button ease-in-out flex items-center justify-center gap-[0.5rem] md:gap-[1rem] mt-[1rem] text-[16px] md:text-[20px] p-[8px] md:p-[16px] button-primary bg-accent-blue-1 border-accent-blue-1 active:w-[80%] focus:w-[80%]"
-          style={{
-            transition: "width 2s ease",
-          }}
-        >
-          <Link href={"/search"} className="w-[100%]">
-            Browse Jobs Now{" "}
-          </Link>
-
-          <BsArrowRight size={32} />
-        </div>
+        <Button title="Browse Jobs Now"></Button>
         <p className="text-base-2 text-[12px] md:text-[14px]">
           No Login required
         </p>

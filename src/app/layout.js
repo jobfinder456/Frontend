@@ -27,7 +27,7 @@ export default function RootLayout({ children }) {
         <title>{metadata.title}</title>
         <meta
           property="og:title"
-          content="Discover Developer, Designer, Finance, Sales and more jobs."
+          content={metadata.title}
         />
         <meta property="og:description" content={metadata.description} />
         <meta property="og:site_name" content="Get Jobs Today" />
