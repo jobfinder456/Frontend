@@ -115,7 +115,7 @@ function Page() {
       const options = {
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID, // Replace with your Razorpay Key ID
         amount: 5000, // Amount is in currency subunits. Default currency is INR.
-        currency: "INR",
+        currency: "USD",
         name: "Get Jobs",
         description: "Payment for Job Posting",
         order_id: orderId,

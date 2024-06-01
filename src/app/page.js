@@ -117,6 +117,10 @@ export default function Home() {
             Contact Us
           </Link>
 
+          <Link target="_blank" href={"/contact-address"}>
+            Contact Address
+          </Link>
+
           <Link target="_blank" href={"https://x.com/GetjobsT21103"}>
             X (Twitter)
           </Link>
