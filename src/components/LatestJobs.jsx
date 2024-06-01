@@ -6,7 +6,6 @@ export default async function LatestJobs() {
     const response = await axios.get(
       `${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/list?page=1&search=&loc=&remote=`,
       {
-        mode: 'no-cors',
         next: {
           revalidate: 36000,
         },
