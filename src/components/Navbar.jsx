@@ -7,7 +7,7 @@ function Navbar() {
     <div className="w-[100%] py-[1rem]  flex justify-between items-center px-[20px]">
       <Link
         href={"/"}
-        className="w-[1.8rem] h-[1.8rem] md:w-[2.5rem] md:h-[2.5rem] flex items-center justify-center"
+        className="w-[4rem] h-[4rem] md:w-[5rem] md:h-[5rem] flex items-center justify-center"
       >
         <img src="/images/logo.svg" alt="logo" />
       </Link>
