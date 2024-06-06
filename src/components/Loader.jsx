@@ -8,7 +8,7 @@ function Loader() {
     >
       <svg
         aria-hidden="true"
-        className="w-12 h-12 text-background animate-spin dark:text-gray-600 fill-accent-blue-1"
+        className="w-8 h-8 text-background animate-spinner dark:text-gray-600 fill-accent-blue-1"
         viewBox="0 0 100 101"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
