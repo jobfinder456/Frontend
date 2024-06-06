@@ -107,15 +107,15 @@ function Page() {
       setLoad(true);
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/create-payment`,
-        { userId: email, jobId, price: 5000 }
+        { userId: email, jobId, price: 500 }
       );
       console.log(response);
       const { orderId } = response.data;
 
       const options = {
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID, // Replace with your Razorpay Key ID
-        amount: 5000, // Amount is in currency subunits. Default currency is INR.
-        currency: "USD",
+        amount: 500, // Amount is in currency subunits. Default currency is INR.
+        currency: "INR",
         name: "Get Jobs",
         description: "Payment for Job Posting",
         order_id: orderId,
@@ -134,7 +134,6 @@ function Page() {
         prefill: {
           name: "Your Name",
           email: email,
-          contact: "9999999999",
         },
         notes: {
           address: "Corporate Office",
