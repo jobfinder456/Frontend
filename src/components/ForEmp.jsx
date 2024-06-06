@@ -9,6 +9,7 @@ function ForEmp() {
 
   const onSignout = () => {
     localStorage.removeItem("jf_token");
+    localStorage.removeItem("userMail")
   };
 
   const toggleVisibility = () => {

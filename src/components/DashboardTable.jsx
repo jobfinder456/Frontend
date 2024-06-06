@@ -30,7 +30,7 @@ function DashboardTable({
       </Link>
 
       <button
-        onClick={() => onPay(postId)}
+        onClick={() => onPay([postId])}
         className="w-[20%] text-start flex items-center gap-[0.5rem]"
       >
         {isOk ? (

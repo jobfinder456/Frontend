@@ -102,6 +102,24 @@ function Page() {
     }
   };
 
+  const onBulkPay = async () => {
+    try {
+      setLoad(true);
+      const unLiveJobIds = postData.reduce((acc, job) => {
+        if (!job.is_ok) {
+          acc.push(job.id);
+        }
+        return acc;
+      }, []);
+      console.log(unLiveJobIds);
+      onPay(unLiveJobIds)
+
+      // Add logic for bulk payment here
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const onPay = async (jobId) => {
     try {
       setLoad(true);
@@ -129,7 +147,7 @@ function Page() {
           );
           //const jsonRes = await validateRes.json();
           console.log(validateRes);
-          router.push(`/success`);
+          router.push(`/success?jobId=${jobId}&payId=${pay_id}`);
         },
         prefill: {
           name: "Your Name",
@@ -203,12 +221,12 @@ function Page() {
             </h3>
             <span className="text-[14px] md:text-[16px]">
               Jobs require payment.{" "}
-              <Link
-                href={"/checkout"}
+              <button
+                onClick={onBulkPay}
                 className="flex items-center gap-[0.5rem] underline"
               >
                 Pay Now <RxExternalLink />
-              </Link>
+              </button>
             </span>
           </div>
         </div>
