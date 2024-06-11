@@ -12,10 +12,10 @@ const Page = () => {
         <div className=" bg-background rounded-[1rem] p-[1rem] flex flex-col md:flex-row gap-[1rem] my-[2rem]">
           <div className="md:w-[50%] flex-grow flex flex-col text-base-1 bg-white p-[1rem] rounded-[12px] gap-[0.5rem]">
             <h1 className=" text-[28px] md:text-[32px] font-bold">
-              $89
+              299
               <span className="text-[0.75rem] font-normal">
                 {" "}
-                / per job for 30 days{" "}
+                / per job for 31 days{" "}
               </span>
             </h1>
 
@@ -27,7 +27,7 @@ const Page = () => {
               </div>
 
               <h3 className="title-sub font-medium text-start">
-                Job post will remain active for 30 days
+                Job post will remain active for 31 days
               </h3>
             </div>
 

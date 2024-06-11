@@ -15,11 +15,10 @@ function Page() {
   const onEmailSubmit = async () => {
     try {
       toast("🟢 OTP send succesfully");
-      const response = await axios.post(
+       await axios.post(
         `${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/sendemail`,
         { email: email }
       );
-      console.log(response);
       setDisable(false);
     } catch (error) {
       console.error("Email sending error:", error);
@@ -32,7 +31,6 @@ function Page() {
         `${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/verify-otp`,
         { email: email, otp: otp }
       );
-      console.log("send success", response.data.token);
       localStorage.setItem("jf_token", response.data.token);
       router.push("/dashboard");
     } catch (error) {
@@ -48,7 +46,7 @@ function Page() {
 
       <div className="relative mx-auto mt-[2rem] max-w-[32rem] p-[1rem] md:p-[2rem] text-black flex flex-col justify-center items-start gap-4 rounded-[16px] shadow-[0px_0px_16px_4px_rgba(0,0,0,0.1)]">
         <h1 className="text-[1.2rem] md:text-[1.5rem] font-medium">
-          Login to your account with OTP to post Job, Supafast!!
+          Login to your account with OTP to post Job, Superfast!!
         </h1>
 
         <div className="w-[100%] flex flex-col items-start justify-start gap-[0.25rem]">
