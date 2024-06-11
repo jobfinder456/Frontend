@@ -252,8 +252,8 @@ function Form({ onSubmit, setJobDetails, jobDetails, isEdit, userMail }) {
               "Update Job"
             ) : (
               <>
-                Post the Job for{" "}
-                <span className="line-through px-[0.2rem]">$299</span> $0
+                Initiate Job Listing{" "}
+                <span className=" px-[0.2rem]"></span>
               </>
             )}
           </button>

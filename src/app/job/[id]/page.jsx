@@ -16,7 +16,6 @@ function Page() {
         const response = await axios.get(
           `${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/job/${id}`
         );
-        console.log(response.data.result[0]);
         if (response.data.result.length === 0) {
           setNotFound(true);
         } else {

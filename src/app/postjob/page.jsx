@@ -20,7 +20,7 @@ function Page() {
     job_title: "", //
     image: "",
     work_loc: "", //
-    remote: true, //
+    remote: false, //
     job_link: "", //
     commitment: "Fulltime",
     description: "",
@@ -39,7 +39,6 @@ function Page() {
       const mail = localStorage.getItem("userMail") || false;
       if (!mail) {
         try {
-          console.log("enetete");
           const responseVerify = await axios.get(
             `${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/verifyuser`,
             {
@@ -47,7 +46,6 @@ function Page() {
             }
           );
           const email = responseVerify.data.email;
-          console.log(email);
           localStorage.setItem("userMail", email);
           setUserMail(email);
         } catch (error) {
