@@ -46,7 +46,7 @@ function Marquee() {
             href={"/"}
             className="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
           >
-            CLoud Architect
+            Cloud Architect
           </Link>
           <Link
             href={"/"}
