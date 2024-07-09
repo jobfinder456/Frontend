@@ -136,7 +136,7 @@ const Tiptap = ({ setDesc, oldDesc }) => {
         </button>
       </div>
 
-      <EditorContent editor={editor} className="form-inp rounded-[8px]" />
+      <EditorContent editor={editor} className="form-inp bg-white rounded-[8px]" />
     </div>
   );
 };

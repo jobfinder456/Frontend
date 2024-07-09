@@ -1,6 +1,6 @@
 .tiptap {
     > * + * {
-      margin-top: 0.75em;
+      margin-top: 0.5em;
     }
   
     a {
@@ -17,11 +17,21 @@
     }
 
     > * + * {
-      margin-top: 0.75em;
+      margin-top: 0em;
     }
   
     ul,
     ol {
       padding: 0 1rem;
     }
+
+    p {
+      margin-bottom: 0rem;
+    }
+
   }
+
+
+*:focus {
+  outline: none;
+}

@@ -9,10 +9,10 @@ const Button = ({ title }) => {
 
   return (
     <motion.div
-      initial={{ maxWidth: "450px" }}
-      animate={{ width: width ? "200%" : "" }}
+      initial={{ minWidth: "256px" }}
+      animate={{ width: width ? "80%" : "" }}
       transition={{
-        ease: "easeOut",
+        ease: "linear",
         duration: 3,
       }}
       onClick={() => setWidth(true)}
