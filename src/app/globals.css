@@ -8,7 +8,7 @@
     }
 
     .form-inp {
-        @apply w-[100%] border-[2px] rounded-[8px] px-[1rem] py-[0.5rem] border-base-1 focus:outline-none focus:border-accent-blue-1 focus:ring-1 focus:accent-accent-blue-1 text-base-1;
+        @apply w-[100%] border-[2px] rounded-[8px] px-[1rem] py-[0.5rem] border-base-2 focus:outline-none focus:border-accent-blue-1 focus:ring-1 focus:accent-accent-blue-1 text-base-1;
     }
 
     .button-primary {
@@ -30,4 +30,13 @@ ul {
 /* Optionally, you can style the list items */
 li {
   margin-left: 1rem; /* Adjust as needed */
+}
+
+.grad {
+  width: 0;
+	height: 0;
+  border-radius: 50rem;
+	border-left: 2rem solid transparent;
+	border-right: 2rem solid transparent;
+	border-top: 50rem solid #a3a3ff;
 }

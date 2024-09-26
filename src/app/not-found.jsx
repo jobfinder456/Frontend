@@ -1,7 +1,7 @@
-import NotFound from "@/components/NotFound";
+
 
 function NotFoundPage() {
-	return <NotFound></NotFound>
+	return <div></div>
 }
 
 export default NotFoundPage

@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import ForEmp from "./ForEmp";
 
-function Navbar() {
+export default function Navbar() {
   return (
     <div className="w-[100%] py-[1rem]  flex justify-between items-center px-[20px]">
       <Link
@@ -22,5 +22,3 @@ function Navbar() {
     </div>
   );
 }
-
-export default Navbar;

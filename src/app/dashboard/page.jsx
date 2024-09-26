@@ -6,10 +6,10 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
-import { RxExternalLink } from "react-icons/rx";
 import Modal from "@/components/Modal";
 import Loader from "@/components/Loader";
 import DashboardTable from "@/components/DashboardTable";
+import Stats from "./stats"
 
 function Page() {
   const router = useRouter();
@@ -197,38 +197,7 @@ function Page() {
           load ? "opacity-50" : null
         }`}
       >
-        <div className="w-[100%] bg-background flex flex-wrap gap-[0.5rem] md:gap-[1rem] p-[0.5rem] md:p-[1rem] rounded-[24px]">
-          <div className="bg-white flex-grow flex flex-col items-start justify-center rounded-[1rem] p-[0.75rem] md:p-[2rem]">
-            <h3 className="text-[1rem] md:text-[1.2rem] font-medium text-accent-blue-1">
-              Coming Soon !
-            </h3>
-            <span className="text-[14px] md:text-[16px]">
-              Total impressions on your job posts
-            </span>
-          </div>
-          <div className="bg-white flex-grow flex flex-col items-start justify-center rounded-[1rem] p-[0.75rem] md:p-[2rem]">
-            <h3 className="text-[2.5rem] md:text-[4rem] font-medium text-accent-blue-1">
-              {postData.length - notLive}
-            </h3>
-            <span className="text-[14px] md:text-[16px]">
-              Jobs are live now
-            </span>
-          </div>
-          <div className="bg-white flex-grow flex flex-col items-start justify-center rounded-[1rem] p-[0.75rem] md:p-[2rem]">
-            <h3 className="text-[2.5rem] md:text-[4rem] font-medium text-accent-blue-1">
-              {notLive}
-            </h3>
-            <span className="text-[14px] md:text-[16px]">
-              Jobs require payment.{" "}
-              <button
-                onClick={onBulkPay}
-                className="flex items-center gap-[0.5rem] underline"
-              >
-                Pay Now <RxExternalLink />
-              </button>
-            </span>
-          </div>
-        </div>
+        <Stats notLive={notLive} postData={postData} onBulkPay={onBulkPay} />
         <div className="relative overflow-x-scroll w-full">
           <div className="flex flex-col w-[36rem] sm:w-[100%] justify-between">
             <DashboardTable

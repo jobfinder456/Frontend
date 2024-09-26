@@ -9,9 +9,10 @@ import Button from "@/components/Button";
 export default function Home() {
   return (
     <div className="max-w-[73.75rem] mx-auto flex flex-col items-center justify-center gap-[2rem] overflow-x-hidden mb-[2rem]">
+      <div className="absolute -z-50 -top-[15rem] grad -rotate-[30deg] blur-[3rem]"></div>
       <Navbar />
 
-      <div className="w-[100%] text-center flex flex-col items-center justify-center gap-[1rem] p-[1rem] mt-[1rem]">
+      <div className="z-50 w-[100%] text-center flex flex-col items-center justify-center gap-[1rem] p-[1rem] mt-[1rem]">
         <h1 className="text-[2.5rem] md:text-[4rem] font-light leading-tight">
           <span className="font-medium">Get</span> your dream{" "}
           <span className="font-medium">job today</span>
