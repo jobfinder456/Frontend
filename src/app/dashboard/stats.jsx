@@ -1,8 +1,14 @@
 import React, { useState } from "react";
 import { RxExternalLink } from "react-icons/rx";
+import { IoClose } from "react-icons/io5";
+import axios from "axios";
 
 export default function Stats({ postData, notLive, onBulkPay }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [companyLogo, setCompanyLogo] = useState(null);
+  const [companyLogoPreview, setCompanyLogoPreview] = useState(null);
+  const [companyName, setCompanyName] = useState("");
+  const [companyWebsite, setCompanyWebsite] = useState("");
 
   const companyProfiles = [
     { name: "Acme Corp", logo: "/api/placeholder/32/32", status: "Active" },
@@ -13,10 +19,63 @@ export default function Stats({ postData, notLive, onBulkPay }) {
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
+  const handleFileChange = async (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setCompanyLogo(file);
+
+      try {
+        // Get Signed URL
+        const { data: s3Response } = await axios.post(
+          "http://localhost:8282/api/v1/s3logo",
+          {
+            contentType: file.type,
+          }
+        );
+
+        const { signedUrl } = s3Response.data;
+        setCompanyLogoPreview(s3Response.data.fileLink);
+        console.log(
+          s3Response,
+          " -- ",
+          signedUrl,
+          " -- ",
+          s3Response.data.fileLink
+        );
+
+        // Upload file to S3
+        await axios.put(signedUrl, file, {
+          headers: {
+            "Content-Type": file.type,
+          },
+        });
+
+        // Set the preview URL
+      } catch (error) {
+        console.error("Error uploading the file:", error);
+      }
+    }
+  };
+
+  const handleSubmit = async () => {
+    //if (!companyLogoPreview) return;
+
+    try {
+      // Submit form with the fileLink
+      await axios.post("http://localhost:8282/api/v1/profile", {
+        company_name: companyName,
+        website: companyWebsite,
+        fileLink: companyLogoPreview,
+      });
+
+      closeModal();
+    } catch (error) {
+      console.error("Error submitting the form:", error);
+    }
+  };
+
   return (
     <div className="w-[100%] bg-background flex flex-col gap-[1rem] p-[0.5rem] md:p-[1rem] rounded-[24px]">
-      
-
       <div className="flex flex-wrap gap-[0.5rem] md:gap-[1rem]">
         <div className="bg-white flex-grow flex flex-col items-start justify-center rounded-[1rem] p-[0.75rem] md:p-[2rem]">
           <h3 className="text-[1rem] md:text-[1.2rem] font-medium text-accent-blue-1">
@@ -75,16 +134,60 @@ export default function Stats({ postData, notLive, onBulkPay }) {
       </div>
 
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-          <div className="bg-white p-6 rounded-lg">
-            <h2 className="text-xl font-bold mb-4">Create New Company</h2>
-            {/* Add form fields for creating a new company here */}
-            <p>Form fields for creating a new company would go here.</p>
-            <button
-              onClick={closeModal}
-              className="mt-4 bg-blue-500 text-white px-4 py-2 rounded"
-            >
-              Close
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-white p-[1rem] rounded-lg shadow-xl flex flex-col gap-[0.5rem]">
+            <div className="flex justify-between items-center">
+              <h2 className="text-xl font-bold">Create New Company</h2>
+              <IoClose size={24} onClick={closeModal} />
+            </div>
+            <div className="flex flex-col">
+              <label htmlFor="companylogo" className="form-label">
+                Company Logo
+              </label>
+              <input
+                className=""
+                id="companylogo"
+                type="file"
+                onChange={handleFileChange}
+              />
+              {companyLogoPreview && (
+                <div className="mt-2">
+                  <img
+                    src={companyLogoPreview}
+                    alt="Company Logo Preview"
+                    className="w-32 h-32 object-contain"
+                  />
+                </div>
+              )}
+            </div>
+            <div>
+              <label htmlFor="companyName" className="form-label">
+                Company Name
+              </label>
+              <input
+                className="form-inp"
+                id="companyName"
+                type="text"
+                placeholder="Company Name"
+                value={companyName}
+                onChange={(e) => setCompanyName(e.target.value)}
+              />
+            </div>
+            <div>
+              <label htmlFor="companyWebsite" className="form-label">
+                Company Website
+              </label>
+              <input
+                className="form-inp"
+                id="companyWebsite"
+                type="text"
+                placeholder="https://abc.com"
+                value={companyWebsite}
+                onChange={(e) => setCompanyWebsite(e.target.value)}
+              />
+            </div>
+            <button onClick={handleSubmit} className="button-primary">
+              Submit
             </button>
           </div>
         </div>

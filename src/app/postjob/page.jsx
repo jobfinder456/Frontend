@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Form from "@/components/Form";
-import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import { useRouter } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
@@ -10,15 +9,11 @@ import Modal from "@/components/Modal";
 import Loader from "@/components/Loader";
 
 function Page() {
-  const [userMail, setUserMail] = useState("");
   const router = useRouter();
   const [modal, setModal] = useState(false);
   const [load, setLoad] = useState(false);
   const [jobDetails, setJobDetails] = useState({
-    company_name: "", //
-    website: "", //
     job_title: "", //
-    image: "",
     work_loc: "", //
     remote: false, //
     job_link: "", //
@@ -26,6 +21,10 @@ function Page() {
     description: "",
     name: "",
     email: "",
+    level: "",
+    compensation: "",
+    categories: "",
+    company_id: "",
   });
 
   useEffect(() => {
@@ -34,26 +33,6 @@ function Page() {
       if (!token) {
         setModal(true);
         return; // Exit the function if there is no token
-      }
-
-      const mail = localStorage.getItem("userMail") || false;
-      if (!mail) {
-        try {
-          const responseVerify = await axios.get(
-            `${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/verifyuser`,
-            {
-              headers: { Authorization: `Bearer ${token}` },
-            }
-          );
-          const email = responseVerify.data.email;
-          localStorage.setItem("userMail", email);
-          setUserMail(email);
-        } catch (error) {
-          console.error("Error verifying user:", error);
-          setModal(true);
-        }
-      } else {
-        setUserMail(mail);
       }
     };
 
@@ -67,38 +46,27 @@ function Page() {
     const updatedJobDetails = {
       ...jobDetails,
       job_link: addHttps(jobDetails.job_link),
-      website: addHttps(jobDetails.website),
     };
 
     const token = localStorage.getItem("jf_token") || false;
 
-    const formData = new FormData();
-    Object.keys(updatedJobDetails).forEach((key) => {
-      if (key !== "image") {
-        formData.append(key, updatedJobDetails[key]);
-      }
-    });
-
-    if (updatedJobDetails.image) {
-      formData.append("image", updatedJobDetails.image);
-    }
-
     try {
       setLoad(true);
+      console.log(jobDetails)
 
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/insert`,
-        formData,
+        jobDetails,
         {
           headers: {
-            "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${token}`,
           },
         }
       );
 
+      console.log(response);
       toast("Job successfully posted");
-      router.push("/dashboard");
+      //router.push("/dashboard");
     } catch (error) {
       console.error(error);
 
@@ -120,7 +88,7 @@ function Page() {
 
       {load ? <Loader></Loader> : null}
 
-      {modal ? (
+      {/* {modal ? (
         <Modal
           title="First Sign In to Post a Job"
           button1Title="Sign In /  Create a Account"
@@ -128,12 +96,10 @@ function Page() {
           button1Action={() => router.push("/signinwithotp")}
           button2Action=""
         ></Modal>
-      ) : null}
+      ) : null} */}
 
       <div
-        className={`relative max-w-[980px] mx-auto my-[2rem] flex flex-col items-start justify-center gap-[1rem] p-[1rem] ${
-          load || modal ? "opacity-50" : null
-        }`}
+        className={`relative max-w-[980px] mx-auto my-[2rem] flex flex-col items-start justify-center gap-[1rem] p-[1rem] }`}
       >
         <h1 className="pl-[1rem] text-[24px] md:text-[2rem] leading-[2rem] md:leading-[2.5rem] font-light">
           <span className="font-medium">Recruit top talent!</span> Broadcast
@@ -143,7 +109,6 @@ function Page() {
         <Form
           onSubmit={onSubmit}
           setJobDetails={setJobDetails}
-          userMail={userMail}
           jobDetails={jobDetails}
           isEdit={false}
         />

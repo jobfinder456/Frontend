@@ -1,9 +1,29 @@
-import React, { useEffect } from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import Tiptap from "./Tiptap";
+import axios from "axios";
 
-function Form({ onSubmit, setJobDetails, jobDetails, isEdit, userMail }) {
+function Form({ onSubmit, setJobDetails, jobDetails, isEdit }) {
+  const [companyProfiles, setCompanyProfiles] = useState([]);
+
+  useEffect(() => {
+    fetchProfiles();
+  }, []);
+
+  const fetchProfiles = async () => {
+    try {
+      const response = await axios.get("http://localhost:8282/api/v1/profile");
+      console.log(response);
+      setCompanyProfiles(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const [selectedCompany, setSelectedCompany] = useState(null);
+
   const handleFileChange = (e) => {
-    const file = e.target.files[0]; // Get the first file
+    const file = e.target.files[0];
     setJobDetails((prevState) => ({ ...prevState, image: file }));
   };
 
@@ -11,9 +31,20 @@ function Form({ onSubmit, setJobDetails, jobDetails, isEdit, userMail }) {
     setJobDetails((prevState) => ({ ...prevState, description: content }));
   };
 
-  useEffect(() => {
-    setJobDetails((prevState) => ({ ...prevState, email: userMail }));
-  }, [userMail, setJobDetails]);
+  const handleCompanySelect = (e) => {
+    const company = companyProfiles.find(
+      (c) => c.id === parseInt(e.target.value)
+    );
+
+    setSelectedCompany(company);
+    if (company) {
+      console.log(company.id, " --  hree" )
+      setJobDetails((prev) => ({
+        ...prev,
+        company_id: company.id,
+      }));
+    }
+  };
 
   return (
     <div>
@@ -21,9 +52,26 @@ function Form({ onSubmit, setJobDetails, jobDetails, isEdit, userMail }) {
         <div className="bg-white rounded-[12px] flex flex-wrap gap-[1rem] p-[16px] md:p-[24px]">
           <div className="w-[100%] flex flex-col mb-[1rem]">
             <h3 className="text-[20px] font-medium">Company Details</h3>
-            <p>
-              We will set up a cool analytics dashboard for your job listings.
-            </p>
+            <p>Select a company from the dropdown to populate the details.</p>
+          </div>
+
+          <div className="flex flex-col w-[100%] gap-[0.5rem]">
+            <label htmlFor="companySelect" className="form-label">
+              Select Company
+            </label>
+            <select
+              id="companySelect"
+              className="form-inp"
+              onChange={handleCompanySelect}
+              value={selectedCompany?.id || ""}
+            >
+              <option value="">Select a company</option>
+              {companyProfiles.map((company) => (
+                <option key={company.id} value={company.id}>
+                  {company.company_name}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="flex flex-col flex-grow gap-[0.5rem]">
@@ -34,14 +82,8 @@ function Form({ onSubmit, setJobDetails, jobDetails, isEdit, userMail }) {
               className="form-inp"
               id="companyName"
               type="text"
-              placeholder="Pied Piper"
-              value={jobDetails.company_name}
-              onChange={(e) =>
-                setJobDetails((prevState) => ({
-                  ...prevState,
-                  company_name: e.target.value,
-                }))
-              }
+              value={selectedCompany?.company_name}
+              disabled
             />
           </div>
 
@@ -53,14 +95,8 @@ function Form({ onSubmit, setJobDetails, jobDetails, isEdit, userMail }) {
               className="form-inp"
               id="companyWebsite"
               type="text"
-              placeholder="https://:abc.com"
-              value={jobDetails.website}
-              onChange={(e) =>
-                setJobDetails((prevState) => ({
-                  ...prevState,
-                  website: e.target.value,
-                }))
-              }
+              value={selectedCompany?.website}
+              disabled
             />
           </div>
 
@@ -68,7 +104,20 @@ function Form({ onSubmit, setJobDetails, jobDetails, isEdit, userMail }) {
             <label htmlFor="companyLogo" className="form-label">
               Logo
             </label>
-            <input type="file" name="image" id="" onChange={handleFileChange} />
+            <input
+              type="file"
+              name="image"
+              id=""
+              onChange={handleFileChange}
+              disabled
+            />
+            {jobDetails.image && (
+              <img
+                src={selectedCompany?.image_url}
+                alt="Company logo"
+                className="mt-2 h-16"
+              />
+            )}
           </div>
         </div>
 
@@ -87,7 +136,7 @@ function Form({ onSubmit, setJobDetails, jobDetails, isEdit, userMail }) {
                 className="form-inp"
                 id="jobTitle"
                 type="text"
-                placeholder="Full STack Software Engineer"
+                placeholder="Full Stack Software Engineer"
                 value={jobDetails.job_title}
                 onChange={(e) =>
                   setJobDetails((prevState) => ({
@@ -98,9 +147,9 @@ function Form({ onSubmit, setJobDetails, jobDetails, isEdit, userMail }) {
               />
             </div>
 
-            <div className="w-[100%] md:w-[32%] flex flex-col gap-[0.5rem] ">
+            <div className="w-[100%] md:w-[32%] flex flex-col gap-[0.5rem]">
               <label htmlFor="commitment" className="form-label">
-                Employement Type
+                Employment Type
               </label>
               <select
                 name="commitment"
@@ -131,7 +180,7 @@ function Form({ onSubmit, setJobDetails, jobDetails, isEdit, userMail }) {
                 className="form-inp"
                 id="location"
                 type="text"
-                placeholder="Sillicon Valley"
+                placeholder="Silicon Valley"
                 value={jobDetails.work_loc}
                 onChange={(e) =>
                   setJobDetails((prevState) => ({
@@ -142,7 +191,7 @@ function Form({ onSubmit, setJobDetails, jobDetails, isEdit, userMail }) {
               />
             </div>
 
-            <div className="w-[100%] md:w-[32%] flex flex-col gap-[0.5rem] ">
+            <div className="w-[100%] md:w-[32%] flex flex-col gap-[0.5rem]">
               <label htmlFor="remote" className="form-label">
                 Remote ?
               </label>
@@ -160,6 +209,74 @@ function Form({ onSubmit, setJobDetails, jobDetails, isEdit, userMail }) {
               >
                 <option value="true">Yes</option>
                 <option value="false">No</option>
+              </select>
+            </div>
+          </div>
+
+          <div className="flex flex-col md:flex-row w-[100%] gap-[0.5rem] justify-between items-center">
+            <div className="w-[100%] md:w-[32%] flex flex-col gap-[0.5rem]">
+              <label htmlFor="compensation" className="form-label">
+                Compensation
+              </label>
+              <input
+                className="form-inp"
+                id="compensation"
+                type="number"
+                placeholder="Annual salary"
+                value={jobDetails.compensation}
+                onChange={(e) =>
+                  setJobDetails((prevState) => ({
+                    ...prevState,
+                    compensation: e.target.value,
+                  }))
+                }
+              />
+            </div>
+
+            <div className="w-[100%] md:w-[32%] flex flex-col gap-[0.5rem]">
+              <label htmlFor="level" className="form-label">
+                Level
+              </label>
+              <select
+                name="level"
+                id="level"
+                className="form-inp"
+                value={jobDetails.level}
+                onChange={(e) =>
+                  setJobDetails((prevState) => ({
+                    ...prevState,
+                    level: e.target.value,
+                  }))
+                }
+              >
+                <option value="entry">Entry</option>
+                <option value="mid">Mid</option>
+                <option value="senior">Senior</option>
+                <option value="manager">Manager</option>
+              </select>
+            </div>
+
+            <div className="w-[100%] md:w-[32%] flex flex-col gap-[0.5rem]">
+              <label htmlFor="category" className="form-label">
+                Category
+              </label>
+              <select
+                name="category"
+                id="category"
+                className="form-inp"
+                value={jobDetails.categories}
+                onChange={(e) =>
+                  setJobDetails((prevState) => ({
+                    ...prevState,
+                    categories: e.target.value,
+                  }))
+                }
+              >
+                <option value="design">Design</option>
+                <option value="tech">Tech</option>
+                <option value="devops">DevOps</option>
+                <option value="marketing">Marketing</option>
+                <option value="sales">Sales</option>
               </select>
             </div>
           </div>
@@ -227,14 +344,13 @@ function Form({ onSubmit, setJobDetails, jobDetails, isEdit, userMail }) {
               </label>
               <input
                 className="form-inp"
-                disabled
                 id="hrEmail"
                 type="text"
-                value={userMail}
-                onChange={() =>
+                value={jobDetails.email}
+                onChange={(e) =>
                   setJobDetails((prevState) => ({
                     ...prevState,
-                    email: userMail,
+                    email: e.target.value,
                   }))
                 }
               />
@@ -247,13 +363,11 @@ function Form({ onSubmit, setJobDetails, jobDetails, isEdit, userMail }) {
             onClick={onSubmit}
             className="w-[100%] bg-accent-blue-1 p-[8px] md:p-[20px] text-[1.2rem] font-medium rounded-[8px] text-white"
           >
-            {" "}
             {isEdit ? (
               "Update Job"
             ) : (
               <>
-                Initiate Job Listing{" "}
-                <span className=" px-[0.2rem]"></span>
+                Initiate Job Listing <span className="px-[0.2rem]"></span>
               </>
             )}
           </button>
