@@ -27,18 +27,6 @@ function Page() {
     company_id: "",
   });
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      const token = localStorage.getItem("jf_token") || false;
-      if (!token) {
-        setModal(true);
-        return; // Exit the function if there is no token
-      }
-    };
-
-    fetchUserData();
-  }, []);
-
   const onSubmit = async () => {
     const addHttps = (url) =>
       url.startsWith("https://") ? url : `https://${url}`;
@@ -48,19 +36,15 @@ function Page() {
       job_link: addHttps(jobDetails.job_link),
     };
 
-    const token = localStorage.getItem("jf_token") || false;
-
     try {
       setLoad(true);
       console.log(jobDetails)
 
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_BACK_MAIN}}/api/v1/insert`,
-        jobDetails,
+        `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/insert`,
+        updatedJobDetails,
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          withCredentials: true
         }
       );
 

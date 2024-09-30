@@ -12,8 +12,11 @@ function Form({ onSubmit, setJobDetails, jobDetails, isEdit }) {
 
   const fetchProfiles = async () => {
     try {
-      const response = await axios.get(`${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/profile`);
-      console.log(response);
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/profile`,
+        { withCredentials: true }
+      );
+      //console.log("ehe", response);
       setCompanyProfiles(response.data);
     } catch (error) {
       console.log(error);
@@ -38,12 +41,14 @@ function Form({ onSubmit, setJobDetails, jobDetails, isEdit }) {
 
     setSelectedCompany(company);
     if (company) {
-      console.log(company.id, " --  hree" )
+      console.log(company.id, " --  hree");
       setJobDetails((prev) => ({
         ...prev,
         company_id: company.id,
       }));
     }
+
+    console.log(company);
   };
 
   return (

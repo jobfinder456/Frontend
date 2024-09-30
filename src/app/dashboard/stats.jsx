@@ -12,23 +12,22 @@ export default function Stats({ postData, notLive, onBulkPay }) {
   const [companyProfiles, setCompanyProfiles] = useState([]);
 
   useEffect(() => {
-
-    fetchProfile()
-
-  },[])
+    fetchProfile();
+  }, []);
 
   const fetchProfile = async () => {
     try {
       const response = await axios.get(
         `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/profile`,
         {
-          withCredentials: true
+          withCredentials: true,
         }
       );
-      console.log(response)
-      
+      console.log(response.data);
+      // Set the company profiles from API response
+      setCompanyProfiles(response.data);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 
@@ -41,32 +40,22 @@ export default function Stats({ postData, notLive, onBulkPay }) {
       setCompanyLogo(file);
 
       try {
-        // Get Signed URL
         const { data: s3Response } = await axios.post(
           `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/s3logo`,
           {
             contentType: file.type,
-          }
+          },
+          { withCredentials: true }
         );
 
         const { signedUrl } = s3Response.data;
+        console.log(s3Response.data);
         setCompanyLogoPreview(s3Response.data.fileLink);
-        console.log(
-          s3Response,
-          " -- ",
-          signedUrl,
-          " -- ",
-          s3Response.data.fileLink
-        );
-
-        // Upload file to S3
         await axios.put(signedUrl, file, {
           headers: {
             "Content-Type": file.type,
           },
         });
-
-        // Set the preview URL
       } catch (error) {
         console.error("Error uploading the file:", error);
       }
@@ -74,17 +63,19 @@ export default function Stats({ postData, notLive, onBulkPay }) {
   };
 
   const handleSubmit = async () => {
-    //if (!companyLogoPreview) return;
-
     try {
-      // Submit form with the fileLink
-      await axios.post(`${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/profile`, {
-        company_name: companyName,
-        website: companyWebsite,
-        fileLink: companyLogoPreview,
-      });
+      await axios.post(
+        `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/profile`,
+        {
+          company_name: companyName,
+          website: companyWebsite,
+          fileLink: companyLogoPreview,
+        },
+        { withCredentials: true }
+      );
 
       closeModal();
+      fetchProfile();
     } catch (error) {
       console.error("Error submitting the form:", error);
     }
@@ -125,7 +116,7 @@ export default function Stats({ postData, notLive, onBulkPay }) {
           <div className="w-[100%] flex justify-between items-center">
             <h3 className="text-[1rem] md:text-[1.2rem] font-medium text-accent-blue-1">
               Company Profiles
-            </h3>{" "}
+            </h3>
             <button
               onClick={openModal}
               className="bg-accent-blue-1 text-white px-[0.5rem] py-[0.05rem] rounded-[8px]"
@@ -133,17 +124,25 @@ export default function Stats({ postData, notLive, onBulkPay }) {
               +
             </button>
           </div>
+          {/* Map over companyProfiles to render the profiles */}
           {companyProfiles.map((company, index) => (
             <div key={index} className="flex items-center gap-2 mb-2">
               <img
-                src={company.logo}
-                alt={`${company.name} logo`}
+                src={company.image_url}
+                alt={`${company.company_name} logo`}
                 className="w-8 h-8 rounded-full"
               />
-              <span className="text-[14px] md:text-[16px]">{company.name}</span>
-              <span className="text-[12px] text-green-500">
-                {company.status}
+              <span className="text-[14px] md:text-[16px]">
+                {company.company_name}
               </span>
+              <a
+                href={`https://${company.website}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-500 underline"
+              >
+                {company.website}
+              </a>
             </div>
           ))}
         </div>
@@ -160,16 +159,11 @@ export default function Stats({ postData, notLive, onBulkPay }) {
               <label htmlFor="companylogo" className="form-label">
                 Company Logo
               </label>
-              <input
-                className=""
-                id="companylogo"
-                type="file"
-                onChange={handleFileChange}
-              />
+              <input id="companylogo" type="file" onChange={handleFileChange} />
               {companyLogoPreview && (
                 <div className="mt-2">
                   <img
-                    src={companyLogoPreview}
+                    src={`${companyLogoPreview}`}
                     alt="Company Logo Preview"
                     className="w-32 h-32 object-contain"
                   />
