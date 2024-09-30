@@ -15,7 +15,7 @@ const Login = () => {
   const onEmailSubmit = async () => {
     try {
       toast("🟢 OTP send succesfully");
-      await axios.post(`${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/signin`, {
+      await axios.post(`${process.env.NEXT_PUBLIC_BACK_AUTH}/api/v1/signin`, {
         email: email,
         password: password,
       });
@@ -28,10 +28,11 @@ const Login = () => {
   const onOtpSubmit = async () => {
     try {
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/check`,
-        { email: email, otp: otp }
+        `${process.env.NEXT_PUBLIC_BACK_AUTH}/api/v1/check`,
+        { email: email, otp: otp },
+        { withCredentials: true }
       );
-      localStorage.setItem("jf_token", response.data.token);
+      
       router.push("/dashboard");
     } catch (error) {
       console.error("Email sending error:", error);

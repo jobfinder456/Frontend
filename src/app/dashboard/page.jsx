@@ -3,13 +3,12 @@
 import Navbar from "@/components/Navbar";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import Modal from "@/components/Modal";
 import Loader from "@/components/Loader";
 import DashboardTable from "@/components/DashboardTable";
-import Stats from "./stats"
+import Stats from "./stats";
 
 function Page() {
   const router = useRouter();
@@ -21,75 +20,33 @@ function Page() {
   const [notLive, setNotLive] = useState(0);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const token = localStorage.getItem("jf_token");
-      if (!token) {
-        router.push("/signinwithotp");
-        return;
-      }
-
-      const mail = localStorage.getItem("userMail");
-      if (!mail) {
-        try {
-          const responseVerify = await axios.get(
-            `${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/verifyuser`,
-            {
-              headers: { Authorization: `Bearer ${token}` },
-            }
-          );
-          const userEmail = responseVerify.data.email;
-          localStorage.setItem("userMail", userEmail);
-          setEmail(userEmail);
-          return userEmail;
-        } catch (error) {
-          console.error("Error verifying user:", error);
-          setModal(true);
-          setLoad(false);
-          return null;
-        }
-      } else {
-        setEmail(mail);
-        return mail;
-      }
-    };
-
-    const fetchPostData = async (email) => {
-      if (!email) return;
-
-      try {
-        const token = localStorage.getItem("jf_token");
-        const responseSubmit = await axios.post(
-          `${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/users-list`,
-          { email },
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
-        setPostData(responseSubmit.data.all.jobResult);
-        setNotLive(responseSubmit.data.all.is_ok);
-      } catch (error) {
-        console.error("Error fetching post data:", error);
-        toast("Please login again");
-      } finally {
-        setLoad(false);
-      }
-    };
-
-    const init = async () => {
-      const userEmail = await fetchData();
-      await fetchPostData(userEmail);
-    };
-
-    init();
+    fetchJobs();
   }, [router]);
+
+  const fetchJobs = async () => {
+    try {
+      const responseSubmit = await axios.get(
+        `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/jobs`,
+        {
+          withCredentials: true,
+        }
+      );
+      setPostData(responseSubmit.data.all.jobResult);
+      setNotLive(responseSubmit.data.all.is_ok);
+    } catch (error) {
+      console.error("Error fetching post data:", error);
+      toast("Please login again");
+    } finally {
+      setLoad(false);
+    }
+  };
 
   const onDelete = async (id) => {
     try {
       setLoad(true);
-      const token = localStorage.getItem("jf_token") || false;
       const response = await axios.delete(
-        `${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/delete/${id}`,
-        { headers: { Authorization: `Bearer ${token}` } }
+        `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/delete/${id}`,
+        { withCredentials: true }
       );
       toast("Deleted Successfully");
       setModal(false);
@@ -112,7 +69,7 @@ function Page() {
         return acc;
       }, []);
       console.log(unLiveJobIds);
-      onPay(unLiveJobIds)
+      onPay(unLiveJobIds);
 
       // Add logic for bulk payment here
     } catch (error) {
@@ -124,7 +81,7 @@ function Page() {
     try {
       setLoad(true);
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/create-payment`,
+        `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/create-payment`,
         { userId: email, jobId, price: 29900 }
       );
       const { orderId } = response.data;
@@ -141,7 +98,7 @@ function Page() {
           const ord_id = orderId;
           const sign = `${response.razorpay_signature}`;
           const validateRes = await axios.post(
-            `${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/verify-payment`,
+            `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/verify-payment`,
             { raz_pay_id: pay_id, raz_ord_id: ord_id, raz_sign: sign, jobId }
           );
           //const jsonRes = await validateRes.json();

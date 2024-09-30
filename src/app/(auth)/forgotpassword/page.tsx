@@ -16,7 +16,7 @@ const ForgotPassword = () => {
 
   const onEmailSubmit = async () => {
     try {
-      await axios.post(`${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/forgetpass`, {
+      await axios.post(`${process.env.NEXT_PUBLIC_BACK_AUTH}/api/v1/forgetpass`, {
         email: email,
       });
       toast.success("OTP sent successfully");
@@ -35,7 +35,7 @@ const ForgotPassword = () => {
 
     try {
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/resetpass`,
+        `${process.env.NEXT_PUBLIC_BACK_AUTH}/api/v1/resetpass`,
         { email, otp, newPassword: password }
       );
       localStorage.setItem("jf_token", response.data.token);

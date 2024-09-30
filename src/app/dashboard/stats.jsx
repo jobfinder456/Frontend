@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { RxExternalLink } from "react-icons/rx";
 import { IoClose } from "react-icons/io5";
 import axios from "axios";
@@ -9,12 +9,28 @@ export default function Stats({ postData, notLive, onBulkPay }) {
   const [companyLogoPreview, setCompanyLogoPreview] = useState(null);
   const [companyName, setCompanyName] = useState("");
   const [companyWebsite, setCompanyWebsite] = useState("");
+  const [companyProfiles, setCompanyProfiles] = useState([]);
 
-  const companyProfiles = [
-    { name: "Acme Corp", logo: "/api/placeholder/32/32", status: "Active" },
-    { name: "Globex Inc", logo: "/api/placeholder/32/32", status: "Active" },
-    { name: "Initech", logo: "/api/placeholder/32/32", status: "Active" },
-  ];
+  useEffect(() => {
+
+    fetchProfile()
+
+  },[])
+
+  const fetchProfile = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/profile`,
+        {
+          withCredentials: true
+        }
+      );
+      console.log(response)
+      
+    } catch (error) {
+      console.log(error)
+    }
+  };
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
@@ -27,7 +43,7 @@ export default function Stats({ postData, notLive, onBulkPay }) {
       try {
         // Get Signed URL
         const { data: s3Response } = await axios.post(
-          "http://localhost:8282/api/v1/s3logo",
+          `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/s3logo`,
           {
             contentType: file.type,
           }
@@ -62,7 +78,7 @@ export default function Stats({ postData, notLive, onBulkPay }) {
 
     try {
       // Submit form with the fileLink
-      await axios.post("http://localhost:8282/api/v1/profile", {
+      await axios.post(`${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/profile`, {
         company_name: companyName,
         website: companyWebsite,
         fileLink: companyLogoPreview,

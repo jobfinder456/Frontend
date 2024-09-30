@@ -55,7 +55,7 @@ function Page() {
       console.log(jobDetails)
 
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/insert`,
+        `${process.env.NEXT_PUBLIC_BACK_MAIN}}/api/v1/insert`,
         jobDetails,
         {
           headers: {

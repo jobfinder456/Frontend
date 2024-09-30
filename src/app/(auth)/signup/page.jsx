@@ -16,7 +16,7 @@ const Signup = () => {
   const onEmailSubmit = async () => {
     try {
       toast("🟢 OTP send succesfully");
-      await axios.post(`${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/signup`, {
+      await axios.post(`${process.env.NEXT_PUBLIC_BACK_AUTH}/api/v1/signup`, {
         email: email,
         password: password,
       });
@@ -29,7 +29,7 @@ const Signup = () => {
   const onOtpSubmit = async () => {
     try {
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/check`,
+        `${process.env.NEXT_PUBLIC_BACK_AUTH}/api/v1/check`,
         { email: email, otp: otp }
       );
       localStorage.setItem("jf_token", response.data.token);

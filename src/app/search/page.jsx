@@ -33,7 +33,7 @@ export default function Page() {
           "---",
           remote
         );
-        const url = `${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/list?page=${page}&search=${debouncedSearchTerm}&loc=${debouncedLoc}&remote=${remote}`;
+        const url = `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/list?page=${page}&search=${debouncedSearchTerm}&loc=${debouncedLoc}&remote=${remote}`;
         const response = await axios.get(url);
         console.log(response);
         console.log("called - ", url);
