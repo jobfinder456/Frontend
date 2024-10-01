@@ -18,9 +18,17 @@ function Page() {
     website: "",
     job_title: "",
     work_loc: "",
-    remote: true,
+    commitment: "",
+    remote: false,
     job_link: "",
     description: "",
+    is_ok: false,
+    categories: "",
+    level: "",
+    compensation: "",
+    name: "",
+    email: "",
+    image_url: "",
   });
   const [load, setLoad] = useState(true);
   const [notFound, setNotFound] = useState(false);
@@ -35,11 +43,30 @@ function Page() {
             withCredentials: true,
           }
         );
-        console.log(response);
-        if (response.data.result.length === 0) {
+        
+        if (response.data === 0) {
           setNotFound(true);
         } else {
-          setJobDetails(response.data.result[0]);
+          const jobData = response.data;
+          console.log("her1e", jobData)
+          setJobDetails({
+            user_profile_id: jobData.user_profile_id,
+            company_name: jobData.company_name,
+            website: jobData.website,
+            job_title: jobData.job_title,
+            work_loc: jobData.work_loc,
+            commitment: jobData.commitment,
+            remote: jobData.remote,
+            job_link: jobData.job_link,
+            description: jobData.description,
+            is_ok: jobData.is_ok,
+            categories: jobData.categories,
+            level: jobData.level,
+            compensation: jobData.compensation,
+            name: jobData.name,
+            email: jobData.email,
+            image_url: jobData.image_url,
+          });
         }
         setLoad(false);
       } catch (error) {
@@ -55,10 +82,9 @@ function Page() {
   const onSubmit = async () => {
     try {
       setLoad(true);
-      const token = localStorage.getItem("jf_token") || false;
       const response = await axios.put(
         `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/jobs/${id}`,
-        jobDetails, 
+        jobDetails,
         {
           withCredentials: true,
         }

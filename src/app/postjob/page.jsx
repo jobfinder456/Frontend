@@ -24,7 +24,7 @@ function Page() {
     level: "",
     compensation: "",
     categories: "",
-    company_id: "",
+    user_profile_id: "",
   });
 
   const onSubmit = async () => {

@@ -45,7 +45,7 @@ function Page() {
     try {
       setLoad(true);
       const response = await axios.delete(
-        `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/delete/${id}`,
+        `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/jobs/${id}`,
         { withCredentials: true }
       );
       toast("Deleted Successfully");

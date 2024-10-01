@@ -10,6 +10,19 @@ function Form({ onSubmit, setJobDetails, jobDetails, isEdit }) {
     fetchProfiles();
   }, []);
 
+  useEffect(() => {
+    console.log("heheheh", isEdit);
+
+    if (isEdit) {
+      console.log("hfhfhfhffj", jobDetails.user_profile_id);
+      const company = companyProfiles.find(
+        (c) => c.id === parseInt(jobDetails.user_profile_id)
+      );
+
+      setSelectedCompany(company);
+    }
+  }, [jobDetails]);
+
   const fetchProfiles = async () => {
     try {
       const response = await axios.get(
@@ -44,7 +57,7 @@ function Form({ onSubmit, setJobDetails, jobDetails, isEdit }) {
       console.log(company.id, " --  hree");
       setJobDetails((prev) => ({
         ...prev,
-        company_id: company.id,
+        user_profile_id: company.id,
       }));
     }
 
@@ -316,52 +329,50 @@ function Form({ onSubmit, setJobDetails, jobDetails, isEdit }) {
           </div>
         </div>
 
-        {!isEdit && (
-          <div className="flex-grow bg-white rounded-[12px] flex flex-wrap gap-[1rem] p-[16px] md:p-[24px]">
-            <div className="flex flex-col w-[100%] rounded-md mb-[1rem]">
-              <h3 className="text-[1.2rem] font-medium">
-                How can we reach you?
-              </h3>
-              <p>Just for the Get Jobs Today team.</p>
-            </div>
-
-            <div className="flex flex-col flex-grow gap-[0.5rem]">
-              <label htmlFor="hrName" className="form-label">
-                Name
-              </label>
-              <input
-                className="form-inp"
-                id="hrName"
-                type="text"
-                placeholder="Richard Horlicks"
-                value={jobDetails.name}
-                onChange={(e) =>
-                  setJobDetails((prevState) => ({
-                    ...prevState,
-                    name: e.target.value,
-                  }))
-                }
-              />
-            </div>
-            <div className="flex flex-col flex-grow gap-[0.5rem]">
-              <label htmlFor="hrEmail" className="form-label">
-                Email
-              </label>
-              <input
-                className="form-inp"
-                id="hrEmail"
-                type="text"
-                value={jobDetails.email}
-                onChange={(e) =>
-                  setJobDetails((prevState) => ({
-                    ...prevState,
-                    email: e.target.value,
-                  }))
-                }
-              />
-            </div>
+        {/* {!isEdit && ( */}
+        <div className="flex-grow bg-white rounded-[12px] flex flex-wrap gap-[1rem] p-[16px] md:p-[24px]">
+          <div className="flex flex-col w-[100%] rounded-md mb-[1rem]">
+            <h3 className="text-[1.2rem] font-medium">How can we reach you?</h3>
+            <p>Just for the Get Jobs Today team.</p>
           </div>
-        )}
+
+          <div className="flex flex-col flex-grow gap-[0.5rem]">
+            <label htmlFor="hrName" className="form-label">
+              Name
+            </label>
+            <input
+              className="form-inp"
+              id="hrName"
+              type="text"
+              placeholder="Richard Horlicks"
+              value={jobDetails.name}
+              onChange={(e) =>
+                setJobDetails((prevState) => ({
+                  ...prevState,
+                  name: e.target.value,
+                }))
+              }
+            />
+          </div>
+          <div className="flex flex-col flex-grow gap-[0.5rem]">
+            <label htmlFor="hrEmail" className="form-label">
+              Email
+            </label>
+            <input
+              className="form-inp"
+              id="hrEmail"
+              type="text"
+              value={jobDetails.email}
+              onChange={(e) =>
+                setJobDetails((prevState) => ({
+                  ...prevState,
+                  email: e.target.value,
+                }))
+              }
+            />
+          </div>
+        </div>
+        {/* )} */}
 
         <div className="w-[100%]">
           <button
