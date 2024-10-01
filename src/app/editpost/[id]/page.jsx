@@ -30,7 +30,10 @@ function Page() {
       try {
         setLoad(true);
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/job/${id}`
+          `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/jobs/${id}`,
+          {
+            withCredentials: true,
+          }
         );
         console.log(response);
         if (response.data.result.length === 0) {
@@ -54,10 +57,13 @@ function Page() {
       setLoad(true);
       const token = localStorage.getItem("jf_token") || false;
       const response = await axios.put(
-        `${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/update/${id}`,
-        jobDetails,
-        { headers: { Authorization: `Bearer ${token}` } }
+        `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/jobs/${id}`,
+        jobDetails, 
+        {
+          withCredentials: true,
+        }
       );
+      
       toast("Job Updated Successfully");
       console.log(response);
       router.push(`/job/${id}`);
