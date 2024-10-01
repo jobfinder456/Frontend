@@ -2,7 +2,12 @@
 import React, { useState } from "react";
 import { IoFilter } from "react-icons/io5";
 
-function Search({ setSearchValue, setLocValue, setRemoteValue, onFilterChange }) {
+function Search({
+  setSearchValue,
+  setLocValue,
+  setRemoteValue,
+  onFilterChange,
+}) {
   const [showFilters, setShowFilters] = useState(false);
 
   const toggleFilters = () => {
@@ -16,6 +21,10 @@ function Search({ setSearchValue, setLocValue, setRemoteValue, onFilterChange })
 
   return (
     <div className="flex flex-col md:flex-row justify-between items-center gap-[0.5rem] md:gap-[1rem] bg-background p-[0.5rem] md:p-[1rem] rounded-[12px] md:rounded-[24px]">
+
+      <div>
+        
+      </div>
       <input
         type="text"
         placeholder="Search for role"
@@ -43,7 +52,10 @@ function Search({ setSearchValue, setLocValue, setRemoteValue, onFilterChange })
         </div>
       </div>
 
-      <button onClick={toggleFilters} className="bg-white rounded-[8px] md:rounded-[1rem] flex items-center justify-between p-[1rem]">
+      <button
+        onClick={toggleFilters}
+        className="bg-white rounded-[8px] md:rounded-[1rem] flex items-center justify-between p-[1rem]"
+      >
         <IoFilter />
       </button>
 

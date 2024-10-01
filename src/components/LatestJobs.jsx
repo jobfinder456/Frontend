@@ -3,7 +3,7 @@ import JobCard from "./JobCard"; // Assuming JobCard is another component
 
 export default async function LatestJobs() {
   try {
-    const apiUrl = `${process.env.NEXT_PUBLIC_BACK_URL}/api/v1/list?page=1&search=&loc=&remote=`;
+    const apiUrl = `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/list?page=1&search=&loc=&remote=`;
 
     const response = await axios.get(apiUrl, {
       next: {
