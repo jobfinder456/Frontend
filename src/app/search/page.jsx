@@ -5,7 +5,6 @@ import Navbar from "@/components/Navbar";
 import Search from "@/components/Search";
 import JobCard from "@/components/JobCard";
 import useDebounce from "@/hooks/useDebounce";
-import Link from "next/link";
 import Loader from "@/components/Loader";
 
 export default function Page() {
@@ -16,6 +15,11 @@ export default function Page() {
   const [page, setPage] = useState(1);
   const [searchChanged, setSearchChanged] = useState(false);
   const [remote, setRemote] = useState(false);
+  const [filters, setFilters] = useState({
+    level: "",
+    commitment: "",
+    categories: "",
+  });
 
   const debouncedSearchTerm = useDebounce(search, 500);
   const debouncedLoc = useDebounce(loc, 500);
@@ -24,21 +28,10 @@ export default function Page() {
     async function getJob() {
       try {
         setLoad(true);
-        console.log(
-          page,
-          "---",
-          debouncedSearchTerm,
-          "---",
-          debouncedLoc,
-          "---",
-          remote
-        );
-        const url = `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/list?page=${page}&search=${debouncedSearchTerm}&loc=${debouncedLoc}&remote=${remote}`;
+        const { level, commitment, categories } = filters;
+        const url = `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/list?page=${page}&search=${debouncedSearchTerm}&loc=${debouncedLoc}&remote=${remote}&commitment=${commitment}&level=${level}&categories=${categories}`;
         const response = await axios.get(url);
-        console.log(response);
-        console.log("called - ", url);
         setPosts((prevPosts) => [...prevPosts, ...response.data.all]);
-        //setPosts(response.data.all); // Append new posts to existing posts
       } catch (error) {
         console.log(error);
       } finally {
@@ -47,35 +40,40 @@ export default function Page() {
     }
 
     getJob();
-  }, [debouncedSearchTerm, debouncedLoc, page, searchChanged, remote]);
+  }, [debouncedSearchTerm, debouncedLoc, page, searchChanged, remote, filters]);
 
   const handleSearchChange = (value) => {
     setSearch(value);
-    setPage(1);
-    setPosts([]);
-    setSearchChanged(true);
+    resetPagination();
   };
 
   const handleRemoteChange = () => {
     setRemote(!remote);
-    setPage(1);
-    setPosts([]);
-    setSearchChanged(true);
+    resetPagination();
   };
 
   const handleLocationChange = (value) => {
     setLoc(value);
+    resetPagination();
+  };
+
+  const handleFilterChange = (key, value) => {
+    setFilters((prev) => ({ ...prev, [key]: value }));
+    resetPagination();
+  };
+
+  const resetPagination = () => {
     setPage(1);
     setPosts([]);
     setSearchChanged(true);
   };
 
   const handleShowMoreResults = () => {
-    setPage((prevPage) => prevPage + 1); // Increment page number
+    setPage((prevPage) => prevPage + 1);
   };
 
   return (
-    <div className=" max-w-[73.75rem] mx-auto flex flex-col items-center justify-center gap-[2rem]">
+    <div className="max-w-[73.75rem] mx-auto flex flex-col items-center justify-center gap-[2rem]">
       <Navbar />
 
       <div className="flex flex-col gap-[2rem] px-[20px]">
@@ -84,11 +82,9 @@ export default function Page() {
             <span className="font-medium">Get</span> your dream{" "}
             <span className="font-medium">job today</span>
           </h1>
-
-          <h3 className="md:px-[4rem] text-[14px] md:text-[20px] ">
-            Boost your career growth, by joining one of the the latest growing
-            company, browse through our immense library of jobs of the growing
-            startups{" "}
+          <h3 className="md:px-[4rem] text-[14px] md:text-[20px]">
+            Boost your career growth by joining one of the latest growing
+            companies. Browse through our immense library of jobs at the fastest-growing startups.
           </h3>
         </div>
 
@@ -96,10 +92,9 @@ export default function Page() {
           setLocValue={handleLocationChange}
           setSearchValue={handleSearchChange}
           setRemoteValue={handleRemoteChange}
+          onFilterChange={handleFilterChange}
         />
       </div>
-
-      {/* { load ? <Loader></Loader> : null} */}
 
       <div className="w-[100%] flex flex-col justify-center items-center px-[20px]">
         {posts.length > 0 ? (
@@ -115,7 +110,7 @@ export default function Page() {
             />
           ))
         ) : (
-          <p>No jobs found </p>
+          <p>No jobs found</p>
         )}
       </div>
 
