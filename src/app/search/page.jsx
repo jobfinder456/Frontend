@@ -106,7 +106,7 @@ export default function Page() {
               companyName={job.company_name}
               isRemote={job.remote}
               loc={job.work_loc}
-              img={job.logo_url}
+              img={job.image_url}
             />
           ))
         ) : (
