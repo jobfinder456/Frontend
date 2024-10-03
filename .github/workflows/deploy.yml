@@ -46,7 +46,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: your-dockerhub-username/your-repo-name:latest
+          tags: teslaopunix/getjobs_front:latest
           # Replace 'your-dockerhub-username' and 'your-repo-name' accordingly
 
       # Step 8: Deploy to EC2 via SSH
@@ -63,17 +63,17 @@ jobs:
             set -e  # Exit immediately if a command exits with a non-zero status
 
             # Pull the latest Docker image
-            docker pull your-dockerhub-username/your-repo-name:latest
+            docker pull teslaopunix/getjobs_front:latest
 
             # Stop and remove the existing container if it exists
-            docker stop your-container-name || true
-            docker rm your-container-name || true
+            docker stop gj-front || true
+            docker rm gj-front || true
 
             # Run a new container with the latest image
             docker run -d \
-              --name your-container-name \
-              -p 80:80 \
-              your-dockerhub-username/your-repo-name:latest
+              --name gj-front \
+              -p 3000:3000 \
+              teslaopunix/getjobs_front:latest
 
             # Remove dangling images to clean up previous images
             docker image prune -f --filter "dangling=true"
