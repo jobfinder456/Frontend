@@ -27,6 +27,17 @@ function Page() {
     user_profile_id: "",
   });
 
+  useEffect(() => {
+
+    const isLogin = localStorage.getItem("getjobs") || false;
+
+    console.log(isLogin)
+    if(!isLogin){
+      setModal(true)
+    }
+
+  },[])
+
   const onSubmit = async () => {
     const addHttps = (url) =>
       url.startsWith("https://") ? url : `https://${url}`;
@@ -72,15 +83,15 @@ function Page() {
 
       {load ? <Loader></Loader> : null}
 
-      {/* {modal ? (
+      {modal ? (
         <Modal
           title="First Sign In to Post a Job"
           button1Title="Sign In /  Create a Account"
           button2Title="false"
-          button1Action={() => router.push("/signinwithotp")}
+          button1Action={() => router.push("/login")}
           button2Action=""
         ></Modal>
-      ) : null} */}
+      ) : null}
 
       <div
         className={`relative max-w-[980px] mx-auto my-[2rem] flex flex-col items-start justify-center gap-[1rem] p-[1rem] }`}
