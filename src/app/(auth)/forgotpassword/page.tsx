@@ -126,5 +126,5 @@ const ForgotPassword = () => {
     </div>
   );
 };
-// this is for testig
+// this is for testing 
 export default ForgotPassword;
