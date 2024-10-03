@@ -32,7 +32,7 @@ const Signup = () => {
         `${process.env.NEXT_PUBLIC_BACK_AUTH}/api/v1/check`,
         { email: email, otp: otp }
       );
-      localStorage.setItem("jf_token", response.data.token);
+      localStorage.setItem("getjobs", true)
       router.push("/dashboard");
     } catch (error) {
       console.error("Email sending error:", error);

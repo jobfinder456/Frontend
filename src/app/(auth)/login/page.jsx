@@ -33,6 +33,7 @@ const Login = () => {
         { withCredentials: true }
       );
       
+      localStorage.setItem("getjobs", true)
       router.push("/dashboard");
     } catch (error) {
       console.error("Email sending error:", error);

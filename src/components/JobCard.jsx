@@ -14,8 +14,8 @@ function JobCard({ jobTitle, companyName, isRemote, loc, id, img }) {
             <img
               src={img}
               alt="company_logo"
-              className="w-full h-full object-contain"
-              style={{ objectFit: "contain" }} // You can set object-fit through inline styles
+              className="w-full h-full object-cover"
+              style={{ objectFit: "cover" }} // You can set object-fit through inline styles
             />
           ) : (
             <span className="flex items-center justify-center h-full text-white">
