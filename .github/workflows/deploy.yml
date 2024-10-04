@@ -47,6 +47,9 @@ jobs:
           context: .
           push: true
           tags: teslaopunix/getjobs_front:latest
+          build-args: |
+            NEXT_PUBLIC_BACK_AUTH=${{ secrets.NEXT_PUBLIC_BACK_AUTH }}
+            NEXT_PUBLIC_BACK_MAIN=${{ secrets.NEXT_PUBLIC_BACK_MAIN }}
           # Replace 'your-dockerhub-username' and 'your-repo-name' accordingly
       - name: Disable SSH Host Key Checking
         run: |
