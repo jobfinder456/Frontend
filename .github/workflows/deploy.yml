@@ -47,11 +47,18 @@ jobs:
           context: .
           push: true
           tags: teslaopunix/getjobs_front:latest
+          build-args: |
+            NEXT_PUBLIC_BACK_AUTH=${{ secrets.NEXT_PUBLIC_BACK_AUTH }}
+            NEXT_PUBLIC_BACK_MAIN=${{ secrets.NEXT_PUBLIC_BACK_MAIN }}
           # Replace 'your-dockerhub-username' and 'your-repo-name' accordingly
+      - name: Disable SSH Host Key Checking
+        run: |
+           mkdir -p ~/.ssh
+           echo -e "Host *\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 
       # Step 8: Deploy to EC2 via SSH
       - name: Deploy to EC2
-        uses: appleboy/ssh-action@v0.1.4
+        uses: appleboy/ssh-action@v0.1.6
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
@@ -73,6 +80,8 @@ jobs:
             docker run -d \
               --name gj-front \
               -p 3000:3000 \
+              --env NEXT_PUBLIC_BACK_AUTH=${{ secrets.NEXT_PUBLIC_BACK_AUTH }} \
+              --env NEXT_PUBLIC_BACK_MAIN=${{ secrets.NEXT_PUBLIC_BACK_MAIN }} \
               teslaopunix/getjobs_front:latest
 
             # Remove dangling images to clean up previous images
