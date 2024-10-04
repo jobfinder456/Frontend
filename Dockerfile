@@ -7,15 +7,29 @@ RUN npm install
 # Rebuild the source code only when needed
 FROM node:latest AS builder
 WORKDIR /app
-COPY . .
+
+# Pass the build arguments (these will come from GitHub Actions or your build context)
+ARG NEXT_PUBLIC_BACK_AUTH
+ARG NEXT_PUBLIC_BACK_MAIN
+
+# Set them as environment variables for build time
+ENV NEXT_PUBLIC_BACK_AUTH=${NEXT_PUBLIC_BACK_AUTH}
+ENV NEXT_PUBLIC_BACK_MAIN=${NEXT_PUBLIC_BACK_MAIN}
+
+COPY . . 
 COPY --from=deps /app/node_modules ./node_modules
+
+# Ensure the build picks up the environment variables
 RUN npm run build
 
 # Production image, copy all the files and run next
 FROM node:latest AS runner
 WORKDIR /app
 
-ENV NODE_ENV production
+# Set environment variables for runtime
+ENV NODE_ENV=production
+ENV NEXT_PUBLIC_BACK_AUTH=${NEXT_PUBLIC_BACK_AUTH}
+ENV NEXT_PUBLIC_BACK_MAIN=${NEXT_PUBLIC_BACK_MAIN}
 
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next ./.next
