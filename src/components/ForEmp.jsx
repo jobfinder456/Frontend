@@ -39,7 +39,7 @@ function ForEmp() {
         </div>
 
         <div
-          className={`absolute z-50 top-[3rem] md:top-[4rem] ${
+          className={`absolute z-[99] top-[3rem] md:top-[4rem] ${
             visible ? "" : "hidden"
           } w-[100%] bg-white flex flex-col items-start-start gap-[0.5rem] text-base-1 p-[1rem] md:p-[12px] rounded-[12px] border-[1px] border-background font-medium shadow-[0px_0px_16px_4px_rgba(0,0,0,0.1)]`}
         >
@@ -51,7 +51,7 @@ function ForEmp() {
           </Link>
 
           <Link
-            href={"/signinwithotp"}
+            href={"/login"}
             className="bg-accent-blue-2 z-50 pl-[0.2rem] text-accent-blue-1 rounded-[4px]"
           >
             Signin
