@@ -80,6 +80,8 @@ jobs:
             docker run -d \
               --name gj-front \
               -p 3000:3000 \
+              --env NEXT_PUBLIC_BACK_AUTH=${{ secrets.NEXT_PUBLIC_BACK_AUTH }} \
+              --env NEXT_PUBLIC_BACK_MAIN=${{ secrets.NEXT_PUBLIC_BACK_MAIN }} \
               teslaopunix/getjobs_front:latest
 
             # Remove dangling images to clean up previous images
