@@ -48,6 +48,10 @@ jobs:
           push: true
           tags: teslaopunix/getjobs_front:latest
           # Replace 'your-dockerhub-username' and 'your-repo-name' accordingly
+      - name: Disable SSH Host Key Checking
+        run: |
+           mkdir -p ~/.ssh
+           echo -e "Host *\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 
       # Step 8: Deploy to EC2 via SSH
       - name: Deploy to EC2
