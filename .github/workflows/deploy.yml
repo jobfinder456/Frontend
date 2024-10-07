@@ -50,6 +50,7 @@ jobs:
           build-args: |
             NEXT_PUBLIC_BACK_AUTH=${{ secrets.NEXT_PUBLIC_BACK_AUTH }}
             NEXT_PUBLIC_BACK_MAIN=${{ secrets.NEXT_PUBLIC_BACK_MAIN }}
+            NEXT_PUBLIC_RAZORPAY_KEY_ID=${{ secrets.NEXT_PUBLIC_RAZORPAY_KEY_ID }}
           # Replace 'your-dockerhub-username' and 'your-repo-name' accordingly
       - name: Disable SSH Host Key Checking
         run: |
@@ -82,6 +83,7 @@ jobs:
               -p 3000:3000 \
               --env NEXT_PUBLIC_BACK_AUTH=${{ secrets.NEXT_PUBLIC_BACK_AUTH }} \
               --env NEXT_PUBLIC_BACK_MAIN=${{ secrets.NEXT_PUBLIC_BACK_MAIN }} \
+              --env NEXT_PUBLIC_RAZORPAY_KEY_ID=${{ secrets.NEXT_PUBLIC_RAZORPAY_KEY_ID }} \
               teslaopunix/getjobs_front:latest
 
             # Remove dangling images to clean up previous images
