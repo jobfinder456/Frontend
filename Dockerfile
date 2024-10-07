@@ -11,10 +11,12 @@ WORKDIR /app
 # Pass the build arguments (these will come from GitHub Actions or your build context)
 ARG NEXT_PUBLIC_BACK_AUTH
 ARG NEXT_PUBLIC_BACK_MAIN
+ARG NEXT_PUBLIC_RAZORPAY_KEY_ID
 
 # Set them as environment variables for build time
 ENV NEXT_PUBLIC_BACK_AUTH=${NEXT_PUBLIC_BACK_AUTH}
 ENV NEXT_PUBLIC_BACK_MAIN=${NEXT_PUBLIC_BACK_MAIN}
+ENV NEXT_PUBLIC_RAZORPAY_KEY_ID=${NEXT_PUBLIC_RAZORPAY_KEY_ID}
 
 COPY . . 
 COPY --from=deps /app/node_modules ./node_modules
@@ -30,6 +32,7 @@ WORKDIR /app
 ENV NODE_ENV=production
 ENV NEXT_PUBLIC_BACK_AUTH=${NEXT_PUBLIC_BACK_AUTH}
 ENV NEXT_PUBLIC_BACK_MAIN=${NEXT_PUBLIC_BACK_MAIN}
+ENV NEXT_PUBLIC_RAZORPAY_KEY_ID=${NEXT_PUBLIC_RAZORPAY_KEY_ID}
 
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next ./.next
