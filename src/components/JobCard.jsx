@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 
-function JobCard({ jobTitle, companyName, isRemote, loc, id, img }) {
+function JobCard({ jobTitle, companyName, isRemote, loc, id, img, jobLink }) {
   return (
     <div className="w-[100%] flex justify-between items-center px-[8px] md:px-[24px] py-[8px] md:py-[1rem] rounded-[12px] hover:bg-background">
       <Link
@@ -46,7 +46,7 @@ function JobCard({ jobTitle, companyName, isRemote, loc, id, img }) {
         </Link>
 
         <Link
-          href={`${details.job_link}?utm_source=getjobs.today&utm_medium=organic`}
+          href={`${jobLink}?utm_source=getjobs.today&utm_medium=organic`}
           target="_blank"
           className="button-primary text-[12px] md:text-[1rem]"
         >
