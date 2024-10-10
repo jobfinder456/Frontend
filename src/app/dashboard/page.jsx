@@ -82,7 +82,7 @@ function Page() {
       setLoad(true);
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/create-payment`,
-        { userId: email, jobId, price: 29900 }
+        { userId: email, jobId, price: 29900 }, {withCredentials: true }
       );
       const { orderId } = response.data;
 
@@ -99,7 +99,7 @@ function Page() {
           const sign = `${response.razorpay_signature}`;
           const validateRes = await axios.post(
             `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/verify-payment`,
-            { raz_pay_id: pay_id, raz_ord_id: ord_id, raz_sign: sign, jobId }
+            { raz_pay_id: pay_id, raz_ord_id: ord_id, raz_sign: sign, jobId} , {withCredentials: true }
           );
           //const jsonRes = await validateRes.json();
           console.log(validateRes);
