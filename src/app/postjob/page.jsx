@@ -21,26 +21,28 @@ function Page() {
     description: "",
     name: "",
     email: "",
-    level: "",
+    level: "entry",
     compensation: "",
-    categories: "",
+    categories: "tech",
     user_profile_id: "",
   });
 
   useEffect(() => {
-
     const isLogin = localStorage.getItem("getjobs") || false;
 
-    console.log(isLogin)
-    if(!isLogin){
-      setModal(true)
+    console.log(isLogin);
+    if (!isLogin) {
+      setModal(true);
     }
-
-  },[])
+  }, []);
 
   const onSubmit = async () => {
-    const addHttps = (url) =>
-      url.startsWith("https://") ? url : `https://${url}`;
+    const addHttps = (url) => {
+      if (url.startsWith("https://") || url.startsWith("http://")) {
+        return url;
+      }
+      return `https://${url}`;
+    };
 
     const updatedJobDetails = {
       ...jobDetails,
@@ -49,19 +51,19 @@ function Page() {
 
     try {
       setLoad(true);
-      console.log(jobDetails)
+      console.log(jobDetails);
 
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/insert`,
         updatedJobDetails,
         {
-          withCredentials: true
+          withCredentials: true,
         }
       );
 
       console.log(response);
       toast("Job successfully posted");
-      //router.push("/dashboard");
+      router.push("/dashboard");
     } catch (error) {
       console.error(error);
 

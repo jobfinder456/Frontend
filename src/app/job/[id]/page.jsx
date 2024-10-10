@@ -78,16 +78,20 @@ function Page() {
           <div className="relative flex flex-col md:flex-row justify-center items-start gap-[20px]">
             <div className="flex-grow w-[100%] bg-background rounded-[20px] flex flex-col gap-[40px] items-start justify-start p-[20px]">
               <div className="flex flex-wrap justify-start items-center gap-[0.5rem] md:gap-[20px]">
-                <div className="bg-[#DBDBDB] p-[8px] md:p-[12px] rounded-[8px]">
-                  {details.work_loc} | {details.remote ? "Remote" : null}
+                <div className="bg-[#DBDBDB] px-[8px] py-[4px] md:px-[12px] md:py-[8px] rounded-[8px]">
+                  {details.work_loc} {details.remote ? " | Remote" : null}
                 </div>
-                <div className="bg-[#DBDBDB] p-[8px] md:p-[12px] rounded-[8px]">
+
+                <div className="bg-[#DBDBDB] px-[8px] py-[4px] md:px-[12px] md:py-[8px] rounded-[8px]">
                   {details.commitment}
                 </div>
-                <div className="bg-[#DBDBDB] p-[8px] md:p-[12px] rounded-[8px]">
-                  ${details.compensation}
-                </div>
-                <div className="bg-[#DBDBDB] p-[8px] md:p-[12px] rounded-[8px]">
+
+                {details.compensation && (
+                  <div className="bg-[#DBDBDB] px-[8px] py-[4px] md:px-[12px] md:py-[8px] rounded-[8px]">
+                    ${details.compensation}
+                  </div>
+                )}
+                <div className="bg-[#DBDBDB] px-[8px] py-[4px] md:px-[12px] md:py-[8px] rounded-[8px]">
                   {details.level}
                 </div>
               </div>

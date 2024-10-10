@@ -234,7 +234,7 @@ function Form({ onSubmit, setJobDetails, jobDetails, isEdit }) {
           <div className="flex flex-col md:flex-row w-[100%] gap-[0.5rem] justify-between items-center">
             <div className="w-[100%] md:w-[32%] flex flex-col gap-[0.5rem]">
               <label htmlFor="compensation" className="form-label">
-                Compensation
+                Compensation in $
               </label>
               <input
                 className="form-inp"
@@ -290,11 +290,22 @@ function Form({ onSubmit, setJobDetails, jobDetails, isEdit }) {
                   }))
                 }
               >
-                <option value="design">Design</option>
+                <option value="">Select category</option>
                 <option value="tech">Tech</option>
                 <option value="devops">DevOps</option>
-                <option value="marketing">Marketing</option>
+                <option value="design">Design</option>
                 <option value="sales">Sales</option>
+                <option value="marketing">Marketing</option>
+                <option value="finance">Finance</option>
+                <option value="customer">Customer</option>
+                <option value="frontend">Frontend</option>
+                <option value="backend">Backend</option>
+                <option value="mobile">Mobile</option>
+                <option value="business-development">
+                  Business Development
+                </option>
+                <option value="ai">AI</option>
+                <option value="blockchain-web3">Blockchain/Web3</option>
               </select>
             </div>
           </div>

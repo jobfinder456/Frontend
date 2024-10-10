@@ -46,7 +46,7 @@ function JobCard({ jobTitle, companyName, isRemote, loc, id, img }) {
         </Link>
 
         <Link
-          href={"/"}
+          href={`${details.job_link}?utm_source=getjobs.today&utm_medium=organic`}
           target="_blank"
           className="button-primary text-[12px] md:text-[1rem]"
         >
