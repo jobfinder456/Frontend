@@ -107,6 +107,7 @@ export default function Page() {
               isRemote={job.remote}
               loc={job.work_loc}
               img={job.image_url}
+              jobLink={job.job_link}
             />
           ))
         ) : (
