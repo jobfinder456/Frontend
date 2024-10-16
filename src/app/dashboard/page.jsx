@@ -8,7 +8,13 @@ import toast, { Toaster } from "react-hot-toast";
 import Modal from "@/components/Modal";
 import Loader from "@/components/Loader";
 import DashboardTable from "@/components/DashboardTable";
+import { RxExternalLink } from "react-icons/rx";
 import Stats from "./stats";
+import Link from "next/link";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+
+dayjs.extend(relativeTime);
 
 function Page() {
   const router = useRouter();
@@ -18,6 +24,7 @@ function Page() {
   const [load, setLoad] = useState(true);
   const [postIdToDelete, setPostIdToDelete] = useState(null);
   const [notLive, setNotLive] = useState(0);
+  const [selectedJobs, setSelectedJobs] = useState([]);
 
   useEffect(() => {
     fetchJobs();
@@ -82,7 +89,8 @@ function Page() {
       setLoad(true);
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/create-payment`,
-        { userId: email, jobId, price: 29900 }, {withCredentials: true }
+        { userId: email, jobId, price: 29900 },
+        { withCredentials: true }
       );
       const { orderId } = response.data;
 
@@ -99,7 +107,8 @@ function Page() {
           const sign = `${response.razorpay_signature}`;
           const validateRes = await axios.post(
             `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/verify-payment`,
-            { raz_pay_id: pay_id, raz_ord_id: ord_id, raz_sign: sign, jobId} , {withCredentials: true }
+            { raz_pay_id: pay_id, raz_ord_id: ord_id, raz_sign: sign, jobId },
+            { withCredentials: true }
           );
           //const jsonRes = await validateRes.json();
           console.log(validateRes);
@@ -135,6 +144,14 @@ function Page() {
     }
   };
 
+  const toggleJobSelection = (jobId) => {
+    setSelectedJobs((prevSelected) =>
+      prevSelected.includes(jobId)
+        ? prevSelected.filter((id) => id !== jobId)
+        : [...prevSelected, jobId]
+    );
+  };
+
   return (
     <div className="relative max-w-[73.75rem] mx-auto min-h-screen overflow-hidden">
       <Navbar />
@@ -150,50 +167,131 @@ function Page() {
         />
       )}
       <div
-        className={`flex flex-col justify-start items-start gap-[4rem] p-[20px] ${
+        className={`flex flex-col justify-start items-start gap-[1rem] p-[20px] ${
           load ? "opacity-50" : null
         }`}
       >
         <Stats notLive={notLive} postData={postData} onBulkPay={onBulkPay} />
-        <div className="relative overflow-x-scroll w-full">
-          <div className="flex flex-col w-[36rem] sm:w-[100%] justify-between">
-            <DashboardTable
-              date="22-09-24"
-              postId=""
-              jobTitle="Job Title"
-              isOk=""
-              onPay={() => {}}
-              createdBy=""
-              setModal={() => {}}
-              setPostIdToDelete={() => {}}
-              isHeader={true}
-            />
-            {postData.length > 0 ? (
-              postData.map((post) => (
-                <DashboardTable
-                  key={post.id}
-                  date="22-09-24"
-                  postId={post.id}
-                  jobTitle={post.job_title}
-                  onPay={() => onPay(post.id)}
-                  isOk={post.is_ok}
-                  createdBy={post.name}
-                  setModal={setModal}
-                  setPostIdToDelete={setPostIdToDelete}
-                  isHeader={false}
-                />
-              ))
-            ) : (
-              <div className="flex flex-col gap-[2rem] justify-center items-center py-[2rem]">
-                <img
-                  className="w-[96px] md:w-[156px]"
-                  src="/images/notFound.svg"
-                  alt="No jobs"
-                />
-                <h1>No jobs to show please create one</h1>
-              </div>
-            )}
-          </div>
+        <div className="flex justify-between w-[100%]">
+          <button className="bg-accent-blue-1 text-white px-[1rem] py-[0.5rem] rounded-[8px] opacity-0">
+            Pay
+          </button>
+
+          { selectedJobs.length>0 && <button
+            onClick={() => console.log(selectedJobs)}
+            className="bg-accent-blue-1 text-white px-[1rem] py-[0.5rem] rounded-[8px]"
+          >
+            Pay
+          </button>}
+        </div>
+
+        <div className="relative overflow-x-auto w-full">
+          <table className="w-full text-sm text-left">
+            <thead className="text-xs uppercase bg-background">
+              <tr>
+                <th scope="col" className="px-6 py-3">
+                  Select
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Date
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Job Title
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Company
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Payment Status
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Created By
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Actions
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {postData.length > 0 ? (
+                postData.map((post) => (
+                  <tr
+                    key={post.id}
+                    className="bg-white border-b hover:bg-background"
+                  >
+                    <td className="px-6 py-4">
+                      <input
+                        type="checkbox"
+                        checked={selectedJobs.includes(post.id)}
+                        onChange={() => toggleJobSelection(post.id)}
+                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+                      />
+                    </td>
+                    <td className="px-6 py-4">
+                      {dayjs(post.last_update).fromNow()}
+                    </td>
+                    <td className="px-6 py-4 font-medium">
+                      <Link
+                        href={`/job/${post.id}`}
+                        className="flex items-center gap-2"
+                      >
+                        {post.job_title}
+                      </Link>
+                    </td>
+                    <td className="px-6 py-4">{post.company || "N/A"}</td>
+                    <td className="px-6 py-4">
+                      <button
+                        onClick={() => onPay([post.id])}
+                        className="flex items-center gap-2"
+                      >
+                        {post.is_ok ? (
+                          "Success"
+                        ) : (
+                          <>
+                            Payment Needed!
+                            <RxExternalLink />
+                          </>
+                        )}
+                      </button>
+                    </td>
+                    <td className="px-6 py-4">{post.name}</td>
+                    <td className="px-6 py-4">
+                      <div className="flex items-center gap-2">
+                        <Link
+                          href={`/editpost/${post.id}`}
+                          className="bg-accent-blue-2 text-accent-blue-1 p-2 rounded"
+                        >
+                          Edit
+                        </Link>
+                        <button
+                          onClick={() => {
+                            setModal(true);
+                            setPostIdToDelete(post.id);
+                          }}
+                          className="bg-accent-red-2 text-accent-red-1 p-2 rounded"
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan={7} className="px-6 py-4 text-center">
+                    <div className="flex flex-col gap-[2rem] justify-center items-center py-[2rem]">
+                      <img
+                        className="w-[96px] md:w-[156px]"
+                        src="/images/notFound.svg"
+                        alt="No jobs"
+                      />
+                      <h1>No jobs to show please create one</h1>
+                    </div>
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
