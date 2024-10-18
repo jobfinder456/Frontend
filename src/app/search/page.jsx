@@ -1,5 +1,6 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
+import { useSearchParams, usePathname } from "next/navigation"; // Import useSearchParams and usePathname
 import axios from "axios";
 import Navbar from "@/components/Navbar";
 import Search from "@/components/Search";
@@ -8,21 +9,46 @@ import useDebounce from "@/hooks/useDebounce";
 import Loader from "@/components/Loader";
 
 export default function Page() {
+  return (
+    <Suspense fallback={<Loader />}>
+      <JobSearchComponent />
+    </Suspense>
+  );
+}
+
+function JobSearchComponent() {
+  const searchParams = useSearchParams(); // Use useSearchParams to read query params
+  const pathname = usePathname(); // Use usePathname to get the current path
+
   const [load, setLoad] = useState(false);
   const [posts, setPosts] = useState([]);
-  const [search, setSearch] = useState("");
-  const [loc, setLoc] = useState("");
+  const [search, setSearch] = useState(searchParams.get("search") || ""); // Initialize from query params
+  const [loc, setLoc] = useState(searchParams.get("loc") || ""); // Initialize from query params
   const [page, setPage] = useState(1);
   const [searchChanged, setSearchChanged] = useState(false);
-  const [remote, setRemote] = useState(false);
+  const [remote, setRemote] = useState(searchParams.get("remote") === "true" || false); // Initialize from query params
   const [filters, setFilters] = useState({
-    level: "",
-    commitment: "",
-    categories: "",
+    level: searchParams.get("level") || "",
+    commitment: searchParams.get("commitment") || "",
+    categories: searchParams.get("categories") || "",
   });
 
   const debouncedSearchTerm = useDebounce(search, 500);
   const debouncedLoc = useDebounce(loc, 500);
+
+  useEffect(() => {
+    // Update the URL with query parameters manually
+    const params = new URLSearchParams({
+      search: debouncedSearchTerm || "",
+      loc: debouncedLoc || "",
+      remote: remote || "",
+      commitment: filters.commitment || "",
+      level: filters.level || "",
+      categories: filters.categories || "",
+      page: page || 1,
+    });
+    window.history.replaceState(null, "", `${pathname}?${params}`);
+  }, [debouncedSearchTerm, debouncedLoc, remote, filters, page, pathname]);
 
   useEffect(() => {
     async function getJob() {

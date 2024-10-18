@@ -112,7 +112,7 @@ export default function Stats({ postData, notLive, onBulkPay }) {
             </button>
           </span>
         </div>
-        <div className="bg-white flex-grow flex flex-col items-start justify-center rounded-[1rem] p-[0.75rem] md:p-[2rem]">
+        <div className="bg-white flex-grow flex flex-col items-start justify-start rounded-[1rem] p-[0.75rem] md:p-[2rem] min-h-[8rem]">
           <div className="w-[100%] flex justify-between items-center">
             <h3 className="text-[1rem] md:text-[1.2rem] font-medium text-accent-blue-1">
               Company Profiles
