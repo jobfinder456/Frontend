@@ -187,9 +187,9 @@ function Page() {
 
         <div className="relative overflow-x-auto w-full">
           <table className="w-full text-sm text-left">
-            <thead className="text-xs uppercase bg-background">
+            <thead className="text-xs uppercase bg-background text-base-2">
               <tr>
-                <th scope="col" className="px-6 py-3">
+                <th scope="col" className="px-6 py-3 rounded-l-[4px]">
                   Select
                 </th>
                 <th scope="col" className="px-6 py-3">
@@ -207,7 +207,7 @@ function Page() {
                 <th scope="col" className="px-6 py-3">
                   Created By
                 </th>
-                <th scope="col" className="px-6 py-3">
+                <th scope="col" className="px-6 py-3 rounded-r-[4px]">
                   Actions
                 </th>
               </tr>
@@ -217,14 +217,14 @@ function Page() {
                 postData.map((post) => (
                   <tr
                     key={post.id}
-                    className="bg-white border-b hover:bg-background"
+                    className="bg-white border-b hover:bg-background "
                   >
                     <td className="px-6 py-4">
                       <input
                         type="checkbox"
                         checked={selectedJobs.includes(post.id)}
                         onChange={() => toggleJobSelection(post.id)}
-                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500"
                       />
                     </td>
                     <td className="px-6 py-4">
@@ -238,7 +238,7 @@ function Page() {
                         {post.job_title}
                       </Link>
                     </td>
-                    <td className="px-6 py-4">{post.company || "N/A"}</td>
+                    <td className="px-6 py-4">{post.company_name || "N/A"}</td>
                     <td className="px-6 py-4">
                       <button
                         onClick={() => onPay([post.id])}
