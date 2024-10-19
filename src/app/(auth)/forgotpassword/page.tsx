@@ -126,5 +126,5 @@ const ForgotPassword = () => {
     </div>
   );
 };
-// this is for testing the github actions will 
+// this is for testing the github actions will it
 export default ForgotPassword;
