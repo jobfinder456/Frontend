@@ -3,7 +3,7 @@ import JobCard from "./JobCard";
 export default async function LatestJobs() {
   try {
     const apiUrl = `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/list?search=&loc=&remote=&commitment=&level=&categories=&page=1`;
-    
+
     const response = await fetch(apiUrl, {
       next: {
         revalidate: 36000,
@@ -11,7 +11,7 @@ export default async function LatestJobs() {
     });
 
     if (!response.ok) {
-      throw new Error('Failed to fetch jobs');
+      throw new Error("Failed to fetch jobs");
     }
 
     const data = await response.json();
@@ -28,6 +28,8 @@ export default async function LatestJobs() {
               companyName={job.company_name}
               isRemote={job.remote}
               loc={job.work_loc}
+              img={job.image_url}
+              jobLink={job.job_link}
             />
           ))}
         </div>
