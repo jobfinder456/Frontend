@@ -1,22 +1,22 @@
-import axios from "axios";
-import JobCard from "./JobCard"; // Assuming JobCard is another component
+import JobCard from "./JobCard";
 
 export default async function LatestJobs() {
   try {
-    const apiUrl = `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/list?page=1&search=&loc=&remote=`;
-
-    const response = await axios.get(apiUrl, {
+    const apiUrl = `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/list?search=&loc=&remote=&commitment=&level=&categories=&page=1`;
+    
+    const response = await fetch(apiUrl, {
       next: {
         revalidate: 36000,
       },
     });
-    const data = response.data;
 
+    if (!response.ok) {
+      throw new Error('Failed to fetch jobs');
+    }
 
-    // Access the 'all' property which contains the job list
+    const data = await response.json();
     const jobs = data.all;
 
-    // Check if 'jobs' is an array
     if (Array.isArray(jobs)) {
       return (
         <div className="w-[100%] flex flex-col justify-center items-center gap-[0.5rem]">

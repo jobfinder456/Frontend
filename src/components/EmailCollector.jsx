@@ -53,7 +53,7 @@ function EmailCollector({ isHome }) {
         <button
           className={`flex-grow max-w-[19rem] ${
             isHome ? "bg-base-1" : "bg-accent-blue-1"
-          }  text-white font-medium rounded-[8px] md:rounded-[12px] p-[1rem]`}
+          }  text-white font-medium rounded-[8px] md:rounded-[12px] p-[0.5rem] md:p-[1rem]`}
           onClick={submitMail}
         >
           Submit
