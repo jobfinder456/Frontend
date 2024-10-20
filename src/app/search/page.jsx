@@ -26,13 +26,14 @@ function JobSearchComponent() {
   const [loc, setLoc] = useState(searchParams.get("loc") || ""); // Initialize from query params
   const [page, setPage] = useState(1);
   const [searchChanged, setSearchChanged] = useState(false);
-  const [remote, setRemote] = useState(searchParams.get("remote") === "true" || false); // Initialize from query params
+  const [remote, setRemote] = useState(
+    searchParams.get("remote") === "true" || false
+  ); // Initialize from query params
   const [filters, setFilters] = useState({
     level: searchParams.get("level") || "",
     commitment: searchParams.get("commitment") || "",
     categories: searchParams.get("categories") || "",
   });
-
   const debouncedSearchTerm = useDebounce(search, 500);
   const debouncedLoc = useDebounce(loc, 500);
 
@@ -110,7 +111,8 @@ function JobSearchComponent() {
           </h1>
           <h3 className="md:px-[4rem] text-[14px] md:text-[20px]">
             Boost your career growth by joining one of the latest growing
-            companies. Browse through our immense library of jobs at the fastest-growing startups.
+            companies. Browse through our immense library of jobs at the
+            fastest-growing startups.
           </h3>
         </div>
 
@@ -137,7 +139,7 @@ function JobSearchComponent() {
             />
           ))
         ) : (
-          <p>No jobs found</p>
+          <p>{load ? "Loading..." : "No jobs found"}</p>
         )}
       </div>
 
@@ -146,7 +148,7 @@ function JobSearchComponent() {
           className="px-[1rem] py-[0.5rem] bg-background text-[12px] rounded-[8px] font-light"
           onClick={handleShowMoreResults}
         >
-          Show more results
+          {load ? "Loading..." : "Show more results"}
         </button>
       )}
     </div>

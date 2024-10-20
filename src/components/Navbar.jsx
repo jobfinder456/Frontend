@@ -12,13 +12,15 @@ export default function Navbar() {
         <img src="/images/logo.svg" alt="logo" />
       </Link>
 
-      <div className="flex justify-center items-center text-[0.95rem] md:text-[16px] gap-[0.5rem] md:gap-[1rem]">
+      <ForEmp />
+
+      {/* <div className="flex justify-center items-center text-[0.95rem] md:text-[16px] gap-[0.5rem] md:gap-[1rem]">
         <ForEmp />
 
         <Link href={"/postjob"} className="button-primary">
           Post a Job
         </Link>
-      </div>
+      </div> */}
     </div>
   );
 }

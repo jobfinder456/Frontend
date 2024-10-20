@@ -15,7 +15,6 @@ function ForEmp() {
   };
 
   useEffect(() => {
-
     const handleClickOutside = (event) => {
       if (visible && !event.target.closest(".for-emp-container")) {
         setVisible(false);
@@ -48,6 +47,13 @@ function ForEmp() {
           </Link>
           <Link href={"/contact"} className="z-50 pl-[0.2rem]">
             Contact Us
+          </Link>
+
+          <Link
+            href={"/postjob"}
+            className="bg-base-1 z-50 pl-[0.2rem] text-white rounded-[4px]"
+          >
+            Post Job
           </Link>
 
           <Link
