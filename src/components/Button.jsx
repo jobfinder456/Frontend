@@ -1,34 +1,48 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import { BsArrowRight } from "react-icons/bs";
 import Link from "next/link";
 
 const Button = ({ title }) => {
-  const [width, setWidth] = useState(false);
+  const animationVariants = {
+    initial: { x: 0 },
+    animate: {
+      x: [0, 5, -1, 5, 0],
+      transition: {
+        duration: 0.9,
+        times: [0, 0.2, 0.5, 0.8, 1],
+        ease: "easeInOut",
+        repeat: Infinity,
+        repeatDelay: 5,
+      },
+    },
+    hover: {
+      x: 5,
+      transition: {
+        duration: 0.2,
+        ease: "easeOut",
+      },
+    },
+  };
 
   return (
-    <motion.div
-      initial={{ minWidth: "256px" }}
-      animate={{ width: width ? "80%" : "" }}
-      transition={{
-        ease: "linear",
-        duration: 3,
-      }}
-      onClick={() => setWidth(true)}
-      className={`  flex-grow-0 ease-in-out flex items-center justify-center mt-[1rem] text-[16px] md:text-[20px] p-[8px] md:p-[20px] button-primary bg-accent-blue-1 border-accent-blue-1`}
-    >
+    <div className="bg-accent-blue-2 p-[0.45rem] md:p-[0.5rem] rounded-[14px]">
       <Link
-        href={"/search"}
-        className="whitespace-nowrap flex gap-[0.5rem] md:gap-[1rem]"
+        href="/search"
+        className="whitespace-nowrap flex gap-[0.75rem] items-center md:gap-[1rem] bg-accent-blue-1 text-white text-[14px] md:text-[1rem] font-medium px-[0.85rem] py-[0.65rem] md:px-[1rem] md:py-[0.75rem] rounded-[10px]"
       >
-        <span>
-          {" "}
-          {title}
-        </span>
-        <BsArrowRight size={24} />
+        <span>{title}</span>
+        <motion.div
+          variants={animationVariants}
+          initial="initial"
+          animate="animate"
+          whileHover="hover"
+        >
+          <BsArrowRight size={20} />
+        </motion.div>
       </Link>
-    </motion.div>
+    </div>
   );
 };
 
