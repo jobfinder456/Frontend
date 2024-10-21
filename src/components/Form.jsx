@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Tiptap from "./Tiptap";
+import QuillEditor from "./QuillEditor/index"
 import axios from "axios";
 
 function Form({ onSubmit, setJobDetails, jobDetails, isEdit }) {
@@ -69,12 +69,12 @@ function Form({ onSubmit, setJobDetails, jobDetails, isEdit }) {
           </div>
 
           {selectedCompany?.company_name && (
-              <img
-                src={selectedCompany?.image_url}
-                alt="Company logo"
-                className="h-16 border-base-2 border-[2px] rounded-lg"
-              />
-            )}
+            <img
+              src={selectedCompany?.image_url}
+              alt="Company logo"
+              className="h-16 border-base-2 border-[2px] rounded-lg"
+            />
+          )}
 
           <div className="flex flex-col w-[100%] gap-[0.5rem]">
             <label htmlFor="companySelect" className="form-label">
@@ -132,7 +132,6 @@ function Form({ onSubmit, setJobDetails, jobDetails, isEdit }) {
               onChange={handleFileChange}
               disabled
             /> */}
-
           </div>
         </div>
 
@@ -326,13 +325,13 @@ function Form({ onSubmit, setJobDetails, jobDetails, isEdit }) {
             />
           </div>
 
-          <div className="flex flex-col w-[100%] gap-[0.5rem]">
+          <div className="flex flex-col w-[100%] gap-[0.5rem] pb-[1rem]">
             <label htmlFor="jobDesc" className="form-label">
               Job Description
             </label>
-            <Tiptap
-              setDesc={handleDescriptionChange}
-              oldDesc={jobDetails.description}
+            <QuillEditor
+              value={jobDetails.description}
+              onChange={handleDescriptionChange}
             />
           </div>
         </div>
