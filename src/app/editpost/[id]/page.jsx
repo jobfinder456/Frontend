@@ -14,21 +14,18 @@ function Page() {
   const params = useParams();
   const id = params.id;
   const [jobDetails, setJobDetails] = useState({
-    company_name: "",
-    website: "",
-    job_title: "",
-    work_loc: "",
+    job_title: "", //
+    work_loc: "", //
+    remote: false, //
+    job_link: "", //
     commitment: "",
-    remote: false,
-    job_link: "",
     description: "",
-    is_ok: false,
-    categories: "",
-    level: "",
-    compensation: "",
     name: "",
     email: "",
-    image_url: "",
+    level: "",
+    compensation: "",
+    categories: "",
+    company_profile_id: "",
   });
   const [load, setLoad] = useState(true);
   const [notFound, setNotFound] = useState(false);
@@ -50,7 +47,7 @@ function Page() {
           const jobData = response.data;
           console.log("her1e", jobData)
           setJobDetails({
-            user_profile_id: jobData.user_profile_id,
+            company_profile_id: jobData.company_profile_id,
             company_name: jobData.company_name,
             website: jobData.website,
             job_title: jobData.job_title,
@@ -65,7 +62,6 @@ function Page() {
             compensation: jobData.compensation,
             name: jobData.name,
             email: jobData.email,
-            image_url: jobData.image_url,
           });
         }
         setLoad(false);

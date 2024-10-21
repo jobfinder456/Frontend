@@ -24,7 +24,7 @@ function Page() {
     level: "entry",
     compensation: "",
     categories: "tech",
-    user_profile_id: "",
+    company_profile_id: "",
   });
 
   useEffect(() => {
@@ -80,8 +80,6 @@ function Page() {
   return (
     <div className=" realtive max-w-[73.75rem] mx-auto ">
       <Navbar />
-
-      <Toaster />
 
       {load ? <Loader></Loader> : null}
 

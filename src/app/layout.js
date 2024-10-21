@@ -3,6 +3,7 @@ import Head from "next/head";
 import Script from "next/script";
 import "./globals.css";
 import { GoogleTagManager } from "@next/third-parties/google";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -37,6 +38,7 @@ export default function RootLayout({ children }) {
         <link rel="icon" href={metadata.icons.icon[0].href} />
       </Head>
       <body className={inter.className}>
+      <Toaster />
         {children}
         <Script
           strategy="afterInteractive"
