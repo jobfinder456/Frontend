@@ -51,6 +51,7 @@ function Page() {
   const onDelete = async (id) => {
     try {
       setLoad(true);
+      console.log(id)
       const response = await axios.delete(
         `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/jobs/${id}`,
         { withCredentials: true }
@@ -60,10 +61,11 @@ function Page() {
       setPostIdToDelete(null);
     } catch (error) {
       console.log(error);
-    } finally {
-      setLoad(false);
-      window.location.reload();
-    }
+    } 
+    // finally {
+    //   setLoad(false);
+    //   window.location.reload();
+    // }
   };
 
   const onBulkPay = async () => {
@@ -217,7 +219,7 @@ function Page() {
                 postData.map((post) => (
                   <tr
                     key={post.id}
-                    className="bg-white border-b hover:bg-background "
+                    className="bg-white hover:bg-background rounded-[8px]"
                   >
                     <td className="px-6 py-4">
                       <input

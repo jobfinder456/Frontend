@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Tiptap from "./Tiptap";
+import QuillEditor from "./QuillEditor/index"
 import axios from "axios";
 
 function Form({ onSubmit, setJobDetails, jobDetails, isEdit }) {
@@ -14,9 +14,9 @@ function Form({ onSubmit, setJobDetails, jobDetails, isEdit }) {
     console.log("heheheh", isEdit);
 
     if (isEdit) {
-      console.log("hfhfhfhffj", jobDetails.user_profile_id);
+      console.log("hfhfhfhffj", jobDetails.company_profile_id);
       const company = companyProfiles.find(
-        (c) => c.id === parseInt(jobDetails.user_profile_id)
+        (c) => c.id === parseInt(jobDetails.company_profile_id)
       );
 
       setSelectedCompany(company);
@@ -38,11 +38,6 @@ function Form({ onSubmit, setJobDetails, jobDetails, isEdit }) {
 
   const [selectedCompany, setSelectedCompany] = useState(null);
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    setJobDetails((prevState) => ({ ...prevState, image: file }));
-  };
-
   const handleDescriptionChange = (content) => {
     setJobDetails((prevState) => ({ ...prevState, description: content }));
   };
@@ -57,7 +52,7 @@ function Form({ onSubmit, setJobDetails, jobDetails, isEdit }) {
       console.log(company.id, " --  hree");
       setJobDetails((prev) => ({
         ...prev,
-        user_profile_id: company.id,
+        company_profile_id: company.id,
       }));
     }
 
@@ -72,6 +67,14 @@ function Form({ onSubmit, setJobDetails, jobDetails, isEdit }) {
             <h3 className="text-[20px] font-medium">Company Details</h3>
             <p>Select a company from the dropdown to populate the details.</p>
           </div>
+
+          {selectedCompany?.company_name && (
+            <img
+              src={selectedCompany?.image_url}
+              alt="Company logo"
+              className="h-16 border-base-2 border-[2px] rounded-lg"
+            />
+          )}
 
           <div className="flex flex-col w-[100%] gap-[0.5rem]">
             <label htmlFor="companySelect" className="form-label">
@@ -118,8 +121,8 @@ function Form({ onSubmit, setJobDetails, jobDetails, isEdit }) {
             />
           </div>
 
-          <div className="flex flex-col w-[100%] gap-[0.5rem]">
-            <label htmlFor="companyLogo" className="form-label">
+          <div className="flex flex-col gap-[0.5rem]">
+            {/* <label htmlFor="companyLogo" className="form-label">
               Logo
             </label>
             <input
@@ -128,14 +131,7 @@ function Form({ onSubmit, setJobDetails, jobDetails, isEdit }) {
               id=""
               onChange={handleFileChange}
               disabled
-            />
-            {jobDetails.image && (
-              <img
-                src={selectedCompany?.image_url}
-                alt="Company logo"
-                className="mt-2 h-16"
-              />
-            )}
+            /> */}
           </div>
         </div>
 
@@ -329,13 +325,13 @@ function Form({ onSubmit, setJobDetails, jobDetails, isEdit }) {
             />
           </div>
 
-          <div className="flex flex-col w-[100%] gap-[0.5rem]">
+          <div className="flex flex-col w-[100%] gap-[0.5rem] pb-[1rem]">
             <label htmlFor="jobDesc" className="form-label">
               Job Description
             </label>
-            <Tiptap
-              setDesc={handleDescriptionChange}
-              oldDesc={jobDetails.description}
+            <QuillEditor
+              value={jobDetails.description}
+              onChange={handleDescriptionChange}
             />
           </div>
         </div>
