@@ -11,14 +11,14 @@ export const metadata = {
   icons: {
     icon: [
       {
-        url: "/images/favicon.png", // /public path
-        href: "/images/favicon.png", // /public path
+        url: "/images/favicon.png", 
+        href: "/images/favicon.png", 
       },
     ],
   },
-  title: "Discover Developer, Designer, Finance, Sales and more jobs. ",
+  title: "Find Developer, Designer, Finance & Engineering Jobs | GetJobs.today",
   description:
-    "Explore top job opportunities and find exceptional talent at GetJobs.Today. Connect with Developer, Design, Accounting, Finance, Sales, and Management roles. Employers can post for free. Start your search or post a job now!",
+    "Kickstart your career with GetJobs.today! Explore top job listings in development, design, sales, finance, engineering, healthcare, marketing, and more. Our platform connects job seekers with tailored opportunities. Find and apply for your dream job today!",
 };
 
 export default function RootLayout({ children }) {
