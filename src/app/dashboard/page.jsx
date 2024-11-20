@@ -7,8 +7,9 @@ import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import Modal from "@/components/Modal";
 import Loader from "@/components/Loader";
-import DashboardTable from "@/components/DashboardTable";
-import { RxExternalLink } from "react-icons/rx";
+import { RxExternalLink} from "react-icons/rx";
+import { FaRegEdit } from "react-icons/fa";
+import { MdDeleteOutline } from "react-icons/md";
 import Stats from "./stats";
 import Link from "next/link";
 import dayjs from "dayjs";
@@ -204,6 +205,9 @@ function Page() {
                   Company
                 </th>
                 <th scope="col" className="px-6 py-3">
+                  Impessions
+                </th>
+                <th scope="col" className="px-6 py-3">
                   Payment Status
                 </th>
                 <th scope="col" className="px-6 py-3">
@@ -219,7 +223,7 @@ function Page() {
                 postData.map((post) => (
                   <tr
                     key={post.id}
-                    className="bg-white hover:bg-background rounded-[8px]"
+                    className="bg-white hover:bg-background hover:bg-opacity-30 rounded-[8px]"
                   >
                     <td className="px-6 py-4">
                       <input
@@ -241,6 +245,7 @@ function Page() {
                       </Link>
                     </td>
                     <td className="px-6 py-4">{post.company_name || "N/A"}</td>
+                    <td className="px-6 py-4">{post.impressions || "N/A"}</td>
                     <td className="px-6 py-4">
                       <button
                         onClick={() => onPay([post.id])}
@@ -261,18 +266,18 @@ function Page() {
                       <div className="flex items-center gap-2">
                         <Link
                           href={`/editpost/${post.id}`}
-                          className="bg-accent-blue-2 text-accent-blue-1 p-2 rounded"
+                          className="bg-accent-blue-2 opacity-75 text-accent-blue-1 p-2 rounded hover:opacity-100"
                         >
-                          Edit
+                          <FaRegEdit />
                         </Link>
                         <button
                           onClick={() => {
                             setModal(true);
                             setPostIdToDelete(post.id);
                           }}
-                          className="bg-accent-red-2 text-accent-red-1 p-2 rounded"
+                          className="bg-accent-red-2 opacity-75 text-accent-red-1 p-2 rounded hover:opacity-100"
                         >
-                          Delete
+                          <MdDeleteOutline />
                         </button>
                       </div>
                     </td>
