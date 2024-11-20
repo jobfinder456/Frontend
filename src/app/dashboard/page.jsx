@@ -7,7 +7,7 @@ import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import Modal from "@/components/Modal";
 import Loader from "@/components/Loader";
-import { RxExternalLink} from "react-icons/rx";
+import { RxExternalLink } from "react-icons/rx";
 import { FaRegEdit } from "react-icons/fa";
 import { MdDeleteOutline } from "react-icons/md";
 import Stats from "./stats";
@@ -26,33 +26,42 @@ function Page() {
   const [postIdToDelete, setPostIdToDelete] = useState(null);
   const [notLive, setNotLive] = useState(0);
   const [selectedJobs, setSelectedJobs] = useState([]);
+  const [page, setPage] = useState(1); // Current page
 
-  useEffect(() => {
-    fetchJobs();
-  }, [router]);
-
-  const fetchJobs = async () => {
+  // Fetch jobs function
+  const fetchJobs = async (isLoadMore = false) => {
+    setLoad(true);
     try {
-      const responseSubmit = await axios.get(
-        `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/jobs`,
-        {
-          withCredentials: true,
-        }
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/jobs?page=${page}`,
+        { withCredentials: true }
       );
-      setPostData(responseSubmit.data.all.jobResult);
-      setNotLive(responseSubmit.data.all.is_ok);
+
+      const newJobs = response.data.all.jobResult;
+
+      setPostData((prevJobs) =>
+        isLoadMore ? [...prevJobs, ...newJobs] : newJobs
+      );
     } catch (error) {
-      console.error("Error fetching post data:", error);
-      toast("Please login again");
+      console.error("Error fetching jobs:", error);
     } finally {
       setLoad(false);
     }
   };
 
+  useEffect(() => {
+    fetchJobs();
+  }, []);
+
+  const handleLoadMore = () => {
+    setPage((prevPage) => prevPage + 1); // Increment page
+    fetchJobs(true); // Fetch new jobs and append
+  };
+
   const onDelete = async (id) => {
     try {
       setLoad(true);
-      console.log(id)
+      console.log(id);
       const response = await axios.delete(
         `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/jobs/${id}`,
         { withCredentials: true }
@@ -62,7 +71,7 @@ function Page() {
       setPostIdToDelete(null);
     } catch (error) {
       console.log(error);
-    } 
+    }
     // finally {
     //   setLoad(false);
     //   window.location.reload();
@@ -180,12 +189,14 @@ function Page() {
             Pay
           </button>
 
-          { selectedJobs.length>0 && <button
-            onClick={() => console.log(selectedJobs)}
-            className="bg-accent-blue-1 text-white px-[1rem] py-[0.5rem] rounded-[8px]"
-          >
-            Pay
-          </button>}
+          {selectedJobs.length > 0 && (
+            <button
+              onClick={() => console.log(selectedJobs)}
+              className="bg-accent-blue-1 text-white px-[1rem] py-[0.5rem] rounded-[8px]"
+            >
+              Pay
+            </button>
+          )}
         </div>
 
         <div className="relative overflow-x-auto w-full">
@@ -233,8 +244,10 @@ function Page() {
                         className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500"
                       />
                     </td>
-                    <td className="px-6 py-4">
-                      {dayjs(post.last_update).fromNow()}
+                    <td className="text-sm px-6 py-4">
+                      {dayjs().diff(dayjs(post.last_update), "hours") < 24
+                        ? dayjs(post.last_update).fromNow()
+                        : dayjs(post.last_update).format("DD/MM/YYYY")}
                     </td>
                     <td className="px-6 py-4 font-medium">
                       <Link
@@ -300,6 +313,14 @@ function Page() {
             </tbody>
           </table>
         </div>
+
+        <button
+          onClick={handleLoadMore}
+          disabled={load}
+          className="mt-4 mx-auto bg-background text-base-1 text-xs px-4 py-2 rounded"
+        >
+          {load ? "Loading..." : "Load More"}
+        </button>
       </div>
     </div>
   );
