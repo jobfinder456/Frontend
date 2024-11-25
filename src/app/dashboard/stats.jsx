@@ -3,17 +3,34 @@ import { RxExternalLink } from "react-icons/rx";
 import { IoClose } from "react-icons/io5";
 import axios from "axios";
 
-export default function Stats({ postData, notLive, onBulkPay }) {
+export default function Stats({ postData, onBulkPay }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [companyLogo, setCompanyLogo] = useState(null);
   const [companyLogoPreview, setCompanyLogoPreview] = useState(null);
   const [companyName, setCompanyName] = useState("");
   const [companyWebsite, setCompanyWebsite] = useState("");
   const [companyProfiles, setCompanyProfiles] = useState([]);
+  const [stats, setStats] = useState(null);
 
   useEffect(() => {
     fetchProfile();
+    fetchStats();
   }, []);
+
+  const fetchStats = async () => {
+    try {
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/user/impressions`,
+        {
+          withCredentials: true,
+        }
+      );
+      console.log(res.data);
+      setStats(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const fetchProfile = async () => {
     try {
@@ -85,8 +102,8 @@ export default function Stats({ postData, notLive, onBulkPay }) {
     <div className="w-[100%] bg-background flex flex-col gap-[1rem] p-[0.5rem] md:p-[1rem] rounded-[24px]">
       <div className="flex flex-wrap gap-[0.5rem] md:gap-[1rem]">
         <div className="bg-white flex-grow flex flex-col items-start justify-center rounded-[1rem] p-[0.75rem] md:p-[2rem]">
-          <h3 className="text-[1rem] md:text-[1.2rem] font-medium text-accent-blue-1">
-            Coming Soon !
+          <h3 className="text-[2.5rem] md:text-[4rem] font-medium text-accent-blue-1">
+            {stats?.total_impressions}
           </h3>
           <span className="text-[14px] md:text-[16px]">
             Total impressions on your job posts
@@ -94,13 +111,13 @@ export default function Stats({ postData, notLive, onBulkPay }) {
         </div>
         <div className="bg-white flex-grow flex flex-col items-start justify-center rounded-[1rem] p-[0.75rem] md:p-[2rem]">
           <h3 className="text-[2.5rem] md:text-[4rem] font-medium text-accent-blue-1">
-            {postData.length - notLive}
+            {stats?.jobs_ok_true}
           </h3>
           <span className="text-[14px] md:text-[16px]">Jobs are live now</span>
         </div>
         <div className="bg-white flex-grow flex flex-col items-start justify-center rounded-[1rem] p-[0.75rem] md:p-[2rem]">
           <h3 className="text-[2.5rem] md:text-[4rem] font-medium text-accent-blue-1">
-            {notLive}
+            {stats?.jobs_ok_false}
           </h3>
           <span className="text-[14px] md:text-[16px]">
             Jobs require payment.{" "}
@@ -126,7 +143,7 @@ export default function Stats({ postData, notLive, onBulkPay }) {
           </div>
           {/* Map over companyProfiles to render the profiles */}
           {companyProfiles.map((company, index) => (
-            <div key={index} className="flex items-center gap-2 mb-2">
+            <div key={index} className="flex items-center gap-2">
               <img
                 src={company.image_url}
                 alt={`${company.company_name} logo`}

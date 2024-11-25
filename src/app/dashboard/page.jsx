@@ -24,7 +24,6 @@ function Page() {
   const [modal, setModal] = useState(false);
   const [load, setLoad] = useState(true);
   const [postIdToDelete, setPostIdToDelete] = useState(null);
-  const [notLive, setNotLive] = useState(0);
   const [selectedJobs, setSelectedJobs] = useState([]);
   const [page, setPage] = useState(1); // Current page
 
@@ -72,10 +71,10 @@ function Page() {
     } catch (error) {
       console.log(error);
     }
-    // finally {
-    //   setLoad(false);
-    //   window.location.reload();
-    // }
+    finally {
+      setLoad(false);
+      window.location.reload();
+    }
   };
 
   const onBulkPay = async () => {
@@ -183,7 +182,7 @@ function Page() {
           load ? "opacity-50" : null
         }`}
       >
-        <Stats notLive={notLive} postData={postData} onBulkPay={onBulkPay} />
+        <Stats onBulkPay={onBulkPay} />
         <div className="flex justify-between w-[100%]">
           <button className="bg-accent-blue-1 text-white px-[1rem] py-[0.5rem] rounded-[8px] opacity-0">
             Pay
@@ -269,7 +268,7 @@ function Page() {
                         ) : (
                           <>
                             Payment Needed!
-                            <RxExternalLink />
+                            <RxExternalLink size={24} />
                           </>
                         )}
                       </button>
