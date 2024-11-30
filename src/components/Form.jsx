@@ -287,13 +287,17 @@ function Form({ onSubmit, setJobDetails, jobDetails, isEdit }) {
                 }
               >
                 <option value="">Select category</option>
+                <option value="accounting">Accounting</option>
                 <option value="tech">Tech</option>
                 <option value="devops">DevOps</option>
+                <option value="cloud/sre">Cloud/SRE</option>
+                <option value="security">Security</option>
                 <option value="design">Design</option>
                 <option value="sales">Sales</option>
                 <option value="marketing">Marketing</option>
                 <option value="finance">Finance</option>
                 <option value="customer">Customer</option>
+                <option value="full-stack">Full-Stack</option>
                 <option value="frontend">Frontend</option>
                 <option value="backend">Backend</option>
                 <option value="mobile">Mobile</option>
