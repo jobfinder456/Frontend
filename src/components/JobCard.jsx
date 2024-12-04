@@ -19,7 +19,7 @@ function JobCard({ jobTitle, companyName, isRemote, loc, id, img, jobLink }) {
             />
           ) : (
             <span className="flex items-center justify-center h-full text-white">
-              {companyName[0]}
+              {companyName?.[0]}
             </span> // Adjusted the padding to center vertically
           )}
         </div>
