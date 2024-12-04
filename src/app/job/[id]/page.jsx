@@ -18,9 +18,7 @@ function Page() {
         const response = await axios.get(
           `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/jobs/${id}`
         );
-        const impressionResponse = await axios.post(
-          `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/jobs/${id}/view`
-        );
+
         if (response.data === 0) {
           setNotFound(true);
         } else {

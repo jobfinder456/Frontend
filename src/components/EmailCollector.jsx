@@ -108,7 +108,7 @@ function EmailCollector({ isHome }) {
           </div>
           <div>
             <label htmlFor="skills" className="block text-sm font-medium text-base-1">
-              Skills (select up to 3)
+              Add upto 3 job title
             </label>
             <select
               id="skills"
@@ -116,7 +116,7 @@ function EmailCollector({ isHome }) {
               onChange={(e) => setSelectedSkill(e.target.value)}
               className="mt-1 block w-full border border-base-2 rounded-md shadow-sm p-2"
             >
-              <option value="">Select skill</option>
+              <option value="">Select job title</option>
               <option value="tech">Tech</option>
               <option value="devops">DevOps</option>
               <option value="design">Design</option>
@@ -145,7 +145,7 @@ function EmailCollector({ isHome }) {
           </div>
 
           <div className="mt-4">
-            <label className="block text-sm font-medium text-gray-700">Selected Skills:</label>
+            <label className="block text-sm font-medium text-gray-700">Selected titles:</label>
             <div className="flex flex-wrap gap-2 mt-2">
               {skills.map((skill, index) => (
                 <div key={index} className="flex items-center bg-gray-100 rounded-full px-3 py-1">
@@ -196,10 +196,10 @@ function EmailCollector({ isHome }) {
         <button
           className={`flex-grow max-w-[19rem] ${
             isHome ? "bg-base-1" : "bg-accent-blue-1"
-          } text-white font-medium rounded-[8px] md:rounded-[12px] p-[0.5rem] md:p-[1rem]`}
+          } text-white font-medium rounded-[8px] md:rounded-[12px] p-[0.5rem] md:px-[1rem] md:py-[0.75rem]`}
           onClick={() => setIsModalOpen(true)}
         >
-          Submit
+          Submit Details
         </button>
       </div>
       {isModalOpen && contentJsx()}
