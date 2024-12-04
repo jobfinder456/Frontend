@@ -8,10 +8,11 @@ function EmailCollector({ isHome }) {
   const [name, setName] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [resume, setResume] = useState(null);
-  const [skills, setSkills] = useState(["", "", ""]);
+  const [skills, setSkills] = useState([]);
+  const [selectedSkill, setSelectedSkill] = useState("");
 
   async function submitForm() {
-    if (!name || !email || !resume || skills.filter(Boolean).length === 0) {
+    if (!name || !email || !resume || skills.length === 0) {
       toast.error("Please fill all required fields");
       return;
     }
@@ -40,7 +41,7 @@ function EmailCollector({ isHome }) {
           name: name,
           email: email,
           fileLink: res.data.data.fileLink,
-          position: skills.filter(Boolean),
+          position: skills,
         }
       );
 
@@ -105,27 +106,60 @@ function EmailCollector({ isHome }) {
               required
             />
           </div>
-          {skills.map((skill, index) => (
-            <div key={index}>
-              <label
-                htmlFor={`skill-${index}`}
-                className="block text-sm font-medium text-gray-700"
-              >
-                Skill {index + 1}
-              </label>
-              <input
-                type="text"
-                id={`skill-${index}`}
-                value={skill}
-                onChange={(e) => {
-                  const newSkills = [...skills];
-                  newSkills[index] = e.target.value;
-                  setSkills(newSkills);
-                }}
-                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-              />
+          <div>
+            <label htmlFor="skills" className="block text-sm font-medium text-base-1">
+              Skills (select up to 3)
+            </label>
+            <select
+              id="skills"
+              value={selectedSkill}
+              onChange={(e) => setSelectedSkill(e.target.value)}
+              className="mt-1 block w-full border border-base-2 rounded-md shadow-sm p-2"
+            >
+              <option value="">Select skill</option>
+              <option value="tech">Tech</option>
+              <option value="devops">DevOps</option>
+              <option value="design">Design</option>
+              <option value="sales">Sales</option>
+              <option value="marketing">Marketing</option>
+              <option value="finance">Finance</option>
+              <option value="customer">Customer</option>
+              <option value="frontend">Frontend</option>
+              <option value="backend">Backend</option>
+              <option value="mobile">Mobile</option>
+              <option value="business-development">Business Development</option>
+              <option value="ai">AI</option>
+              <option value="blockchain-web3">Blockchain/Web3</option>
+            </select>
+            <button
+              onClick={() => {
+                if (selectedSkill && skills.length < 3 && !skills.includes(selectedSkill)) {
+                  setSkills([...skills, selectedSkill]);
+                  setSelectedSkill("");
+                }
+              }}
+              className="mt-2 px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-base-2 bg-background hover:bg-blue-700"
+            >
+              Add Skill
+            </button>
+          </div>
+
+          <div className="mt-4">
+            <label className="block text-sm font-medium text-gray-700">Selected Skills:</label>
+            <div className="flex flex-wrap gap-2 mt-2">
+              {skills.map((skill, index) => (
+                <div key={index} className="flex items-center bg-gray-100 rounded-full px-3 py-1">
+                  <span>{skill}</span>
+                  <button
+                    onClick={() => setSkills(skills.filter((_, i) => i !== index))}
+                    className="ml-2 text-red-500 hover:text-red-700"
+                  >
+                    ×
+                  </button>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
         <div className="mt-6 flex justify-end space-x-3">
           <button
@@ -174,3 +208,4 @@ function EmailCollector({ isHome }) {
 }
 
 export default EmailCollector;
+

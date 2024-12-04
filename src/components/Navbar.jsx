@@ -4,7 +4,7 @@ import ForEmp from "./ForEmp";
 
 export default function Navbar() {
   return (
-    <div className="w-[100%] py-[1rem]  flex justify-between items-center sm:px-[20px]">
+    <div className="w-[100%] py-[1rem]  flex justify-between items-center px-[12px] sm:px-[20px]">
       <Link
         href={"/"}
         className="w-[4rem] h-[4rem] md:w-[5rem] md:h-[5rem] flex items-center justify-center"
