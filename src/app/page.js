@@ -33,7 +33,7 @@ export default function Home() {
       <Marquee></Marquee>
 
       <div className="w-[100%] max-w-[73.75rem] md:px-[2rem] mx-auto flex flex-col items-start justify-start gap-[1rem]">
-        <h2 className="text-[16px] md:text-[20px] font-medium pl-[1rem]">Latest Jobs</h2>
+        {/* <h2 className="text-[16px] md:text-[20px] font-medium pl-[1rem]">Latest Jobs</h2> */}
 
         <LatestJobs></LatestJobs>
         
