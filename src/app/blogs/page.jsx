@@ -77,7 +77,7 @@ export default function BlogPage() {
                 <ChevronDown className="float-right h-5 w-5 text-gray-400" />
               </button>
               {isDropdownOpen && (
-                <div className="absolute z-10 w-48 mt-1 bg-white border border-gray-300 rounded-md shadow-lg overflow-y-auto max-h-32">
+                <div className="absolute z-10 w-48 mt-1 bg-white border border-gray-300 rounded-md shadow-lg overflow-y-auto max-h-[15rem]">
                   {allTags.map((tag) => (
                     <button
                       key={tag}

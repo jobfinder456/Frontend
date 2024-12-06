@@ -12,7 +12,7 @@ function JobCard({
   commitment,
 }) {
   return (
-    <div className="w-[100%] flex justify-between items-center px-[8px] sm:px-[24px] py-[8px] sm:py-[1rem] rounded-[12px] hover:bg-background">
+    <div className="w-[100%] flex justify-between items-center px-[8px] sm:px-[24px] py-[8px] sm:py-[1rem] rounded-[12px] hover:bg-background hover:bg-opacity-50">
       <Link
         href={`/job/${id}`}
         target="_blank"

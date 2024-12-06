@@ -12,11 +12,11 @@
     }
 
     .button-primary {
-      @apply text-white bg-base-1 p-[8px] md:p-[12px] rounded-[8px] md:rounded-[12px] border-[1px] border-base-1 font-medium;
+      @apply text-white bg-base-1 px-[12px] py-[6px] md:px-[16px] md:py-[8px] rounded-[8px] border-[1px] border-base-1 font-medium;
     }
 
     .button-secondary {
-      @apply text-base-1 p-[8px] md:p-[12px] rounded-[8px] md:rounded-[12px] border-[1px] border-base-1 font-medium;
+      @apply text-base-1 px-[12px] py-[6px] md:px-[16px] md:py-[8px] rounded-[8px] border-[1px] bg-background font-medium;
     }
   }
 

@@ -12,8 +12,8 @@ export default function Navbar() {
       </Link>
 
       <div className="flex items-center gap-[0.5rem] sm:gap-[1rem]">
-        <a href="/blogs" className="cursor-pointer bg-background px-[1rem] py-[0.5rem] rounded-[8px] text-sm font-medium">Study</a>
-        <a href="/business" className="cursor-pointer bg-background px-[1rem] py-[0.5rem] rounded-[8px] text-sm font-medium">For Business</a>
+        <a href="/blogs" className="cursor-pointer bg-background px-[1rem] py-[0.5rem] sm:py-[0.75rem] rounded-[8px] text-sm sm:text-[1.1rem] font-medium">Study</a>
+        <a href="/business" className="cursor-pointer bg-background px-[1rem] py-[0.5rem] sm:py-[0.75rem] rounded-[8px] text-sm sm:text-[1.1rem] font-medium">For Business</a>
         
       </div>
 

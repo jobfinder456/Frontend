@@ -165,7 +165,7 @@ function Page() {
   };
 
   return (
-    <div className="relative max-w-[73.75rem] mx-auto min-h-screen overflow-hidden">
+    <div className="relative max-w-[73.75rem] mx-auto min-h-screen overflow-hidden px-[1rem]">
       <Navbar />
       <Toaster />
       {load && <Loader />}
@@ -179,7 +179,7 @@ function Page() {
         />
       )}
       <div
-        className={`flex flex-col justify-start items-start gap-[1rem] p-[20px] ${
+        className={`flex flex-col justify-start items-start gap-[1rem] ${
           load ? "opacity-50" : null
         }`}
       >

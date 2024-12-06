@@ -188,7 +188,7 @@ function EmailCollector({ isHome }) {
         } rounded-[16px] flex flex-wrap gap-[1rem]`}
       >
         {isHome && (
-          <label htmlFor="email" className="font-medium text-base-1 mb-[1rem]">
+          <label htmlFor="email" className="font-medium text-[1rem] sm:text-[1.2rem] text-base-1 mb-[1rem]">
             Be the first one to apply any job. We will send you similar job post
             Supafast!
           </label>
