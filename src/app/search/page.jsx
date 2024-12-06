@@ -136,6 +136,7 @@ function JobSearchComponent() {
               loc={job.work_loc}
               img={job.image_url}
               jobLink={job.job_link}
+              commitment={job.commitment}
             />
           ))
         ) : (

@@ -30,6 +30,7 @@ export default async function LatestJobs() {
               loc={job.work_loc}
               img={job.image_url}
               jobLink={job.job_link}
+              commitment={job.commitment}
             />
           ))}
         </div>

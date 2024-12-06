@@ -1,9 +1,18 @@
 import React from "react";
 import Link from "next/link";
 
-function JobCard({ jobTitle, companyName, isRemote, loc, id, img, jobLink }) {
+function JobCard({
+  jobTitle,
+  companyName,
+  isRemote,
+  loc,
+  id,
+  img,
+  jobLink,
+  commitment,
+}) {
   return (
-    <div className="w-[100%] flex justify-between items-center px-[8px] md:px-[24px] py-[8px] md:py-[1rem] rounded-[12px] hover:bg-background">
+    <div className="w-[100%] flex justify-between items-center px-[8px] sm:px-[24px] py-[8px] sm:py-[1rem] rounded-[12px] hover:bg-background">
       <Link
         href={`/job/${id}`}
         target="_blank"
@@ -25,13 +34,20 @@ function JobCard({ jobTitle, companyName, isRemote, loc, id, img, jobLink }) {
         </div>
 
         <div className="flex flex-col justify-start items-start ">
-          <h3 className="text-[0.85rem] md:text-[20px] font-medium text-base-1">
+          <h3 className="text-[0.85rem] sm:text-[20px] font-medium text-base-1">
             {jobTitle}
           </h3>
 
-          <h5 className="text-[12px] md:text-[1rem] font-normal text-base-2">
-            {companyName} <span className="font-extrabold">·</span>{" "}
-            {isRemote ? "Remote" : `${loc}`}
+          <h5 className="text-[12px] sm:text-[1rem] font-normal text-base-2">
+            {companyName}{" "}
+            <span>
+              <span className="font-extrabold">·</span>{" "}
+              {isRemote ? "Remote" : `${loc}`}
+            </span>{" "}
+            <span>
+              <span className="font-extrabold">·</span>{" "}
+              {commitment ? commitment : ""}
+            </span>
           </h5>
         </div>
       </Link>
