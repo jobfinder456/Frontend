@@ -100,10 +100,10 @@ function JobSearchComponent() {
   };
 
   return (
-    <div className="max-w-[73.75rem] mx-auto flex flex-col items-center justify-center gap-[2rem]">
+    <div className="max-w-[73.75rem] mx-auto flex flex-col items-center justify-center gap-[2rem] px-[1rem]">
       <Navbar />
 
-      <div className="flex flex-col gap-[2rem] px-[20px]">
+      <div className="flex flex-col gap-[2rem] sm:px-[20px]">
         <div className="w-[100%] text-center flex flex-col items-center justify-center gap-[1rem]">
           <h1 className="text-[2.5rem] md:text-[4rem] font-light leading-tight">
             <span className="font-medium">Get</span> your dream{" "}
@@ -124,7 +124,7 @@ function JobSearchComponent() {
         />
       </div>
 
-      <div className="w-[100%] flex flex-col justify-center items-center px-[20px]">
+      <div className="w-[100%] flex flex-col justify-center items-center sm:px-[20px]">
         {posts.length > 0 ? (
           posts.map((job, index) => (
             <JobCard

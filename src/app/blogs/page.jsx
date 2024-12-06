@@ -13,6 +13,8 @@ export default function BlogPage() {
   const [blogList, setBlogList] = useState(blogs); // Use state to manage blogs data
   const dropdownRef = useRef(null);
 
+  const allTags = Array.from(new Set(blogs.flatMap((blog) => blog.tags)));
+
   const filteredBlogs =
     selectedTags.length > 0
       ? blogList.filter((blog) =>
@@ -48,15 +50,21 @@ export default function BlogPage() {
     <>
       <Head>
         <title>Blog - Tech Recruiter</title>
-        <meta name="description" content="A collection of blog posts on tech interviews and coding tutorials." />
-        <meta name="keywords" content="tech, interviews, javascript, react, node.js, backend, frontend" />
+        <meta
+          name="description"
+          content="A collection of blog posts on tech interviews and coding tutorials."
+        />
+        <meta
+          name="keywords"
+          content="tech, interviews, javascript, react, node.js, backend, frontend"
+        />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://yourwebsite.com/blog" />
       </Head>
-      
+
       <div className="container mx-auto px-4 pb-8 max-w-[75rem]">
         <Navbar />
-        <div className="mx-auto max-w-4xl">
+        <div className="mx-auto max-w-[75rem]">
           <div className="flex justify-between items-center">
             <h1 className="text-xl font-semibold mb-8">Blog Posts</h1>
 
