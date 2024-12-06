@@ -36,6 +36,7 @@ export default function Home() {
         <h2 className="text-[16px] md:text-[20px] font-medium pl-[1rem]">Latest Jobs</h2>
 
         <LatestJobs></LatestJobs>
+        
       </div>
 
       <div className="w-[100%] p-[1rem] md:p-[2rem]">

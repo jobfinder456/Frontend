@@ -26,7 +26,10 @@ function ComapniesPage() {
       <Navbar />
       <div className="flex flex-wrap gap-[1rem] max-w-[75rem] mx-auto">
         {data.map((company) => (
-          <div key={company.company_name} className="flex-grow flex gap-[1rem] basis-full min-[464px]:basis-1/3 sm:basis-1/4 lg:basis-1/4 max-w-full bg-background rounded-[8px] p-[0.65rem] sm:p-[1rem]">
+          <div
+            key={company.company_name}
+            className="flex-grow flex gap-[1rem] basis-full min-[464px]:basis-1/3 sm:basis-1/4 lg:basis-1/4 max-w-full bg-background bg-opacity-50 rounded-[8px] p-[0.65rem] sm:p-[1rem]"
+          >
             <img
               src={company.image_url}
               alt=""
@@ -35,7 +38,7 @@ function ComapniesPage() {
 
             <div>
               <h2 className="font font-medium sm:text-[1.1rem]">
-              {company.company_name}
+                {company.company_name}
               </h2>
               <p className="text-sm font-light">{company.total_jobs}</p>
             </div>
