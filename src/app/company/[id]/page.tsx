@@ -62,8 +62,8 @@ function CompanyPage() {
   return (
     <div className="  max-w-[75rem] mx-auto mb-[2rem]">
       <Navbar />
-      <div className="flex flex-col gap-[1rem] justify-start items-start px-[1rem] max-w-[60rem] mx-auto">
-        <div className="flex gap-[1rem] justify-start items-center bg-zinc-100 w-[100%] p-[0.65rem] sm:p-[1rem] rounded-[12px]">
+      <div className="flex flex-col gap-[1rem] justify-start items-start px-[1rem] ">
+        <div className="flex gap-[1rem] justify-start items-center bg-background w-[100%] p-[0.65rem] sm:p-[1rem] rounded-[12px] max-w-[75rem] mx-auto">
           <img
             src={company.imageUrl}
             alt={`${company.company} logo`}
@@ -75,7 +75,7 @@ function CompanyPage() {
           </div>
         </div>
         
-        <div className="w-[100%] flex flex-col justify-center items-center ">
+        <div className="w-[100%] flex flex-col justify-center items-center max-w-[60rem] mx-auto">
           {jobs.length > 0 ? (
             jobs.map((job) => (
               <JobCard
