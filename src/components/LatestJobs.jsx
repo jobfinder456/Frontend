@@ -31,7 +31,7 @@ export default async function LatestJobs() {
       <div className="w-full flex flex-col gap-8">
         {/* Latest Jobs Section */}
         <section>
-          <h2 className="text-2xl font-bold mb-4">Latest Jobs</h2>
+          <h2 className="text-xl font-medium mb-4">Latest Jobs</h2>
           <div className="flex flex-col justify-center items-center gap-4">
             {jobData[0]?.all?.map((job) => (
               <JobCard
@@ -52,7 +52,7 @@ export default async function LatestJobs() {
         {/* Other Categories */}
         {categories.map(({ name, category }, index) => (
           <section key={category}>
-            <h2 className="text-2xl font-bold mb-4">{name}</h2>
+            <h2 className="text-xl font-medium mb-4">{name}</h2>
             <div className="flex flex-col justify-center items-center gap-4">
               {jobData[index]?.all?.map((job) => (
                 <JobCard

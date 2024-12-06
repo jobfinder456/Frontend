@@ -18,32 +18,28 @@ function EmailCollector({ isHome }) {
     }
 
     try {
-      console.log(1)
+      console.log(1);
       // Get signed URL for S3
-      const res = await axios.post(
-        `http://localhost:8282/api/v1/s3Resume`,
-        { contentType: resume.type }
-      );
-      console.log(2)
-      console.log(res)
-      console.log(res.data.data.signedUrl)
+      const res = await axios.post(`http://localhost:8282/api/v1/s3Resume`, {
+        contentType: resume.type,
+      });
+      console.log(2);
+      console.log(res);
+      console.log(res.data.data.signedUrl);
 
       // Upload file to S3
       await axios.put(res.data.data.signedUrl, resume, {
         headers: { "Content-Type": resume.type },
       });
-      console.log(3)
+      console.log(3);
 
       // Submit form data
-      const response = await axios.post(
-        `http://localhost:8282/api/v1/resume`,
-        {
-          name: name,
-          email: email,
-          fileLink: res.data.data.fileLink,
-          position: skills,
-        }
-      );
+      const response = await axios.post(`http://localhost:8282/api/v1/resume`, {
+        name: name,
+        email: email,
+        fileLink: res.data.data.fileLink,
+        position: skills,
+      });
 
       toast.success("Form submitted successfully");
       setIsModalOpen(false);
@@ -107,7 +103,10 @@ function EmailCollector({ isHome }) {
             />
           </div>
           <div>
-            <label htmlFor="skills" className="block text-sm font-medium text-base-1">
+            <label
+              htmlFor="skills"
+              className="block text-sm font-medium text-base-1"
+            >
               Add upto 3 job title
             </label>
             <select
@@ -133,25 +132,51 @@ function EmailCollector({ isHome }) {
             </select>
             <button
               onClick={() => {
-                if (selectedSkill && skills.length < 3 && !skills.includes(selectedSkill)) {
+                if (
+                  selectedSkill &&
+                  skills.length < 3 &&
+                  !skills.includes(selectedSkill)
+                ) {
                   setSkills([...skills, selectedSkill]);
                   setSelectedSkill("");
                 }
               }}
-              className="mt-2 px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-base-2 bg-background hover:bg-blue-700"
+              disabled={
+                selectedSkill &&
+                skills.length < 3 &&
+                !skills.includes(selectedSkill)
+                  ? false
+                  : true
+              }
+              style={{
+                backgroundColor:
+                  selectedSkill &&
+                  skills.length < 3 &&
+                  !skills.includes(selectedSkill)
+                    ? "#e4e4e7"
+                    : "#fafafa",
+              }}
+              className="mt-2 px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-base-2"
             >
               Add Skill
             </button>
           </div>
 
           <div className="mt-4">
-            <label className="block text-sm font-medium text-gray-700">Selected titles:</label>
+            <label className="block text-sm font-medium text-gray-700">
+              Selected titles:
+            </label>
             <div className="flex flex-wrap gap-2 mt-2">
               {skills.map((skill, index) => (
-                <div key={index} className="flex items-center bg-gray-100 rounded-full px-3 py-1">
+                <div
+                  key={index}
+                  className="flex items-center bg-gray-100 rounded-full px-3 py-1"
+                >
                   <span>{skill}</span>
                   <button
-                    onClick={() => setSkills(skills.filter((_, i) => i !== index))}
+                    onClick={() =>
+                      setSkills(skills.filter((_, i) => i !== index))
+                    }
                     className="ml-2 text-red-500 hover:text-red-700"
                   >
                     ×
@@ -188,7 +213,10 @@ function EmailCollector({ isHome }) {
         } rounded-[16px] flex flex-wrap gap-[1rem]`}
       >
         {isHome && (
-          <label htmlFor="email" className="font-medium text-[1rem] sm:text-[1.2rem] text-base-1 mb-[1rem]">
+          <label
+            htmlFor="email"
+            className="font-medium text-[1rem] sm:text-[1.2rem] text-base-1 mb-[1rem]"
+          >
             Be the first one to apply any job. We will send you similar job post
             Supafast!
           </label>
@@ -208,4 +236,3 @@ function EmailCollector({ isHome }) {
 }
 
 export default EmailCollector;
-
