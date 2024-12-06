@@ -1,6 +1,7 @@
 "use client";
 
 import Navbar from "@/components/Navbar";
+import withAuth from "@/components/WithAuth";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
@@ -325,4 +326,4 @@ function Page() {
   );
 }
 
-export default Page;
+export default withAuth(Page);
