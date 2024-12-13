@@ -38,10 +38,10 @@ module.exports = {
     },
 
     colors: {
-      white: "#ffffff",
+      "white": "#ffffff",
       "base-1": "#0e1111",
       "base-2": "#6E7070",
-      background: "#ECECEC",
+      "background": "#ECECEC",
       "accent-blue-1": "#0000EE",
       "accent-blue-2": "#E6E6FE",
       "accent-red-1": "#F50000",

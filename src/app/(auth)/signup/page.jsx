@@ -15,13 +15,15 @@ const Signup = () => {
 
   const onEmailSubmit = async () => {
     try {
-      toast("🟢 OTP send succesfully");
+      
       await axios.post(`${process.env.NEXT_PUBLIC_BACK_AUTH}/api/v1/signup`, {
         email: email,
         password: password,
       });
+      toast("🟢 OTP send succesfully");
       setDisable(false);
     } catch (error) {
+      toast.error(error.message)
       console.error("Email sending error:", error);
     }
   };
@@ -35,6 +37,7 @@ const Signup = () => {
       localStorage.setItem("getjobs", true)
       router.push("/dashboard");
     } catch (error) {
+      toast.error(error.message)
       console.error("Email sending error:", error);
     }
   };

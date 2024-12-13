@@ -1,89 +1,132 @@
-"use client";
-import Loader from "@/components/Loader";
+"use client"; // Ensure this is client-side
+
+import { useState, useRef, useEffect } from "react";
+import { Eye, X, ChevronDown, ArrowUpRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
-import Link from "next/link";
-import React from "react";
+import blogs from "@/lib/blogs"; // Import blogs array
+import Head from "next/head";
 
-function BlogsPage() {
+// Fetching blogs data directly in the client-side component
+export default function BlogPage() {
+  const [selectedTags, setSelectedTags] = useState([]);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [blogList, setBlogList] = useState(blogs); // Use state to manage blogs data
+  const dropdownRef = useRef(null);
+
+  const filteredBlogs =
+    selectedTags.length > 0
+      ? blogList.filter((blog) =>
+          blog.tags.some((tag) => selectedTags.includes(tag))
+        )
+      : blogList;
+
+  const handleTagSelect = (tag) => {
+    if (!selectedTags.includes(tag)) {
+      setSelectedTags([...selectedTags, tag]);
+    }
+    setIsDropdownOpen(false);
+  };
+
+  const handleTagRemove = (tag) => {
+    setSelectedTags(selectedTags.filter((t) => t !== tag));
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
-    <div className="relative max-w-[73.75rem] mx-auto min-h-screen overflow-hidden">
-      <Navbar />
-      {false && <Loader />}
-      <div className="p-[2rem] flex flex-col gap-[1rem]">
-        <h1 className="text-[1rem] md:text-[1.5rem] font-light leading-tight text-center mb-[2rem]">
-          Learning Center
-        </h1>
-        <div className="flex flex-col gap-[1rem]">
-          <Link
-            href={"/"}
-            className="bg-background rounded-[0.5rem] p-[1rem] text-base-1 hover:pl-[1.25rem] hover:text-accent-blue-1 transition-all"
-          >
-            <h3 className="text-[2rem] font-semibold">
-              The Future of AI: Trends to Watch in 2024
-            </h3>
-            <p>
-              Explore the top trends shaping the future of artificial
-              intelligence in 2024, from AI ethics to advancements in machine
-              learning.
-            </p>
-          </Link>
+    <>
+      <Head>
+        <title>Blog - Tech Recruiter</title>
+        <meta name="description" content="A collection of blog posts on tech interviews and coding tutorials." />
+        <meta name="keywords" content="tech, interviews, javascript, react, node.js, backend, frontend" />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://yourwebsite.com/blog" />
+      </Head>
+      
+      <div className="container mx-auto px-4 pb-8 max-w-[75rem]">
+        <Navbar />
+        <div className="mx-auto max-w-4xl">
+          <div className="flex justify-between items-center">
+            <h1 className="text-xl font-semibold mb-8">Blog Posts</h1>
 
-          <Link
-            href={"/"}
-            className="bg-background rounded-[0.5rem] p-[1rem] text-base-1 hover:pl-[1.25rem] hover:text-accent-blue-1 transition-all"
-          >
-            <h3 className="text-[1.5rem] font-semibold">
-              5 Books Every Aspiring Developer Should Read
-            </h3>
-            <p>
-              Discover five must-read books that can provide aspiring developers
-              with valuable insights and skills to excel in their careers.
-            </p>
-          </Link>
+            <div className="relative" ref={dropdownRef}>
+              <button
+                className="w-48 px-4 py-2 text-left bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+              >
+                Filter by tag
+                <ChevronDown className="float-right h-5 w-5 text-gray-400" />
+              </button>
+              {isDropdownOpen && (
+                <div className="absolute z-10 w-48 mt-1 bg-white border border-gray-300 rounded-md shadow-lg overflow-y-auto max-h-32">
+                  {allTags.map((tag) => (
+                    <button
+                      key={tag}
+                      className="block w-full px-4 py-2 text-left hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
+                      onClick={() => handleTagSelect(tag)}
+                    >
+                      {tag}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
 
-          <Link
-            href={"/"}
-            className="bg-background rounded-[0.5rem] p-[1rem] text-base-1 hover:pl-[1.25rem] hover:text-accent-blue-1 transition-all"
-          >
-            <h3 className="text-[1.5rem] font-semibold">
-              Mastering Remote Work: Tips for Productivity
-            </h3>
-            <p>
-              Learn how to maximize your productivity while working remotely
-              with these practical tips and strategies from industry experts.
-            </p>
-          </Link>
+          {selectedTags.length > 0 && (
+            <div className="flex flex-wrap gap-2 mb-6">
+              {selectedTags.map((tag) => (
+                <span
+                  key={tag}
+                  className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800"
+                >
+                  {tag}
+                  <button
+                    className="ml-2 inline-flex items-center justify-center w-4 h-4 rounded-full bg-blue-200 text-blue-500 hover:bg-blue-300 focus:outline-none"
+                    onClick={() => handleTagRemove(tag)}
+                  >
+                    <X className="h-3 w-3" />
+                  </button>
+                </span>
+              ))}
+            </div>
+          )}
 
-          <Link
-            href={"/"}
-            className="bg-background rounded-[0.5rem] p-[1rem] text-base-1 hover:pl-[1.25rem] hover:text-accent-blue-1 transition-all"
-          >
-            <h3 className="text-[1.5rem] font-semibold">
-              Cybersecurity in 2024: Protecting Your Digital Life
-            </h3>
-            <p>
-              Stay ahead of cyber threats in 2024 by understanding the latest
-              cybersecurity practices and how to protect your digital assets.
-            </p>
-          </Link>
-
-          <Link
-            href={"/"}
-            className="bg-background rounded-[0.5rem] p-[1rem] text-base-1 hover:pl-[1.25rem] hover:text-accent-blue-1 transition-all"
-          >
-            <h3 className="text-[1.5rem] font-semibold">
-              The Rise of Quantum Computing: What You Need to Know
-            </h3>
-            <p>
-              Quantum computing is set to revolutionize technology. Discover
-              what it is, how it works, and its potential impact on various
-              industries.
-            </p>
-          </Link>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-[1rem]">
+            {filteredBlogs.map((blog) => (
+              <a
+                key={blog.id}
+                href={`${blog.link}`}
+                className="bg-white rounded-lg overflow-hidden border-[1px] border-background transition-shadow duration-300 hover:shadow-md flex flex-col"
+              >
+                <div className="p-6">
+                  <h2 className="text-xl font-semibold mb-2">{blog.title}</h2>
+                </div>
+                <div className="px-6 py-4 bg-background bg-opacity-50 mt-auto">
+                  <div className="flex justify-between items-center">
+                    <div className="flex items-center text-gray-500 text-xs">
+                      <Eye className="w-3 h-3 mr-1" />
+                      <span>{blog.views} views</span>
+                    </div>
+                    <ArrowUpRight size={16} />
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
-
-export default BlogsPage;
