@@ -1,32 +1,43 @@
-name: Build on PR
+name: PR Pipeline for Develop Branch
 
 on:
-  pull_request:
+  push:
     branches:
-      - main
+      - develop
 
 jobs:
-  build:
+  build-and-create-pr:
+    name: Build and Create Pull Request
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
-      
+      # Step 1: Checkout Code
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "20"
+          node-version: 18
 
-      - name: Cache Node.js modules
-        uses: actions/cache@v3
+      # Step 3: Install Dependencies and Build
+      - name: Install Dependencies and Build
+        run: |
+          npm install
+          npm run build
+      # Step 4: Create Pull Request
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-
-      - name: Install Dependencies
-        run: npm install
-
-      - name: Run Build
-        run: npm run build
-
+          title: "Merge Develop into Main - Automated PR"
+          body: "This PR was automatically created to merge changes from develop into main."
+          branch: develop   # Branch for the PR
+          base: main                   # Target branch
+          labels: "auto-pr, needs-review"
+          commit-message: "[create-pull-request] automated change"
+          committer: GitHub <noreply@github.com>
+          author: TESLAOPUnix <TESLAOPUnix@users.noreply.github.com>
+          delete-branch: false
+          draft: false
+          signoff: false
