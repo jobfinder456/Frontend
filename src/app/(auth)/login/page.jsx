@@ -35,7 +35,8 @@ const Login = () => {
         { withCredentials: true }
       );
       
-      localStorage.setItem("getjobs", true)
+      const date = new Date().toISOString();
+      localStorage.setItem("isLogin", date)
       router.push("/dashboard");
     } catch (error) {
       toast.error(error.message)

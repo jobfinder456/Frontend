@@ -11,8 +11,8 @@ export const metadata = {
   icons: {
     icon: [
       {
-        url: "/images/favicon.png", 
-        href: "/images/favicon.png", 
+        url: "/images/favicon.png",
+        href: "/images/favicon.png",
       },
     ],
   },
@@ -26,10 +26,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <Head>
         <title>{metadata.title}</title>
-        <meta
-          property="og:title"
-          content={metadata.title}
-        />
+        <meta property="og:title" content={metadata.title} />
         <meta property="og:description" content={metadata.description} />
         <meta property="og:site_name" content="Get Jobs Today" />
         <meta property="og:url" content="https://getjobs.today/" />
@@ -38,8 +35,10 @@ export default function RootLayout({ children }) {
         <link rel="icon" href={metadata.icons.icon[0].href} />
       </Head>
       <body className={inter.className}>
-      <Toaster />
-        {children}
+        <main className="bg-zinc-50">
+          <Toaster />
+          {children}
+        </main>
         <Script
           strategy="afterInteractive"
           src="https://www.googletagmanager.com/gtag/js?id=G-S3V1MYKXW3"

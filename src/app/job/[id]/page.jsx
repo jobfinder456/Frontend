@@ -44,16 +44,16 @@ function Page() {
   }
 
   return (
-    <div className="relative max-w-[73.75rem] mx-auto flex flex-col justify-between mb-[2rem]">
+    <div className="relative max-w-[73.75rem] mx-auto flex flex-col justify-between mb-[2rem] px-[1rem]">
       <Navbar />
       <Toaster />
 
       {details && (
-        <div className="relative w-[100%] mx-auto flex flex-col justify-center gap-[2rem] md:gap-[0rem] px-[1rem] text-[14px] md:text-[1rem] lg:text-[20px]">
+        <div className="relative w-[100%] mx-auto flex flex-col justify-center gap-[2rem] md:gap-[0rem] text-[14px] md:text-[1rem] lg:text-[20px]">
           <div className="w-[100%] flex flex-col items-center justify-center gap-[1rem] mt-[1rem]">
             <a
               href={details.website}
-              className="w-[40px] h-[40px] md:w-[80px] md:h-[80px] bg-zinc-400 rounded-md"
+              className="w-[40px] h-[40px] md:w-[80px] md:h-[80px]  rounded-md"
             >
               {details.image_url ? (
                 <img
@@ -109,9 +109,9 @@ function Page() {
             <div className="top-[20px] sticky w-[100%] md:w-[40%] flex flex-col gap-[20px]">
               <a
                 href={`${details.job_link}?utm_source=getjobs.today&utm_medium=organic`}
-                className="bg-accent-blue-2 p-[1rem] text-white rounded-[16px] flex items-center "
+                className="bg-accent-blue-2 p-[0.5rem] sm:p-[1rem] text-white rounded-[16px] flex items-center "
               >
-                <h3 className="bg-accent-blue-1 text-center w-[100%] p-[1rem] rounded-[12px] font-medium">
+                <h3 className="bg-accent-blue-1 text-center w-[100%] p-[0.75rem] sm:p-[1rem] rounded-[12px] font-medium">
                   Apply for this job
                 </h3>
               </a>

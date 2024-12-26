@@ -8,73 +8,73 @@ function Marquee() {
         <div className="py-[16px] animate-marquee whitespace-nowrap">
           <Link
             href={"/"}
-            className="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
+            className="mx-2 md:mx-3 text-[0.9rem] sm:text-[1rem] rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
           >
             Data Scientist
           </Link>
           <Link
             href={"/"}
-            className="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
+            className="mx-2 md:mx-3 text-[0.9rem] sm:text-[1rem] rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
           >
             UX Engineer
           </Link>
           <Link
             href={"/"}
-            className="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
+            className="mx-2 md:mx-3 text-[0.9rem] sm:text-[1rem] rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
           >
             Digital Marketer
           </Link>
           <Link
             href={"/"}
-            className="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
+            className="mx-2 md:mx-3 text-[0.9rem] sm:text-[1rem] rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
           >
             UI/UX Designer
           </Link>
           <Link
             href={"/"}
-            className="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
+            className="mx-2 md:mx-3 text-[0.9rem] sm:text-[1rem] rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
           >
             Backend Developer
           </Link>
           <Link
             href={"/"}
-            className="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
+            className="mx-2 md:mx-3 text-[0.9rem] sm:text-[1rem] rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
           >
             Sales Associate
           </Link>
           <Link
             href={"/"}
-            className="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
+            className="mx-2 md:mx-3 text-[0.9rem] sm:text-[1rem] rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
           >
             Cloud Architect
           </Link>
           <Link
             href={"/"}
-            className="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
+            className="mx-2 md:mx-3 text-[0.9rem] sm:text-[1rem] rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
           >
             Frontend Developer
           </Link>
           <Link
             href={"/"}
-            className="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
+            className="mx-2 md:mx-3 text-[0.9rem] sm:text-[1rem] rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
           >
             Interior Designer
           </Link>
           <Link
             href={"/"}
-            className="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
+            className="mx-2 md:mx-3 text-[0.9rem] sm:text-[1rem] rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
           >
             3D Animator
           </Link>
           <Link
             href={"/"}
-            className="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
+            className="mx-2 md:mx-3 text-[0.9rem] sm:text-[1rem] rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
           >
             Finance Analyst
           </Link>
           <Link
             href={"/"}
-            className="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
+            className="mx-2 md:mx-3 text-[0.9rem] sm:text-[1rem] rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
           >
             Web3 Engineer
           </Link>
@@ -83,73 +83,73 @@ function Marquee() {
         <div className="absolute top-0 py-[16px] animate-marquee2 whitespace-nowrap">
           <Link
             href={"/"}
-            className="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
+            className="mx-2 md:mx-3 text-[0.9rem] sm:text-[1rem] rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
           >
             Data Scientist
           </Link>
           <Link
             href={"/"}
-            className="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
+            className="mx-2 md:mx-3 text-[0.9rem] sm:text-[1rem] rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
           >
             UX Engineer
           </Link>
           <Link
             href={"/"}
-            className="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
+            className="mx-2 md:mx-3 text-[0.9rem] sm:text-[1rem] rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
           >
             Digital Marketer
           </Link>
           <Link
             href={"/"}
-            className="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
+            className="mx-2 md:mx-3 text-[0.9rem] sm:text-[1rem] rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
           >
             UI/UX Designer
           </Link>
           <Link
             href={"/"}
-            className="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
+            className="mx-2 md:mx-3 text-[0.9rem] sm:text-[1rem] rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
           >
             Backend Developer
           </Link>
           <Link
             href={"/"}
-            className="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
+            className="mx-2 md:mx-3 text-[0.9rem] sm:text-[1rem] rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
           >
             Sales Associate
           </Link>
           <Link
             href={"/"}
-            className="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
+            className="mx-2 md:mx-3 text-[0.9rem] sm:text-[1rem] rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
           >
             Cloud Architect
           </Link>
           <Link
             href={"/"}
-            className="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
+            className="mx-2 md:mx-3 text-[0.9rem] sm:text-[1rem] rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
           >
             Frontend Developer
           </Link>
           <Link
             href={"/"}
-            className="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
+            className="mx-2 md:mx-3 text-[0.9rem] sm:text-[1rem] rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
           >
             Interior Designer
           </Link>
           <Link
             href={"/"}
-            className="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
+            className="mx-2 md:mx-3 text-[0.9rem] sm:text-[1rem] rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
           >
             3D Animator
           </Link>
           <Link
             href={"/"}
-            className="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
+            className="mx-2 md:mx-3 text-[0.9rem] sm:text-[1rem] rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
           >
             Finance Analyst
           </Link>
           <Link
             href={"/"}
-            className="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
+            className="mx-2 md:mx-3 text-[0.9rem] sm:text-[1rem] rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
           >
             Web3 Engineer
           </Link>
@@ -160,73 +160,73 @@ function Marquee() {
         <div className="py-[16px] animate-marquee3 whitespace-nowrap">
           <Link
             href={"/"}
-            className="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
+            className="mx-2 md:mx-3 text-[0.9rem] sm:text-[1rem] rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
           >
             Customer Service Manager
           </Link>
           <Link
             href={"/"}
-            className="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
+            className="mx-2 md:mx-3 text-[0.9rem] sm:text-[1rem] rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
           >
             FullStack Engineer
           </Link>
           <Link
             href={"/"}
-            className="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
+            className="mx-2 md:mx-3 text-[0.9rem] sm:text-[1rem] rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
           >
             Video Editor
           </Link>
           <Link
             href={"/"}
-            className="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
+            className="mx-2 md:mx-3 text-[0.9rem] sm:text-[1rem] rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
           >
             Software Engineer
           </Link>
           <Link
             href={"/"}
-            className="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
+            className="mx-2 md:mx-3 text-[0.9rem] sm:text-[1rem] rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
           >
             Motion Designer
           </Link>
           <Link
             href={"/"}
-            className="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
+            className="mx-2 md:mx-3 text-[0.9rem] sm:text-[1rem] rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
           >
             Product Manager
           </Link>
           <Link
             href={"/"}
-            className="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
+            className="mx-2 md:mx-3 text-[0.9rem] sm:text-[1rem] rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
           >
             DevOps Engineer
           </Link>
           <Link
             href={"/"}
-            className="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
+            className="mx-2 md:mx-3 text-[0.9rem] sm:text-[1rem] rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
           >
             Business Devlopment Manager
           </Link>
           <Link
             href={"/"}
-            className="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
+            className="mx-2 md:mx-3 text-[0.9rem] sm:text-[1rem] rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
           >
             Cyber Security Engineer
           </Link>
           <Link
             href={"/"}
-            className="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
+            className="mx-2 md:mx-3 text-[0.9rem] sm:text-[1rem] rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
           >
             Consultant
           </Link>
           <Link
             href={"/"}
-            className="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
+            className="mx-2 md:mx-3 text-[0.9rem] sm:text-[1rem] rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
           >
             Product Designer
           </Link>
           <Link
             href={"/"}
-            className="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
+            className="mx-2 md:mx-3 text-[0.9rem] sm:text-[1rem] rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
           >
             Human Resource Manager
           </Link>
@@ -235,73 +235,73 @@ function Marquee() {
         <div className="absolute top-0 py-[16px] animate-marquee4 whitespace-nowrap">
           <Link
             href={"/"}
-            className="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
+            className="mx-2 md:mx-3 text-[0.9rem] sm:text-[1rem] rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
           >
             Customer Service Manager
           </Link>
           <Link
             href={"/"}
-            className="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
+            className="mx-2 md:mx-3 text-[0.9rem] sm:text-[1rem] rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
           >
             FullStack Engineer
           </Link>
           <Link
             href={"/"}
-            className="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
+            className="mx-2 md:mx-3 text-[0.9rem] sm:text-[1rem] rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
           >
             Video Editor
           </Link>
           <Link
             href={"/"}
-            className="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
+            className="mx-2 md:mx-3 text-[0.9rem] sm:text-[1rem] rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
           >
             Software Engineer
           </Link>
           <Link
             href={"/"}
-            className="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
+            className="mx-2 md:mx-3 text-[0.9rem] sm:text-[1rem] rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
           >
             Motion Designer
           </Link>
           <Link
             href={"/"}
-            className="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
+            className="mx-2 md:mx-3 text-[0.9rem] sm:text-[1rem] rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
           >
             Product Manager
           </Link>
           <Link
             href={"/"}
-            className="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
+            className="mx-2 md:mx-3 text-[0.9rem] sm:text-[1rem] rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
           >
             DevOps Engineer
           </Link>
           <Link
             href={"/"}
-            className="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
+            className="mx-2 md:mx-3 text-[0.9rem] sm:text-[1rem] rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
           >
             Business Devlopment Manager
           </Link>
           <Link
             href={"/"}
-            className="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
+            className="mx-2 md:mx-3 text-[0.9rem] sm:text-[1rem] rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
           >
             Cyber Security Engineer
           </Link>
           <Link
             href={"/"}
-            className="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
+            className="mx-2 md:mx-3 text-[0.9rem] sm:text-[1rem] rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
           >
             Consultant
           </Link>
           <Link
             href={"/"}
-            className="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
+            className="mx-2 md:mx-3 text-[0.9rem] sm:text-[1rem] rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
           >
             Product Designer
           </Link>
           <Link
             href={"/"}
-            className="mx-2 md:mx-3 rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
+            className="mx-2 md:mx-3 text-[0.9rem] sm:text-[1rem] rounded-[8px] p-[12px] bg-white shadow-[0_1px_5px_1px_rgba(0,0,0,0.12)]"
           >
             Human Resource Manager
           </Link>

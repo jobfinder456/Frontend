@@ -60,21 +60,22 @@ function CompanyPage() {
   }
 
   return (
-    <div className="  max-w-[75rem] mx-auto mb-[2rem]">
+    <div className="  max-w-[75rem] mx-auto mb-[2rem] px-[1rem]">
       <Navbar />
-      <div className="flex flex-col gap-[1rem] justify-start items-start px-[1rem] max-w-[60rem] mx-auto">
-        <div className="flex gap-[1rem] justify-center items-center ">
+      <div className="flex flex-col gap-[1rem] justify-start items-start">
+        <div className="flex gap-[1rem] justify-start items-center bg-background w-[100%] p-[0.65rem] sm:p-[1rem] rounded-[12px] max-w-[75rem] mx-auto">
           <img
             src={company.imageUrl}
             alt={`${company.company} logo`}
-            className="w-20 h-20 rounded-[1rem] bg-background"
+            className="w-12 h-12 sm:w-20 sm:h-20 rounded-[12px] bg-background"
           />
           <div>
-            <h1 className="text-[1.5rem] font-bold">{company.company}</h1>
-            <h5>has {company.totalJobs} open positions</h5>
+            <h1 className="text-[1.1rem] sm:text-[1.5rem] font-bold">{company.company}</h1>
+            <h5 className="text-xs sm:text-sm">has {company.totalJobs} open positions</h5>
           </div>
         </div>
-        <div className="w-[100%] flex flex-col justify-center items-center px-[20px]">
+        
+        <div className="w-[100%] flex flex-col justify-center items-center max-w-[60rem] mx-auto">
           {jobs.length > 0 ? (
             jobs.map((job) => (
               <JobCard
@@ -86,6 +87,7 @@ function CompanyPage() {
                 loc={job.work_loc}
                 img={job.image_url}
                 jobLink={job.job_link}
+                commitment={job.commitment}
               />
             ))
           ) : (
