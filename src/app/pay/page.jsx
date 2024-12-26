@@ -9,8 +9,10 @@ import {
     PayPalButtons,
     PayPalCardFieldsForm,
   } from "@paypal/react-paypal-js";
+  import { useRouter } from "next/navigation";
 
 export default function Pay() {
+  const router = useRouter(); 
   const searchParams = useSearchParams();
 
   const jobId = searchParams.get("jobId");
@@ -79,6 +81,8 @@ const initialOptions = {
 
   async function onApprove(data, actions) {
     try {
+      console.log("1",data);
+      console.log(actions)
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/verify-payment`,
         {
@@ -89,7 +93,7 @@ const initialOptions = {
             credentials: "include",
           body: JSON.stringify({
             jobId: jobId,
-            orderId: "1",
+            orderId: data.orderID,
           }),
         }
       );
@@ -100,33 +104,25 @@ const initialOptions = {
       //   (2) Other non-recoverable errors -> Show a failure message
       //   (3) Successful transaction -> Show confirmation or thank you message
 
-      const transaction =
-        orderData?.purchase_units?.[0]?.payments?.captures?.[0] ||
-        orderData?.purchase_units?.[0]?.payments?.authorizations?.[0];
-      const errorDetail = orderData?.details?.[0];
+      
 
-      if (errorDetail || !transaction || transaction.status === "DECLINED") {
-        // (2) Other non-recoverable errors -> Show a failure message
-        let errorMessage;
-        if (transaction) {
-          errorMessage = `Transaction ${transaction.status}: ${transaction.id}`;
-        } else if (errorDetail) {
-          errorMessage = `${errorDetail.description} (${orderData.debug_id})`;
-        } else {
-          errorMessage = JSON.stringify(orderData);
-        }
+      if (orderData.msg == true) {
 
-        throw new Error(errorMessage);
-      } else {
-        // (3) Successful transaction -> Show confirmation or thank you message
-        // Or go to another URL:  actions.redirect('thank_you.html');
         toast.success("Payment successful!");
         console.log(
           "Capture result",
           orderData,
           JSON.stringify(orderData, null, 2)
         );
+        router.push(`/afterpay?success=true&jobId=${jobId}&orderId=${data.orderID}`);
         return `Transaction ${transaction.status}: ${transaction.id}. See console for all available details`;
+        
+
+      } else {
+        // (3) Successful transaction -> Show confirmation or thank you message
+        // Or go to another URL:  actions.redirect('thank_you.html');
+        router.push(`/afterpay?success=false&jobId=${jobId}&orderId=${data.orderID}`);
+        
       }
     } catch (error) {
       return `Sorry, your transaction could not be processed...${error}`;
