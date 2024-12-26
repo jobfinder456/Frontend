@@ -44,31 +44,29 @@ const initialOptions = {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/create-payment`,
         {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            credentials: "include",
-          // use the "body" param to optionally pass additional order information
-          // like product ids and quantities
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
           body: JSON.stringify({
             jobId: jobId,
             price: "100",
-          })
+          }),
         }
       );
-
+  
       const orderData = await response.json();
-      console.log(orderData)
-
+      console.log(orderData);
+  
       if (orderData.orderId) {
-        return orderData.orderId;
+        return orderData.orderId; // This orderId will be used as PayPal's orderID
       } else {
         const errorDetail = orderData?.details?.[0];
         const errorMessage = errorDetail
           ? `${errorDetail.issue} ${errorDetail.description} (${orderData.debug_id})`
           : JSON.stringify(orderData);
-
+  
         throw new Error(errorMessage);
       }
     } catch (error) {
@@ -76,37 +74,34 @@ const initialOptions = {
       return `Could not initiate PayPal Checkout...${error}`;
     }
   }
-
-  async function onApprove(data, actions) {
+  
+  async function onApprove(data) {
     try {
+      // The data parameter includes the orderID
+      const { orderID } = data;
+  
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/verify-payment`,
         {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            credentials: "include",
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
           body: JSON.stringify({
             jobId: jobId,
-            orderId: "1",
+            orderId: orderID, // Use the orderID received from PayPal
           }),
         }
       );
-
+  
       const orderData = await response.json();
-      // Three cases to handle:
-      //   (1) Recoverable INSTRUMENT_DECLINED -> call actions.restart()
-      //   (2) Other non-recoverable errors -> Show a failure message
-      //   (3) Successful transaction -> Show confirmation or thank you message
-
       const transaction =
         orderData?.purchase_units?.[0]?.payments?.captures?.[0] ||
         orderData?.purchase_units?.[0]?.payments?.authorizations?.[0];
       const errorDetail = orderData?.details?.[0];
-
+  
       if (errorDetail || !transaction || transaction.status === "DECLINED") {
-        // (2) Other non-recoverable errors -> Show a failure message
         let errorMessage;
         if (transaction) {
           errorMessage = `Transaction ${transaction.status}: ${transaction.id}`;
@@ -115,11 +110,9 @@ const initialOptions = {
         } else {
           errorMessage = JSON.stringify(orderData);
         }
-
+  
         throw new Error(errorMessage);
       } else {
-        // (3) Successful transaction -> Show confirmation or thank you message
-        // Or go to another URL:  actions.redirect('thank_you.html');
         toast.success("Payment successful!");
         console.log(
           "Capture result",
@@ -132,6 +125,7 @@ const initialOptions = {
       return `Sorry, your transaction could not be processed...${error}`;
     }
   }
+  
 
   
   function onError(error) {
