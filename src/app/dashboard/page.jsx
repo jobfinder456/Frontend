@@ -96,66 +96,6 @@ function Page() {
     }
   };
 
-  const onPay = async (jobId) => {
-    try {
-      setLoad(true);
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/create-payment`,
-        { userId: email, jobId, price: 29900 },
-        { withCredentials: true }
-      );
-      const { orderId } = response.data;
-
-      const options = {
-        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID, // Replace with your Razorpay Key ID
-        amount: 29900, // Amount is in currency subunits. Default currency is INR.
-        currency: "INR",
-        name: "Get Jobs",
-        description: "Payment for Job Posting",
-        order_id: orderId,
-        handler: async function (response) {
-          const pay_id = `${response.razorpay_payment_id}`;
-          const ord_id = orderId;
-          const sign = `${response.razorpay_signature}`;
-          const validateRes = await axios.post(
-            `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/verify-payment`,
-            { raz_pay_id: pay_id, raz_ord_id: ord_id, raz_sign: sign, jobId },
-            { withCredentials: true }
-          );
-          //const jsonRes = await validateRes.json();
-          console.log(validateRes);
-          router.push(`/success?jobId=${jobId}&payId=${pay_id}`);
-        },
-        prefill: {
-          name: "Your Name",
-          email: email,
-        },
-        notes: {
-          address: "Corporate Office",
-        },
-        theme: {
-          color: "#3399cc",
-        },
-      };
-
-      console.log(options);
-      if (window.Razorpay) {
-        const rzp1 = new window.Razorpay(options);
-        rzp1.on("payment.failed", function (response) {
-          alert(`Payment failed. Error: ${response.error.reason}`);
-        });
-        rzp1.open();
-      } else {
-        console.error("Razorpay SDK not loaded");
-      }
-      rzp1.open();
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoad(false);
-    }
-  };
-
   const toggleJobSelection = (jobId) => {
     setSelectedJobs((prevSelected) =>
       prevSelected.includes(jobId)
@@ -261,7 +201,7 @@ function Page() {
                     <td className="px-6 py-4">{post.impressions || "N/A"}</td>
                     <td className="px-6 py-4">
                       <button
-                        onClick={() => onPay([post.id])}
+                        onClick={() => router.push(`/pay?jobId=${[post.id]}`)}
                         className="flex items-center gap-2"
                       >
                         {post.is_ok ? (
