@@ -131,7 +131,7 @@ const initialOptions = {
 
   
   function onError(error) {
-    // Do something with the error from the SDK
+    // Do something with the error from the  SDK
   }
 
   return (
