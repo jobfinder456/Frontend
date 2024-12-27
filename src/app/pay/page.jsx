@@ -102,7 +102,7 @@ const initialOptions = {
       // Three cases to handle:
       //   (1) Recoverable INSTRUMENT_DECLINED -> call actions.restart()
       //   (2) Other non-recoverable errors -> Show a failure message
-      //   (3) Successful transaction -> Show confirmation or thank you message
+      //   (3) Successful transaction -> Show confirmation or thank you  message
 
       
 
