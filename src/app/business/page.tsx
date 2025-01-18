@@ -4,8 +4,12 @@ import {
   ArrowRight,
   BarChart,
   Building2,
-  CheckCircle,
   Users,
+  CheckCircle,
+  Star,
+  Building,
+  Briefcase,
+  Phone,
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 
@@ -48,13 +52,6 @@ export default function LandingPage() {
             >
               Post Your First Job
               <ArrowRight className="ml-2 h-5 w-5" />
-            </Link>
-            <Link
-              href="mailto:hq@getjobs.today"
-              className="inline-flex items-center justify-center h-12 px-8 font-medium text-gray-700 border bg-background rounded-[8px] transition-colors"
-              title="hq@getjobs.today"
-            >
-              Contact Founders
             </Link>
           </div>
         </div>
@@ -130,79 +127,123 @@ export default function LandingPage() {
       </section>
 
       {/* Pricing Section */}
-      <section className="py-20 px-4 bg-gray-50">
-        <div className="container mx-auto max-w-6xl">
-          <h2 className="text-3xl font-bold text-center mb-12">
-            Simple, Transparent Pricing
-          </h2>
+      <section className="py-24 px-4 bg-gradient-to-b from-white to-gray-50">
+        <div className="container mx-auto max-w-7xl">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold mb-4">
+              Simple, transparent pricing
+            </h2>
+            <p className="text-gray-600 text-lg">
+              Choose the perfect plan for your business needs
+            </p>
+          </div>
+
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-white p-6 rounded-2xl border border-gray-200">
-              <h3 className="text-xl font-semibold mb-2">Standard Listing</h3>
-              <div className="text-3xl font-bold mb-4">
-                $71{" "}
-                <span className="text-lg font-normal text-gray-600">
-                  /30 days
-                </span>
+            {/* Starter Plan */}
+            <div className="bg-white p-8 rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+              <div className="flex items-center gap-2 mb-4">
+                <Star className="w-6 h-6 text-accent-blue-1" />
+                <h3 className="text-xl font-semibold">Starter</h3>
               </div>
-              <ul className="space-y-3">
-                <li className="flex items-center gap-2">
-                  <CheckCircle className="w-5 h-5 text-green-500" />
-                  <span>30 days active visibility</span>
+              <div className="mb-4">
+                <div className="text-4xl font-bold">$200</div>
+                <div className="text-gray-600">per month</div>
+              </div>
+              <div className="text-sm text-gray-600 mb-6">
+                Perfect for small teams and startups
+              </div>
+              <ul className="space-y-4 mb-8">
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-5 h-5 text-green-500 shrink-0 mt-0.5" />
+                  <span>Post up to <span className="bg-yellow-200 font-semibold px-1 py-[0.1rem] rounded-sm">10 jobs</span> only</span>
                 </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle className="w-5 h-5 text-green-500" />
-                  <span>Basic job listing features</span>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-5 h-5 text-green-500 shrink-0 mt-0.5" />
+                  <span>Advanced analytics dashboard</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-5 h-5 text-green-500 shrink-0 mt-0.5" />
+                  <span>Priority email support</span>
                 </li>
               </ul>
+              <button className="w-full py-3 px-4 bg-white text-accent-blue-1 border border-acbg-accent-blue-1 rounded-lg font-medium hover:bg-blue-50 transition-colors">
+                Get started
+              </button>
             </div>
-            <div className="bg-white p-6 rounded-2xl border-2 border-blue-600 relative">
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent-blue-1 text-white px-3 py-1 rounded-[8px] text-sm">
-                Popular
+
+            {/* Growth Plan */}
+            <div className="bg-white p-8 rounded-2xl border-2 border-acbg-accent-blue-1 shadow-md hover:shadow-lg transition-shadow relative">
+              <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-accent-blue-1 text-white px-4 py-1 rounded-full text-sm font-medium">
+                Most Popular
               </div>
-              <h3 className="text-xl font-semibold mb-2">Spotlight Listing</h3>
-              <div className="text-3xl font-bold mb-4">
-                $120{" "}
-                <span className="text-lg font-normal text-gray-600">
-                  /30 days
-                </span>
+              <div className="flex items-center gap-2 mb-4">
+                <Building className="w-6 h-6 text-accent-blue-1" />
+                <h3 className="text-xl font-semibold">Growth</h3>
               </div>
-              <ul className="space-y-3">
-                <li className="flex items-center gap-2">
-                  <CheckCircle className="w-5 h-5 text-green-500" />
-                  <span>Enhanced promotion</span>
+              <div className="mb-4">
+                <div className="text-4xl font-bold">$500</div>
+                <div className="text-gray-600">per month</div>
+              </div>
+              <div className="text-sm text-gray-600 mb-6">
+                Ideal for growing startups and mid-size companies
+              </div>
+              <ul className="space-y-4 mb-8">
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-5 h-5 text-green-500 shrink-0 mt-0.5" />
+                  <span>Post up to <span className="bg-green-200 font-semibold px-1 py-[0.1rem] rounded-sm">50 jobs</span> only</span>
                 </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle className="w-5 h-5 text-green-500" />
-                  <span>Higher ranking on site</span>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-5 h-5 text-green-500 shrink-0 mt-0.5" />
+                  <span>Advanced analytics dashboard</span>
                 </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle className="w-5 h-5 text-green-500" />
-                  <span>Premium visibility</span>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-5 h-5 text-green-500 shrink-0 mt-0.5" />
+                  <span>Priority email support</span>
                 </li>
               </ul>
+              <button className="w-full py-3 px-4 bg-accent-blue-1 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors">
+                Get started
+              </button>
             </div>
-            <div className="bg-white p-6 rounded-2xl border border-gray-200">
-              <h3 className="text-xl font-semibold mb-2">Elite Listing</h3>
-              <div className="text-3xl font-bold mb-4">
-                $499{" "}
-                <span className="text-lg font-normal text-gray-600">
-                  /30 days
-                </span>
+
+            {/* Enterprise Plan */}
+            <div className="bg-white p-8 rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+              <div className="flex items-center gap-2 mb-4">
+                <Briefcase className="w-6 h-6 text-accent-blue-1" />
+                <h3 className="text-xl font-semibold">Enterprise</h3>
               </div>
-              <ul className="space-y-3">
-                <li className="flex items-center gap-2">
-                  <CheckCircle className="w-5 h-5 text-green-500" />
-                  <span>Maximum exposure</span>
+              <div className="mb-4">
+                <div className="text-4xl font-bold">Custom</div>
+                <div className="text-gray-600">contact for pricing</div>
+              </div>
+              <div className="text-sm text-gray-600 mb-6">
+                For large organizations with custom needs
+              </div>
+              <ul className="space-y-4 mb-8">
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-5 h-5 text-green-500 shrink-0 mt-0.5" />
+                  <span>Unlimited job postings</span>
                 </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle className="w-5 h-5 text-green-500" />
-                  <span>SEO optimization</span>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-5 h-5 text-green-500 shrink-0 mt-0.5" />
+                  <span>Custom integration options</span>
                 </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle className="w-5 h-5 text-green-500" />
-                  <span>Featured placement</span>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-5 h-5 text-green-500 shrink-0 mt-0.5" />
+                  <span>Dedicated account manager</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-5 h-5 text-green-500 shrink-0 mt-0.5" />
+                  <span>Custom analytics and reporting</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-5 h-5 text-green-500 shrink-0 mt-0.5" />
+                  <span>24/7 priority support</span>
                 </li>
               </ul>
+              <button className="mt-auto w-full py-3 px-4 bg-white text-accent-blue-1 border border-acbg-accent-blue-1 rounded-lg font-medium hover:bg-blue-50 transition-colors">
+                Contact founders
+              </button>
             </div>
           </div>
         </div>
@@ -234,7 +275,7 @@ export default function LandingPage() {
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="flex items-center gap-2">
               <Image
-                src="/placeholder.svg"
+                src="/images/favicon.ico"
                 alt="GetJobs.Today Logo"
                 width={32}
                 height={32}

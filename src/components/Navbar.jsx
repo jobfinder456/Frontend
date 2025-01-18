@@ -1,29 +1,99 @@
-import React from "react";
+"use client";
+import React, { useEffect, useRef } from "react";
 import Link from "next/link";
+import { useAuthContext } from "../app/provider";
 
 export default function Navbar() {
+  const { isAuth } = useAuthContext();
+  const [isOpen, setIsOpen] = React.useState(false);
+  const modalRef = useRef(null);
+
+  const handleClickOutside = (event) => {
+    if (modalRef.current && !modalRef.current.contains(event.target)) {
+      setIsOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen]);
+
   return (
-    <div className="w-[100%] py-[1rem] flex justify-between items-center max-w-[75rem] mx-auto ">
+    <div className="w-full py-4 flex justify-between items-center max-w-6xl mx-auto">
       <Link
-        href={"/"}
-        className="w-[4rem] h-[4rem] md:w-[5rem] md:h-[5rem] flex items-center justify-center"
+        href="/"
+        className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center"
       >
         <img src="/images/logo.svg" alt="logo" />
       </Link>
 
-      <div className="flex items-center gap-[0.5rem] sm:gap-[1rem]">
-        <a href="/blogs" className="cursor-pointer bg-background px-[1rem] py-[0.5rem] sm:py-[0.75rem] rounded-[8px] text-sm sm:text-[1.1rem] font-medium">Study</a>
-        <a href="/business" className="cursor-pointer bg-background px-[1rem] py-[0.5rem] sm:py-[0.75rem] rounded-[8px] text-sm sm:text-[1.1rem] font-medium">For Business</a>
-        
+      <div className="flex items-center gap-2 sm:gap-4 relative">
+        <a
+          href="/blogs"
+          className="cursor-pointer bg-background px-4 py-2 sm:py-3 rounded-md text-sm sm:text-base font-medium"
+        >
+          Study
+        </a>
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="cursor-pointer bg-background px-4 py-2 sm:py-3 rounded-md text-sm sm:text-base font-medium"
+        >
+          For Employer
+        </button>
+        <div
+          ref={modalRef}
+          className={`${
+            isOpen
+              ? "opacity-100 scale-100"
+              : "opacity-0 scale-95 pointer-events-none"
+          } flex flex-col gap-2 absolute top-14 right-0 bg-zinc-50 p-2 rounded-md text-base shadow-lg transition ease-in-out duration-300`}
+        >
+          <a
+            href="/business"
+            className="cursor-pointer hover:bg-zinc-100 px-4 py-2 rounded-md font-medium"
+          >
+            What we offer
+          </a>
+          <a
+            href="/postjob"
+            className="cursor-pointer hover:bg-zinc-100 px-4 py-2 rounded-md font-medium"
+          >
+            Post a Job
+          </a>
+          <a
+            href="/dashboard"
+            className="cursor-pointer hover:bg-zinc-100 px-4 py-2 rounded-md font-medium"
+          >
+            Dashboard
+          </a>
+          {isAuth ? (
+            <button
+              onClick={() => {
+                localStorage.removeItem("getjobs");
+                setIsOpen(false);
+              }}
+              className="cursor-pointer hover:bg-red-100 bg-red-50 text-accent-red-1 px-4 py-2 rounded-md font-medium text-start"
+            >
+              Log Out
+            </button>
+          ) : (
+            <a
+              href="/login"
+              className="cursor-pointer hover:bg-blue-100 bg-blue-50 text-accent-blue-1 px-4 py-2 rounded-md font-medium"
+            >
+              Sign In
+            </a>
+          )}
+        </div>
       </div>
-
-      {/* <div className="flex justify-center items-center text-[0.95rem] md:text-[16px] gap-[0.5rem] md:gap-[1rem]">
-        <ForEmp />
-
-        <Link href={"/postjob"} className="button-primary">
-          Post a Job
-        </Link>
-      </div> */}
     </div>
   );
 }
