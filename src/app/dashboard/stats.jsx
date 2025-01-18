@@ -2,20 +2,21 @@ import React, { useEffect, useState } from "react";
 import { RxExternalLink } from "react-icons/rx";
 import { IoClose } from "react-icons/io5";
 import axios from "axios";
+import { useAuthContext } from "../../app/provider";
 
-export default function Stats({ postData, onBulkPay }) {
+export default function Stats({ postData }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [companyLogo, setCompanyLogo] = useState(null);
   const [companyLogoPreview, setCompanyLogoPreview] = useState(null);
   const [companyName, setCompanyName] = useState("");
   const [companyWebsite, setCompanyWebsite] = useState("");
-  const [companyProfiles, setCompanyProfiles] = useState([]);
   const [stats, setStats] = useState(null);
+  const { profile } = useAuthContext();
 
   useEffect(() => {
-    fetchProfile();
     fetchStats();
-  }, []);
+    console.log("Profile from stats.jsx", profile);
+  }, [profile]);
 
   const fetchStats = async () => {
     try {
@@ -27,22 +28,6 @@ export default function Stats({ postData, onBulkPay }) {
       );
       console.log(res.data);
       setStats(res.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const fetchProfile = async () => {
-    try {
-      const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/profile`,
-        {
-          withCredentials: true,
-        }
-      );
-      console.log(response.data);
-      // Set the company profiles from API response
-      setCompanyProfiles(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -98,6 +83,8 @@ export default function Stats({ postData, onBulkPay }) {
     }
   };
 
+
+
   return (
     <div className="w-[100%] bg-background flex flex-col gap-[1rem] p-[0.5rem] md:p-[1rem] rounded-[24px]">
       <div className="flex flex-wrap gap-[0.5rem] md:gap-[1rem]">
@@ -122,7 +109,7 @@ export default function Stats({ postData, onBulkPay }) {
           <span className="text-[14px] md:text-[16px]">
             Jobs require payment.{" "}
             <button
-              onClick={onBulkPay}
+              // onClick={onBulkPay}
               className="flex items-center gap-[0.5rem] underline"
             >
               Pay Now <RxExternalLink />
@@ -142,7 +129,7 @@ export default function Stats({ postData, onBulkPay }) {
             </button>
           </div>
           {/* Map over companyProfiles to render the profiles */}
-          {companyProfiles.map((company, index) => (
+          {profile.map((company, index) => (
             <div key={index} className="flex items-center gap-2">
               <img
                 src={company.image_url}

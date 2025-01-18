@@ -8,6 +8,7 @@ import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import Modal from "@/components/Modal";
 import Loader from "@/components/Loader";
+import { GoSortAsc } from "react-icons/go";
 import { RxExternalLink } from "react-icons/rx";
 import { FaRegEdit } from "react-icons/fa";
 import { MdDeleteOutline } from "react-icons/md";
@@ -15,22 +16,24 @@ import Stats from "./stats";
 import Link from "next/link";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import { useAuthContext } from "../../app/provider";
 
 dayjs.extend(relativeTime);
 
 function Page() {
   const router = useRouter();
-  const [email, setEmail] = useState("");
   const [postData, setPostData] = useState([]);
   const [modal, setModal] = useState(false);
-  const [load, setLoad] = useState(true);
   const [postIdToDelete, setPostIdToDelete] = useState(null);
   const [selectedJobs, setSelectedJobs] = useState([]);
   const [page, setPage] = useState(1); // Current page
+  const [dateSort, setDateSort] = useState(true);
+  const [impSort, setImpSort] = useState(true);
+  const { isAuth, loading, setLoading} = useAuthContext();
 
   // Fetch jobs function
   const fetchJobs = async (isLoadMore = false) => {
-    setLoad(true);
+    setLoading(true);
     try {
       const response = await axios.get(
         `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/jobs?page=${page}`,
@@ -45,7 +48,7 @@ function Page() {
     } catch (error) {
       console.error("Error fetching jobs:", error);
     } finally {
-      setLoad(false);
+      setLoading(false);
     }
   };
 
@@ -60,7 +63,7 @@ function Page() {
 
   const onDelete = async (id) => {
     try {
-      setLoad(true);
+      setLoading(true);
       console.log(id);
       const response = await axios.delete(
         `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/jobs/${id}`,
@@ -71,28 +74,9 @@ function Page() {
       setPostIdToDelete(null);
     } catch (error) {
       console.log(error);
-    }
-    finally {
-      setLoad(false);
+    } finally {
+      setLoading(false);
       window.location.reload();
-    }
-  };
-
-  const onBulkPay = async () => {
-    try {
-      setLoad(true);
-      const unLiveJobIds = postData.reduce((acc, job) => {
-        if (!job.is_ok) {
-          acc.push(job.id);
-        }
-        return acc;
-      }, []);
-      console.log(unLiveJobIds);
-      onPay(unLiveJobIds);
-
-      // Add logic for bulk payment here
-    } catch (error) {
-      console.log(error);
     }
   };
 
@@ -104,11 +88,23 @@ function Page() {
     );
   };
 
+  if(loading) {
+    return <Loader />;
+  }
+
   return (
     <div className="relative max-w-[73.75rem] mx-auto min-h-screen overflow-hidden px-[1rem]">
       <Navbar />
       <Toaster />
-      {load && <Loader />}
+      {!isAuth && !loading ? (
+        <Modal
+          title="First Sign In to Post a Job"
+          button1Title="Sign In /  Create a Account"
+          button2Title="false"
+          button1Action={() => router.push("/login")}
+          button2Action=""
+        ></Modal>
+      ) : null}
       {modal && (
         <Modal
           title="Are you sure you want to delete"
@@ -120,10 +116,10 @@ function Page() {
       )}
       <div
         className={`flex flex-col justify-start items-start gap-[1rem] ${
-          load ? "opacity-50" : null
+          loading ? "opacity-50" : null
         }`}
       >
-        <Stats onBulkPay={onBulkPay} />
+        <Stats />
         <div className="flex justify-between w-[100%]">
           <button className="bg-accent-blue-1 text-white px-[1rem] py-[0.5rem] rounded-[8px] opacity-0">
             Pay
@@ -131,7 +127,25 @@ function Page() {
 
           {selectedJobs.length > 0 && (
             <button
-              onClick={() => console.log(selectedJobs)}
+              onClick={() => {
+                const selectedJobsData = postData.filter((job) =>
+                  selectedJobs.includes(job.id)
+                );
+
+                const jobIds = selectedJobsData.map((job) => job.id);
+                const jobTitles = selectedJobsData.map((job) => job.job_title);
+                const jobCompanies = selectedJobsData.map(
+                  (job) => job.company_name || "N/A"
+                );
+
+                router.push(
+                  `/pay?jobIds=${JSON.stringify(
+                    jobIds
+                  )}&jobTitles=${JSON.stringify(
+                    jobTitles
+                  )}&jobCompanies=${JSON.stringify(jobCompanies)}`
+                );
+              }}
               className="bg-accent-blue-1 text-white px-[1rem] py-[0.5rem] rounded-[8px]"
             >
               Pay
@@ -146,8 +160,18 @@ function Page() {
                 <th scope="col" className="px-6 py-3 rounded-l-[4px]">
                   Select
                 </th>
-                <th scope="col" className="px-6 py-3">
-                  Date
+                <th
+                  scope="col"
+                  className="px-6 py-3 flex items-center justify-between"
+                >
+                  Date{" "}
+                  <span
+                    onClick={() => setDateSort((prev) => !prev)}
+                    className="text-[1rem]"
+                    style={{ rotate: dateSort ? "180deg" : "" }}
+                  >
+                    <GoSortAsc />
+                  </span>
                 </th>
                 <th scope="col" className="px-6 py-3">
                   Job Title
@@ -155,8 +179,18 @@ function Page() {
                 <th scope="col" className="px-6 py-3">
                   Company
                 </th>
-                <th scope="col" className="px-6 py-3">
-                  Impessions
+                <th
+                  scope="col"
+                  className="px-6 py-3 flex items-center justify-between"
+                >
+                  Impessions{" "}
+                  <span
+                    onClick={() => setImpSort((prev) => !prev)}
+                    className="text-[1rem]"
+                    style={{ rotate: impSort ? "180deg" : "" }}
+                  >
+                    <GoSortAsc />
+                  </span>
                 </th>
                 <th scope="col" className="px-6 py-3">
                   Payment Status
@@ -201,7 +235,13 @@ function Page() {
                     <td className="px-6 py-4">{post.impressions || "N/A"}</td>
                     <td className="px-6 py-4">
                       <button
-                        onClick={() => router.push(`/pay?jobId=${[post.id]}`)}
+                        onClick={() =>
+                          router.push(
+                            `/pay?jobId=[${[post.id]}]&jobTitle=[${[
+                              post.job_title,
+                            ]}]&jobCompany=[${[post.company_name]}]`
+                          )
+                        }
                         className="flex items-center gap-2"
                       >
                         {post.is_ok ? (
@@ -256,14 +296,14 @@ function Page() {
 
         <button
           onClick={handleLoadMore}
-          disabled={load}
+          disabled={loading}
           className="mt-4 mx-auto bg-background text-base-1 text-xs px-4 py-2 rounded"
         >
-          {load ? "Loading..." : "Load More"}
+          {loading ? "Loading..." : "Load More"}
         </button>
       </div>
     </div>
   );
 }
 
-export default withAuth(Page);
+export default Page;

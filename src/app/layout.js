@@ -4,6 +4,7 @@ import Script from "next/script";
 import "./globals.css";
 import { GoogleTagManager } from "@next/third-parties/google";
 import { Toaster } from "react-hot-toast";
+import { AuthProvider } from "./provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -35,10 +36,12 @@ export default function RootLayout({ children }) {
         <link rel="icon" href={metadata.icons.icon[0].href} />
       </Head>
       <body className={inter.className}>
-        <main className="bg-zinc-50">
-          <Toaster />
-          {children}
-        </main>
+        <AuthProvider>
+          <main className="bg-zinc-50">
+            <Toaster />
+            {children}
+          </main>
+        </AuthProvider>
         <Script
           strategy="afterInteractive"
           src="https://www.googletagmanager.com/gtag/js?id=G-S3V1MYKXW3"
