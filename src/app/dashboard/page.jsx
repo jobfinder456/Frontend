@@ -13,6 +13,7 @@ import { RxExternalLink } from "react-icons/rx";
 import { FaRegEdit } from "react-icons/fa";
 import { MdDeleteOutline } from "react-icons/md";
 import Stats from "./stats";
+import Switch from "@/components/Switch";
 import Link from "next/link";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -29,7 +30,7 @@ function Page() {
   const [page, setPage] = useState(1); // Current page
   const [dateSort, setDateSort] = useState(true);
   const [impSort, setImpSort] = useState(true);
-  const { isAuth, loading, setLoading} = useAuthContext();
+  const { isAuth, loading, setLoading } = useAuthContext();
 
   // Fetch jobs function
   const fetchJobs = async (isLoadMore = false) => {
@@ -88,7 +89,28 @@ function Page() {
     );
   };
 
-  if(loading) {
+  const toggleSwitch = async (jobId, is_ok) => {
+    console.log("here : ", jobId);
+    try {
+      const res = await axios.put(
+        `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/toggle`,
+        {
+          job_id: jobId,
+          is_ok: !is_ok,
+        },
+        { withCredentials: true }
+      );
+
+      console.log(res);
+      if (res.data.status == "success") {
+        toast.success("Updated Successfully");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  if (loading) {
     return <Loader />;
   }
 
@@ -120,37 +142,10 @@ function Page() {
         }`}
       >
         <Stats />
-        <div className="flex justify-between w-[100%]">
-          <button className="bg-accent-blue-1 text-white px-[1rem] py-[0.5rem] rounded-[8px] opacity-0">
-            Pay
+        <div className="flex justify-end w-[100%]">
+          <button className="bg-accent-blue-1 text-white px-[1rem] py-[0.5rem] rounded-[8px]">
+            Post a Job
           </button>
-
-          {selectedJobs.length > 0 && (
-            <button
-              onClick={() => {
-                const selectedJobsData = postData.filter((job) =>
-                  selectedJobs.includes(job.id)
-                );
-
-                const jobIds = selectedJobsData.map((job) => job.id);
-                const jobTitles = selectedJobsData.map((job) => job.job_title);
-                const jobCompanies = selectedJobsData.map(
-                  (job) => job.company_name || "N/A"
-                );
-
-                router.push(
-                  `/pay?jobIds=${JSON.stringify(
-                    jobIds
-                  )}&jobTitles=${JSON.stringify(
-                    jobTitles
-                  )}&jobCompanies=${JSON.stringify(jobCompanies)}`
-                );
-              }}
-              className="bg-accent-blue-1 text-white px-[1rem] py-[0.5rem] rounded-[8px]"
-            >
-              Pay
-            </button>
-          )}
         </div>
 
         <div className="relative overflow-x-auto w-full">
@@ -234,25 +229,10 @@ function Page() {
                     <td className="px-6 py-4">{post.company_name || "N/A"}</td>
                     <td className="px-6 py-4">{post.impressions || "N/A"}</td>
                     <td className="px-6 py-4">
-                      <button
-                        onClick={() =>
-                          router.push(
-                            `/pay?jobId=[${[post.id]}]&jobTitle=[${[
-                              post.job_title,
-                            ]}]&jobCompany=[${[post.company_name]}]`
-                          )
-                        }
-                        className="flex items-center gap-2"
-                      >
-                        {post.is_ok ? (
-                          "Success"
-                        ) : (
-                          <>
-                            Payment Needed!
-                            <RxExternalLink size={24} />
-                          </>
-                        )}
-                      </button>
+                      <Switch
+                        checked={post.is_ok}
+                        toggleSwitch={() => toggleSwitch(post.id, post.is_ok)}
+                      />
                     </td>
                     <td className="px-6 py-4">{post.name}</td>
                     <td className="px-6 py-4">

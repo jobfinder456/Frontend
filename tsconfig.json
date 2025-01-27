@@ -31,7 +31,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "src/app/pay/PoTHJFNlL9SzHX/page.jsx"  ],
   "exclude": [
     "node_modules"
   ]

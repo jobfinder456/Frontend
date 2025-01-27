@@ -140,7 +140,7 @@ export default function LandingPage() {
 
           <div className="grid md:grid-cols-3 gap-8">
             {/* Starter Plan */}
-            <div className="bg-white p-8 rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+            <div className="bg-white p-8 rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow flex flex-col">
               <div className="flex items-center gap-2 mb-4">
                 <Star className="w-6 h-6 text-accent-blue-1" />
                 <h3 className="text-xl font-semibold">Starter</h3>
@@ -166,13 +166,13 @@ export default function LandingPage() {
                   <span>Priority email support</span>
                 </li>
               </ul>
-              <button className="w-full py-3 px-4 bg-white text-accent-blue-1 border border-acbg-accent-blue-1 rounded-lg font-medium hover:bg-blue-50 transition-colors">
+              <a href="http://localhost:3000/pay/PoTHJFNlL9SzHX" className="w-full text-center py-3 px-4 bg-white text-accent-blue-1 border border-acbg-accent-blue-1 rounded-lg font-medium hover:bg-blue-50 transition-colors">
                 Get started
-              </button>
+              </a>
             </div>
 
             {/* Growth Plan */}
-            <div className="bg-white p-8 rounded-2xl border-2 border-acbg-accent-blue-1 shadow-md hover:shadow-lg transition-shadow relative">
+            <div className="bg-white p-8 rounded-2xl border-2 border-acbg-accent-blue-1 shadow-md hover:shadow-lg transition-shadow relative flex flex-col">
               <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-accent-blue-1 text-white px-4 py-1 rounded-full text-sm font-medium">
                 Most Popular
               </div>
@@ -201,9 +201,9 @@ export default function LandingPage() {
                   <span>Priority email support</span>
                 </li>
               </ul>
-              <button className="w-full py-3 px-4 bg-accent-blue-1 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors">
+              <a href="http://localhost:3000/pay/PoTI8RZDB76ZyV" className="w-[100%] text-center py-3 px-4 bg-accent-blue-1 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors">
                 Get started
-              </button>
+              </a>
             </div>
 
             {/* Enterprise Plan */}
