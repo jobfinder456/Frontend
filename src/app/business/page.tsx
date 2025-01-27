@@ -146,7 +146,7 @@ export default function LandingPage() {
                 <h3 className="text-xl font-semibold">Starter</h3>
               </div>
               <div className="mb-4">
-                <div className="text-4xl font-bold">$200</div>
+                <div className="text-4xl font-bold">$199</div>
                 <div className="text-gray-600">per month</div>
               </div>
               <div className="text-sm text-gray-600 mb-6">
@@ -181,7 +181,7 @@ export default function LandingPage() {
                 <h3 className="text-xl font-semibold">Growth</h3>
               </div>
               <div className="mb-4">
-                <div className="text-4xl font-bold">$500</div>
+                <div className="text-4xl font-bold">$449</div>
                 <div className="text-gray-600">per month</div>
               </div>
               <div className="text-sm text-gray-600 mb-6">
@@ -190,7 +190,7 @@ export default function LandingPage() {
               <ul className="space-y-4 mb-8">
                 <li className="flex items-start gap-2">
                   <CheckCircle className="w-5 h-5 text-green-500 shrink-0 mt-0.5" />
-                  <span>Post up to <span className="bg-green-200 font-semibold px-1 py-[0.1rem] rounded-sm">50 jobs</span> only</span>
+                  <span>Post up to <span className="bg-green-200 font-semibold px-1 py-[0.1rem] rounded-sm">25 jobs</span> only</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle className="w-5 h-5 text-green-500 shrink-0 mt-0.5" />
