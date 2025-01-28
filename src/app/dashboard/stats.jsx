@@ -16,13 +16,13 @@ export default function Stats({ refreshTrigger }) {
     credits: 0,
   });
   const [loading, setLoading] = useState(false);
-  const [profile, setProfile] = useState([]); // Stores company profiles
-  const { profile: authProfile } = useAuthContext();
+  //const [profile, setProfile] = useState([]); // Stores company profiles
+  const { profile } = useAuthContext();
 
   useEffect(() => {
     fetchStats();
-    fetchProfiles();
-  }, [authProfile]);
+    //fetchProfiles();
+  }, []);
 
 const fetchStats = async () => {
     try {
@@ -40,17 +40,17 @@ const fetchStats = async () => {
     fetchStats();
   }, [refreshTrigger]);
 
-  const fetchProfiles = async () => {
-    try {
-      const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/profile`,
-        { withCredentials: true }
-      );
-      setProfile(res.data);
-    } catch (error) {
-      console.error("Error fetching profiles:", error);
-    }
-  };
+  // const fetchProfiles = async () => {
+  //   try {
+  //     const res = await axios.get(
+  //       `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/profile`,
+  //       { withCredentials: true }
+  //     );
+  //     setProfile(res.data);
+  //   } catch (error) {
+  //     console.error("Error fetching profiles:", error);
+  //   }
+  // };
 
   const handleFileChange = async (event) => {
     const file = event.target.files[0];

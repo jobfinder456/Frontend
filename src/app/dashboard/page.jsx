@@ -246,7 +246,7 @@ function Page() {
                       </Link>
                     </td>
                     <td className="px-6 py-4">{post.company_name || "N/A"}</td>
-                    <td className="px-6 py-4">{post.impressions || "N/A"}</td>
+                    <td className="px-6 py-4">{post.impressions || "0"}</td>
                     <td className="px-6 py-4">
                       <Switch
                         checked={post.is_ok}
