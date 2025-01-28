@@ -133,19 +133,22 @@ function Page() {
     return <Loader />;
   }
 
+  if (!isAuth && !loading) {
+    return (
+      <Modal
+        title="First Sign In to Post a Job"
+        button1Title="Sign In /  Create a Account"
+        button2Title="false"
+        button1Action={() => router.push("/login")}
+        button2Action=""
+      ></Modal>
+    );
+  }
+
   return (
     <div className="relative max-w-[73.75rem] mx-auto min-h-screen overflow-hidden px-[1rem]">
       <Navbar />
       <Toaster />
-      {!isAuth && !loading ? (
-        <Modal
-          title="First Sign In to Post a Job"
-          button1Title="Sign In /  Create a Account"
-          button2Title="false"
-          button1Action={() => router.push("/login")}
-          button2Action=""
-        ></Modal>
-      ) : null}
       {modal && (
         <Modal
           title="Are you sure you want to delete"
@@ -160,9 +163,12 @@ function Page() {
           loading ? "opacity-50" : null
         }`}
       >
-        <Stats refreshTrigger={refreshTrigger}/>
+        <Stats refreshTrigger={refreshTrigger} />
         <div className="flex justify-end w-[100%]">
-          <button className="bg-accent-blue-1 text-white px-[1rem] py-[0.5rem] rounded-[8px]">
+          <button
+            onClick={() => router.push("/postjob")}
+            className="bg-accent-blue-1 text-white px-[1rem] py-[0.5rem] rounded-[8px]"
+          >
             Post a Job
           </button>
         </div>

@@ -62,13 +62,13 @@ function Page() {
       );
 
       console.log(response);
-      toast("Job successfully posted");
+      toast.success("Job successfully posted");
       router.push("/dashboard");
     } catch (error) {
       console.error(error);
 
       if (error.response && error.response.status === 400) {
-        toast("Enter details properly");
+        toast.error("Enter details properly");
       } else {
         setModal(true);
       }

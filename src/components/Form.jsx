@@ -2,13 +2,10 @@
 import React, { useEffect, useState } from "react";
 import QuillEditor from "./QuillEditor/index"
 import axios from "axios";
+import { useAuthContext } from "../app/provider";
 
 function Form({ onSubmit, setJobDetails, jobDetails, isEdit }) {
-  const [companyProfiles, setCompanyProfiles] = useState([]);
-
-  useEffect(() => {
-    fetchProfiles();
-  }, []);
+  const { profile: companyProfiles} = useAuthContext();
 
   useEffect(() => {
     console.log("heheheh", isEdit);
@@ -22,19 +19,6 @@ function Form({ onSubmit, setJobDetails, jobDetails, isEdit }) {
       setSelectedCompany(company);
     }
   }, [jobDetails]);
-
-  const fetchProfiles = async () => {
-    try {
-      const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/profile`,
-        { withCredentials: true }
-      );
-      //console.log("ehe", response);
-      setCompanyProfiles(response.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const [selectedCompany, setSelectedCompany] = useState(null);
 
