@@ -29,7 +29,7 @@ export default function Navbar() {
   }, [isOpen]);
 
   return (
-    <div className="w-full max-w-[72rem] mx-auto py-4 flex justify-between items-center z-50">
+    <div className="w-full max-w-[72rem] mx-auto py-4 flex justify-between items-center z-50 p-[1rem]">
       <Link
         href="/"
         className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center"

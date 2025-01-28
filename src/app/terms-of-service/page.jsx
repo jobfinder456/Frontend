@@ -4,8 +4,6 @@ import React from "react";
 const Page = () => {
   return (
     <div className="realtive max-w-[73.75rem] mx-auto">
-      <Navbar></Navbar>
-
       <div className="max-w-[54.75rem] mx-auto p-[1rem]">
         <div className=" bg-background rounded-[1rem] p-[1rem] flex flex-col gap-[1rem] my-[2rem] ">
           <h1 className="text-[24px] font-medium">Terms and Conditions</h1>
@@ -152,16 +150,17 @@ const Page = () => {
               <strong>Warranty Disclaimer</strong>:
               <p>
                 GetJobs.Today&apos;s websites, apps, communities, and its
-                properties are provided on an &quot;as is&quot;, &quot;as available&quot;
-                basis without warranties of any kind, express or implied, including,
-                but not limited to, those of TITLE, MERCHANTABILITY, FITNESS FOR
-                A PARTICULAR PURPOSE, or NON-INFRINGEMENT or any warranty
-                arising from a course of dealing, usage, or trade practice. No
-                advice or written information provided shall create a warranty;
-                nor shall members or visitors to the site rely on any such
-                information or advice. This publication is not intended to be a
-                contract, explicit or implied, and GetJobs reserves the right to
-                make changes to the information contained.
+                properties are provided on an &quot;as is&quot;, &quot;as
+                available&quot; basis without warranties of any kind, express or
+                implied, including, but not limited to, those of TITLE,
+                MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, or
+                NON-INFRINGEMENT or any warranty arising from a course of
+                dealing, usage, or trade practice. No advice or written
+                information provided shall create a warranty; nor shall members
+                or visitors to the site rely on any such information or advice.
+                This publication is not intended to be a contract, explicit or
+                implied, and GetJobs reserves the right to make changes to the
+                information contained.
               </p>
             </li>
             <li>
@@ -193,9 +192,9 @@ const Page = () => {
               <strong>Software and App Use</strong>:
               <p>
                 GetJobs.Today&apos;s software, apps, website, communities, and
-                any of its other properties are provided &quot;as is&quot;, without
-                warranty of any kind, express or implied, including but not
-                limited to the warranties of MERCHANTABILITY, FITNESS FOR A
+                any of its other properties are provided &quot;as is&quot;,
+                without warranty of any kind, express or implied, including but
+                not limited to the warranties of MERCHANTABILITY, FITNESS FOR A
                 PARTICULAR PURPOSE, and NON-INFRINGEMENT. In no event shall the
                 authors, owners, or copyright holders be liable for any claim,
                 damages, or other liability, whether in an action of contract,
@@ -215,12 +214,12 @@ const Page = () => {
             <li>
               <strong>Intellectual Property</strong>:
               <p>
-                The trademarks, logos, and service marks (&quot;Marks&quot;) displayed on
-                GetJobs.Today&apos;s websites, apps, communities, and any of its
-                properties are the property of GetJobs or other third parties.
-                You are not permitted to use these Marks without the prior
-                written consent of GetJobs or such third party which may own the
-                Mark.
+                The trademarks, logos, and service marks (&quot;Marks&quot;)
+                displayed on GetJobs.Today&apos;s websites, apps, communities,
+                and any of its properties are the property of GetJobs or other
+                third parties. You are not permitted to use these Marks without
+                the prior written consent of GetJobs or such third party which
+                may own the Mark.
               </p>
             </li>
           </ol>

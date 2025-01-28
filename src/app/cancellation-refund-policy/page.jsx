@@ -3,8 +3,8 @@ import React from "react";
 
 const Page = () => {
   return (
-    <div className="realtive max-w-[73.75rem] mx-auto">
-      <Navbar></Navbar>
+    <div className="relative max-w-[73.75rem] mx-auto">
+      
 
       <div className="max-w-[54.75rem] mx-auto p-[1rem]">
         <div className=" bg-background rounded-[1rem] p-[1rem] flex flex-col gap-[1rem] my-[2rem] ">

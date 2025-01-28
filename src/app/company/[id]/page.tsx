@@ -61,7 +61,7 @@ function CompanyPage() {
 
   return (
     <div className="  max-w-[75rem] mx-auto mb-[2rem] px-[1rem]">
-      <Navbar />
+      
       <div className="flex flex-col gap-[1rem] justify-start items-start">
         <div className="flex gap-[1rem] justify-start items-center bg-background w-[100%] p-[0.65rem] sm:p-[1rem] rounded-[12px] max-w-[75rem] mx-auto">
           <img

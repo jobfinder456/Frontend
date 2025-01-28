@@ -40,9 +40,7 @@ function Page() {
 
   return (
     <div className="w-[100%] p-[1rem]">
-      <Navbar />
 
-      <Toaster />
 
       <div className="relative mx-auto mt-[2rem] max-w-[32rem] p-[1rem] md:p-[2rem] text-black flex flex-col justify-center items-start gap-4 rounded-[16px] shadow-[0px_0px_16px_4px_rgba(0,0,0,0.1)]">
         <h1 className="text-[1.2rem] md:text-[1.5rem] font-medium">

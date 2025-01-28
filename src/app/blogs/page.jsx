@@ -63,7 +63,7 @@ export default function BlogPage() {
       </Head>
 
       <div className="container mx-auto px-4 pb-8 max-w-[75rem]">
-        <Navbar />
+       
         <div className="mx-auto max-w-[75rem]">
           <div className="flex justify-between items-center">
             <h1 className="text-xl font-semibold mb-8">Blog Posts</h1>

@@ -4,8 +4,6 @@ import React from "react";
 const page = () => {
   return (
     <div className="realtive max-w-[73.75rem] mx-auto">
-      <Navbar></Navbar>
-
       <div className="max-w-[54.75rem] mx-auto p-[1rem]">
         <div className=" bg-background rounded-[1rem] p-[1rem] flex flex-col gap-[1rem] my-[2rem] ">
           <h1 className="text-[24px] font-medium">Privacy Policy</h1>

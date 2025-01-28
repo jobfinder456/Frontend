@@ -4,7 +4,6 @@ import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import Navbar from "../../../components/Navbar";
 
 const ForgotPassword = () => {
   const router = useRouter();
@@ -13,17 +12,20 @@ const ForgotPassword = () => {
   const [confirmPass, setConfirmPass] = useState("");
   const [otp, setOtp] = useState("");
   const [otpSent, setOtpSent] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const onEmailSubmit = async () => {
+    setIsSubmitting(true);
     try {
       await axios.post(`${process.env.NEXT_PUBLIC_BACK_AUTH}/api/v1/forgetpass`, {
-        email: email,
+        email,
       });
-      toast.success("OTP sent successfully");
+      toast.success("OTP sent successfully!");
       setOtpSent(true);
     } catch (error) {
-      console.error("Email sending error:", error);
-      toast.error("Failed to send OTP");
+      toast.error(error.response?.data?.error || "Failed to send OTP");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -33,98 +35,129 @@ const ForgotPassword = () => {
       return;
     }
 
+    setIsSubmitting(true);
     try {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_BACK_AUTH}/api/v1/resetpass`,
         { email, otp, newPassword: password }
       );
       localStorage.setItem("jf_token", response.data.token);
-      toast.success("Password reset successful");
+      toast.success("Password reset successful!");
       router.push("/dashboard");
     } catch (error) {
-      console.error("Password reset error:", error);
-      toast.error("Failed to reset password");
+      toast.error(error.response?.data?.error || "Failed to reset password");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="w-full p-4">
+    <div className="max-w-[48rem] mx-auto min-h-screen px-[1rem] pb-[1rem]">
       <Navbar />
       <Toaster />
-      <div className="relative mx-auto mt-8 max-w-md p-6 text-black flex flex-col justify-center items-start gap-4 rounded-lg shadow-lg">
-        <h1 className="text-2xl font-medium mb-4">Reset your password</h1>
+      <div className="bg-background max-w-[32rem] mx-auto rounded-[1rem] p-[0.75rem] md:p-[1rem] mt-[2rem]">
+        <div className="relative bg-white p-[1rem] md:p-[2rem] text-black flex flex-col justify-center items-start gap-4 rounded-[14px]">
+          <h1 className="text-[1.2rem] md:text-[1.5rem] font-medium">
+            Reset your password with OTP!
+          </h1>
 
-        <div className="w-full space-y-4">
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+          {/* Email Input */}
+          <div
+            className={`w-[100%] flex flex-col items-start justify-start gap-[0.25rem] ${
+              otpSent ? "opacity-50 pointer-events-none" : ""
+            }`}
+          >
+            <label htmlFor="email" className="form-label">
               Email
             </label>
             <input
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              className="form-inp"
               type="email"
               id="email"
-              autoComplete="email"
+              autoComplete="on"
+              value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
-              disabled={otpSent}
+              disabled={otpSent || isSubmitting}
             />
           </div>
 
+          {/* Password and OTP Fields */}
           {otpSent && (
-            <>
-              <div>
-                <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                  New Password
-                </label>
-                <input
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                  type="password"
-                  id="password"
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Enter new password"
-                />
-              </div>
-              <div>
-                <label htmlFor="confirmPass" className="block text-sm font-medium text-gray-700">
-                  Confirm Password
-                </label>
-                <input
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                  type="password"
-                  id="confirmPass"
-                  onChange={(e) => setConfirmPass(e.target.value)}
-                  placeholder="Confirm new password"
-                />
-              </div>
-              <div>
-                <label htmlFor="otp" className="block text-sm font-medium text-gray-700">
-                  OTP
-                </label>
-                <input
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                  type="text"
-                  id="otp"
-                  onChange={(e) => setOtp(e.target.value)}
-                  placeholder="Enter OTP"
-                />
-              </div>
-            </>
+            <div className="w-[100%] flex flex-col items-start justify-start gap-[0.25rem]">
+              <label htmlFor="password" className="form-label">
+                New Password
+              </label>
+              <input
+                className="form-inp"
+                type="password"
+                id="password"
+                autoComplete="off"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter new password"
+                disabled={isSubmitting}
+              />
+
+              <label htmlFor="confirmPass" className="form-label">
+                Confirm Password
+              </label>
+              <input
+                className="form-inp"
+                type="password"
+                id="confirmPass"
+                autoComplete="off"
+                value={confirmPass}
+                onChange={(e) => setConfirmPass(e.target.value)}
+                placeholder="Confirm new password"
+                disabled={isSubmitting}
+              />
+
+              <label htmlFor="otp" className="form-label">
+                OTP
+              </label>
+              <input
+                className="form-inp"
+                type="text"
+                id="otp"
+                autoComplete="off"
+                value={otp}
+                onChange={(e) => setOtp(e.target.value)}
+                placeholder="Enter OTP"
+                disabled={isSubmitting}
+              />
+            </div>
           )}
 
-          <button
-            onClick={otpSent ? onOtpSubmit : onEmailSubmit}
-            className="w-[100%] button-primary"
-          >
-            {otpSent ? "Reset Password" : "Send OTP"}
-          </button>
-        </div>
+          {/* Action Buttons */}
+          {!otpSent && (
+            <button
+              onClick={onEmailSubmit}
+              className="w-[100%] button-primary disabled:opacity-75"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Sending OTP..." : "Send OTP"}
+            </button>
+          )}
 
-        <Link href="/signup" className="text-sm text-indigo-600 hover:text-indigo-500">
-          New here? Sign up
-        </Link>
+          {otpSent && (
+            <button
+              onClick={onOtpSubmit}
+              className="w-[100%] button-primary disabled:opacity-75"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Resetting Password..." : "Reset Password"}
+            </button>
+          )}
+
+          {/* Navigation Links */}
+          <div className="w-[100%] flex items-center justify-between gap-[0.5rem] text-xs underline underline-offset-2">
+            <Link href={"/signup"}>New here? Sign up</Link>
+          </div>
+        </div>
       </div>
     </div>
   );
 };
-// this is for testing the github actions will it
+
 export default ForgotPassword;

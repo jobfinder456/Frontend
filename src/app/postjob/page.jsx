@@ -79,8 +79,6 @@ function Page() {
 
   return (
     <div className=" relative max-w-[64rem] mx-auto px-[1rem]">
-      <Navbar />
-
       {load ? <Loader></Loader> : null}
 
       {modal ? (

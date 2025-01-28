@@ -23,7 +23,7 @@ function ComapniesPage() {
 
   return (
     <div className="  max-w-[75rem] mx-auto mb-[2rem] px-[1rem]">
-      <Navbar />
+      
       <div className="flex flex-wrap gap-[1rem] max-w-[75rem] mx-auto">
         {data.map((company) => (
           <div
