@@ -2,8 +2,10 @@
 import React, { useEffect, useRef } from "react";
 import Link from "next/link";
 import { useAuthContext } from "../app/provider";
+import { useRouter } from "next/navigation";
 
 export default function Navbar() {
+  const router = useRouter();
   const { isAuth } = useAuthContext();
   const [isOpen, setIsOpen] = React.useState(false);
   const modalRef = useRef(null);
@@ -27,7 +29,7 @@ export default function Navbar() {
   }, [isOpen]);
 
   return (
-    <div className="w-full py-4 flex justify-between items-center max-w-6xl mx-auto z-50">
+    <div className="w-full max-w-[72rem] mx-auto py-4 flex justify-between items-center z-50">
       <Link
         href="/"
         className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center"
@@ -54,7 +56,7 @@ export default function Navbar() {
             isOpen
               ? "opacity-100 scale-100"
               : "opacity-0 scale-95 pointer-events-none"
-          } flex flex-col gap-2 absolute top-14 right-0 bg-zinc-50 p-2 rounded-md text-base shadow-lg transition ease-in-out duration-300`}
+          } flex flex-col gap-2 absolute top-14 right-0 bg-zinc-50 p-2 rounded-md text-base shadow-lg transition ease-in-out duration-300 z-50 border-[1px] border-zinc-200/75`}
         >
           <a
             href="/business"
@@ -79,6 +81,7 @@ export default function Navbar() {
               onClick={() => {
                 localStorage.removeItem("getjobs");
                 setIsOpen(false);
+                router.push("/");
               }}
               className="cursor-pointer hover:bg-red-100 bg-red-50 text-accent-red-1 px-4 py-2 rounded-md font-medium text-start"
             >

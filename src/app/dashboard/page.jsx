@@ -148,7 +148,6 @@ function Page() {
   return (
     <div className="relative max-w-[73.75rem] mx-auto min-h-screen overflow-hidden px-[1rem]">
       <Navbar />
-      <Toaster />
       {modal && (
         <Modal
           title="Are you sure you want to delete"

@@ -7,9 +7,10 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import OtpInput from "@/components/OTP-Input";
 import Navbar from "@/components/Navbar";
+import { useAuthContext } from "@/app/provider";
 
 const Login = () => {
-  
+  const { isAuth, loading } = useAuthContext();
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -49,6 +50,10 @@ const Login = () => {
       setIsSubmitting(false);
     }
   };
+
+  if(isAuth){
+    router.push("/dashboard");
+  }
 
   return (
     <div className="max-w-[48rem] mx-auto min-h-screen px-[1rem] pb-[1rem] ">

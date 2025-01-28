@@ -101,7 +101,7 @@ function Page() {
   }
 
   return (
-    <div className="relative max-w-[73.75rem] mx-auto">
+    <div className="relative max-w-[64rem] mx-auto px-[1rem]">
       <Navbar />
 
       <Toaster />
@@ -109,7 +109,7 @@ function Page() {
       {load ? <Loader></Loader> : null}
 
       <div
-        className={`max-w-[980px] mx-auto my-[2rem] flex flex-col items-start justify-center gap-[1rem] p-[1rem] ${
+        className={`max-w-[980px] mx-auto my-[2rem] flex flex-col items-start justify-center gap-[1rem] ${
           load ? "opacity-50" : null
         }`}
       >
