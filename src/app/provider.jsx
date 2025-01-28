@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const token = localStorage.getItem("getjobs") || null;
+    const token = localStorage.getItem("isLogin") || null;
     if (token != null) {
       fetchProfile();
       console.log("Token found - ", token);

@@ -4,6 +4,7 @@ import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import OtpInput from "@/components/OTP-Input";
 
 const ForgotPassword = () => {
   const router = useRouter();
@@ -17,9 +18,12 @@ const ForgotPassword = () => {
   const onEmailSubmit = async () => {
     setIsSubmitting(true);
     try {
-      await axios.post(`${process.env.NEXT_PUBLIC_BACK_AUTH}/api/v1/forgetpass`, {
-        email,
-      });
+      await axios.post(
+        `${process.env.NEXT_PUBLIC_BACK_AUTH}/api/v1/forgetpass`,
+        {
+          email,
+        }
+      );
       toast.success("OTP sent successfully!");
       setOtpSent(true);
     } catch (error) {
@@ -41,7 +45,7 @@ const ForgotPassword = () => {
         `${process.env.NEXT_PUBLIC_BACK_AUTH}/api/v1/resetpass`,
         { email, otp, newPassword: password }
       );
-      localStorage.setItem("jf_token", response.data.token);
+      localStorage.setItem("isLogin", new Date().toISOString());
       toast.success("Password reset successful!");
       router.push("/dashboard");
     } catch (error) {
@@ -111,7 +115,7 @@ const ForgotPassword = () => {
                 disabled={isSubmitting}
               />
 
-              <label htmlFor="otp" className="form-label">
+              {/* <label htmlFor="otp" className="form-label">
                 OTP
               </label>
               <input
@@ -123,7 +127,17 @@ const ForgotPassword = () => {
                 onChange={(e) => setOtp(e.target.value)}
                 placeholder="Enter OTP"
                 disabled={isSubmitting}
-              />
+              /> */}
+
+              <div className="w-[100%] flex flex-col items-start justify-start gap-[0.25rem]">
+                <label htmlFor="OTP" className="form-label">
+                  OTP
+                </label>
+                <OtpInput
+                  length={6}
+                  onComplete={(value) => setOtp(value)} // Update OTP state
+                />
+              </div>
             </div>
           )}
 

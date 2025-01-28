@@ -2,8 +2,7 @@
 
 import React, { useState } from "react";
 import axios from "axios";
-import toast, { Toaster } from "react-hot-toast";
-import Navbar from "@/components/Navbar";
+import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import OtpInput from "@/components/OTP-Input";
@@ -40,8 +39,7 @@ const Signup = () => {
         `${process.env.NEXT_PUBLIC_BACK_AUTH}/api/v1/check`,
         { email: email, otp: otp }
       );
-      const date = new Date().toISOString();
-      localStorage.setItem("isLogin", date);
+      localStorage.setItem("isLogin", new Date().toISOString());
       router.push("/dashboard");
     } catch (error) {
       toast.error(error.response?.data?.error || "Invalid OTP.");

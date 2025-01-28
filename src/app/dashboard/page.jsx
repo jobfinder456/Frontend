@@ -29,12 +29,13 @@ function Page() {
   const [page, setPage] = useState(1); // Current page
   const [dateSort, setDateSort] = useState(true);
   const [impSort, setImpSort] = useState(true);
+  const [load, setLoad] = useState(false);
   const { isAuth, loading, setLoading } = useAuthContext();
   const [refreshTrigger, setRefreshTrigger] = useState(0);
 
   // Fetch jobs function
   const fetchJobs = async (isLoadMore = false) => {
-    setLoading(true);
+    setLoad(true);
     try {
       const response = await axios.get(
         `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/jobs?page=${page}`,
@@ -49,12 +50,14 @@ function Page() {
     } catch (error) {
       console.error("Error fetching jobs:", error);
     } finally {
-      setLoading(false);
+      setLoad(false);
     }
   };
 
   useEffect(() => {
-    fetchJobs();
+    if (isAuth) {
+      fetchJobs();
+    }
   }, []);
 
   const handleLoadMore = () => {
@@ -64,7 +67,7 @@ function Page() {
 
   const onDelete = async (id) => {
     try {
-      setLoading(true);
+      setLoad(true);
       console.log(id);
       const response = await axios.delete(
         `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/jobs/${id}`,
@@ -76,7 +79,7 @@ function Page() {
     } catch (error) {
       console.log(error);
     } finally {
-      setLoading(false);
+      setLoad(false);
       window.location.reload();
     }
   };
@@ -90,11 +93,11 @@ function Page() {
   };
 
   const toggleSwitch = async (jobId, is_ok) => {
-    // Show a loading toast
-    const toastId = toast.loading("Updating...");
+    // Show a load toast
+    const toastId = toast.load("Updating...");
 
     try {
-      setLoading(true);
+      setLoad(true);
       const res = await axios.put(
         `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/toggle`,
         {
@@ -106,7 +109,7 @@ function Page() {
 
       console.log(res);
       if (res.data.success == true) {
-        // Dismiss the loading toast and show success
+        // Dismiss the load toast and show success
         toast.dismiss(toastId);
         toast.success("Updated Successfully");
 
@@ -121,19 +124,19 @@ function Page() {
       }
     } catch (error) {
       console.log(error);
-      // Dismiss the loading toast and show error
+      // Dismiss the load toast and show error
       toast.dismiss(toastId);
       toast.error("Failed to update");
     } finally {
-      setLoading(false);
+      setLoad(false);
     }
   };
 
-  if (loading && postData.length === 0) {
+  if (loading) {
     return <Loader />;
   }
 
-  if (!isAuth && !loading) {
+  if (!isAuth) {
     return (
       <Modal
         title="First Sign In to Post a Job"
@@ -147,7 +150,6 @@ function Page() {
 
   return (
     <div className="relative max-w-[73.75rem] mx-auto min-h-screen overflow-hidden px-[1rem]">
-      <Navbar />
       {modal && (
         <Modal
           title="Are you sure you want to delete"
@@ -159,7 +161,7 @@ function Page() {
       )}
       <div
         className={`flex flex-col justify-start items-start gap-[1rem] ${
-          loading ? "opacity-50" : null
+          load ? "opacity-50" : null
         }`}
       >
         <Stats refreshTrigger={refreshTrigger} />
@@ -300,10 +302,10 @@ function Page() {
 
         <button
           onClick={handleLoadMore}
-          disabled={loading}
+          disabled={load}
           className="mt-4 mx-auto bg-background text-base-1 text-xs px-4 py-2 rounded"
         >
-          {loading ? "Loading..." : "Load More"}
+          {load ? "Loading..." : "Load More"}
         </button>
       </div>
     </div>
