@@ -53,8 +53,6 @@ const ForgotPassword = () => {
 
   return (
     <div className="max-w-[48rem] mx-auto min-h-screen px-[1rem] pb-[1rem]">
-      <Navbar />
-      <Toaster />
       <div className="bg-background max-w-[32rem] mx-auto rounded-[1rem] p-[0.75rem] md:p-[1rem] mt-[2rem]">
         <div className="relative bg-white p-[1rem] md:p-[2rem] text-black flex flex-col justify-center items-start gap-4 rounded-[14px]">
           <h1 className="text-[1.2rem] md:text-[1.5rem] font-medium">
