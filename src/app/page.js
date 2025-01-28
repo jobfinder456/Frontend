@@ -12,7 +12,7 @@ export default function Home() {
       
       <Navbar />
 
-      <div className="z-50 w-[100%] text-center flex flex-col items-center justify-center gap-[1rem] mt-[1rem]">
+      <div className="z-10 w-[100%] text-center flex flex-col items-center justify-center gap-[1rem] mt-[1rem]">
         <h1 className="text-[2.5rem] md:text-[4rem] font-light leading-tight">
           <span className="font-medium">Get</span> your dream{" "}
           <span className="font-medium">job today</span>

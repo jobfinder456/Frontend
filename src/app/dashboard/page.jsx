@@ -1,7 +1,6 @@
 "use client";
 
 import Navbar from "@/components/Navbar";
-import withAuth from "@/components/WithAuth";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
@@ -31,6 +30,7 @@ function Page() {
   const [dateSort, setDateSort] = useState(true);
   const [impSort, setImpSort] = useState(true);
   const { isAuth, loading, setLoading } = useAuthContext();
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
 
   // Fetch jobs function
   const fetchJobs = async (isLoadMore = false) => {
@@ -90,8 +90,11 @@ function Page() {
   };
 
   const toggleSwitch = async (jobId, is_ok) => {
-    console.log("here : ", jobId);
+    // Show a loading toast
+    const toastId = toast.loading("Updating...");
+
     try {
+      setLoading(true);
       const res = await axios.put(
         `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/toggle`,
         {
@@ -102,15 +105,31 @@ function Page() {
       );
 
       console.log(res);
-      if (res.data.status == "success") {
+      if (res.data.success == true) {
+        // Dismiss the loading toast and show success
+        toast.dismiss(toastId);
         toast.success("Updated Successfully");
+
+        // Update the state
+        setPostData((prevData) =>
+          prevData.map((post) =>
+            post.id === jobId ? { ...post, is_ok: !is_ok } : post
+          )
+        );
+
+        setRefreshTrigger((prev) => prev + 1);
       }
     } catch (error) {
       console.log(error);
+      // Dismiss the loading toast and show error
+      toast.dismiss(toastId);
+      toast.error("Failed to update");
+    } finally {
+      setLoading(false);
     }
   };
 
-  if (loading) {
+  if (loading && postData.length === 0) {
     return <Loader />;
   }
 
@@ -141,7 +160,7 @@ function Page() {
           loading ? "opacity-50" : null
         }`}
       >
-        <Stats />
+        <Stats refreshTrigger={refreshTrigger}/>
         <div className="flex justify-end w-[100%]">
           <button className="bg-accent-blue-1 text-white px-[1rem] py-[0.5rem] rounded-[8px]">
             Post a Job
