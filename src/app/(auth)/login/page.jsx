@@ -1,126 +1,141 @@
 "use client";
+
 import React, { useState } from "react";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import OtpInput from "@/components/OTP-Input";
+import Navbar from "@/components/Navbar";
 
 const Login = () => {
+  
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [otp, setOtp] = useState("");
-  const [disable, setDisable] = useState(true);
+  const [otp, setOtp] = useState();
+  const [isSubmitting, setIsSubmitting] = useState(false); // For disabling buttons
+  const [otpEnabled, setOtpEnabled] = useState(false); // To control OTP visibility
 
   const onEmailSubmit = async () => {
+    setIsSubmitting(true);
     try {
-      
       await axios.post(`${process.env.NEXT_PUBLIC_BACK_AUTH}/api/v1/signin`, {
         email: email,
         password: password,
       });
-      toast("🟢 OTP send succesfully");
-      setDisable(false);
+      toast.success("OTP sent successfully!");
+      setOtpEnabled(true);
     } catch (error) {
-      toast.error(error.message)
-      console.error("Email sending error:", error);
+      toast.error(error.response?.data?.error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   const onOtpSubmit = async () => {
+    setIsSubmitting(true);
     try {
-      const response = await axios.post(
+      await axios.post(
         `${process.env.NEXT_PUBLIC_BACK_AUTH}/api/v1/check`,
         { email: email, otp: otp },
         { withCredentials: true }
       );
-      
-      const date = new Date().toISOString();
-      localStorage.setItem("isLogin", date)
+      localStorage.setItem("isLogin", new Date().toISOString());
       router.push("/dashboard");
     } catch (error) {
-      toast.error(error.message)
-      console.error("Email sending error:", error);
+      toast.error(error.response?.data?.error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="w-[100%] p-[1rem]">
-
+    <div className="max-w-[48rem] mx-auto min-h-screen px-[1rem] pb-[1rem] ">
+      <Navbar />
       <Toaster />
+      <div className="bg-background max-w-[32rem] mx-auto rounded-[1rem] p-[0.75rem] md:p-[1rem] mt-[2rem]">
+        <div className="relative bg-white  p-[1rem] md:p-[2rem] text-black flex flex-col justify-center items-start gap-4 rounded-[14px]">
+          <h1 className="text-[1.2rem] md:text-[1.5rem] font-medium">
+            Login to your account with OTP to post jobs, super fast!
+          </h1>
 
-      <div className="relative mx-auto mt-[2rem] max-w-[32rem] p-[1rem] md:p-[2rem] text-black flex flex-col justify-center items-start gap-4 rounded-[16px] shadow-[0px_0px_16px_4px_rgba(0,0,0,0.1)]">
-        <h1 className="text-[1.2rem] md:text-[1.5rem] font-medium">
-          Login to your account with OTP to post Job, Superfast!!
-        </h1>
-
-        <div className="w-[100%] flex flex-col items-start justify-start gap-[0.25rem]">
-          <label htmlFor="email" className="form-label">
-            Email
-          </label>
-          <input
-            className="form-inp disabled:opacity-20"
-            type="email"
-            id="email"
-            autoComplete="on"
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Email"
-            disabled={!disable}
-          />
-
-          <label htmlFor="email" className="form-label">
-            Password
-          </label>
-          <input
-            className="form-inp disabled:opacity-20"
-            type="text"
-            id="password"
-            autoComplete="on"
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Email"
-            disabled={!disable}
-          />
-        </div>
-
-        {!disable && (
-          <div className="w-[100%] flex flex-col items-start justify-start gap-[0.25rem]">
-            <label htmlFor="OTP" className=" form-label">
-              OTP
+          {/* Email and Password Fields */}
+          <div
+            className={`w-[100%] flex flex-col items-start justify-start gap-[0.25rem] ${
+              otpEnabled ? "opacity-50 pointer-events-none" : ""
+            }`}
+          >
+            <label htmlFor="email" className="form-label">
+              Email
             </label>
             <input
-              className="form-inp disabled:opacity-20"
-              type="text"
-              id="OTP"
-              onChange={(e) => setOtp(e.target.value)}
-              placeholder=""
-              disabled={disable}
+              className="form-inp"
+              type="email"
+              id="email"
+              autoComplete="on"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Email"
+              disabled={otpEnabled || isSubmitting}
+            />
+
+            <label htmlFor="password" className="form-label">
+              Password
+            </label>
+            <input
+              className="form-inp"
+              type="password"
+              id="password"
+              autoComplete="on"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Password"
+              disabled={otpEnabled || isSubmitting}
             />
           </div>
-        )}
 
-        {disable && (
-          <button
-            onClick={onEmailSubmit}
-            className="w-[100%] button-primary disabled:opacity-20"
-            disabled={!disable}
-          >
-            Send OTP
-          </button>
-        )}
+          {/* OTP Input */}
+          {otpEnabled && (
+            <div className="w-[100%] flex flex-col items-start justify-start gap-[0.25rem]">
+              <hr />
+            <label htmlFor="OTP" className="form-label">
+                OTP
+              </label> 
+              <OtpInput
+                length={6}
+                onComplete={(value) => setOtp(value)} // Update OTP state
+              />
+            </div>
+          )}
 
-        {!disable && (
-          <button
-            onClick={onOtpSubmit}
-            className={`w-[100%] button-primary disabled:opacity-20`}
-            disabled={disable}
-          >
-            Submit
-          </button>
-        )}
+          {/* Submit Buttons */}
+          {!otpEnabled && (
+            <button
+              onClick={onEmailSubmit}
+              className="w-[100%] button-primary disabled:opacity-75"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Submitting..." : "Submit"}
+            </button>
+          )}
 
-        <Link href={"/forgotpassword"}>Forgot Password ?</Link>
+          {otpEnabled && (
+            <button
+              onClick={onOtpSubmit}
+              className="w-[100%] button-primary disabled:opacity-75"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Verifying..." : "Verify OTP"}
+            </button>
+          )}
 
-        <Link href={"/signup"}>New here ? Signup</Link>
+          {/* Links */}
+          <div className="w-[100%] flex items-center justify-between gap-[0.5rem] text-xs underline underline-offset-2">
+            <Link href={"/forgotpassword"}>Forgot Password?</Link>
+            <Link href={"/signup"}>New here? Signup</Link>
+          </div>
+        </div>
       </div>
     </div>
   );

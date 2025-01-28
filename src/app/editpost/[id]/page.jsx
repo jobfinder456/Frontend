@@ -40,12 +40,12 @@ function Page() {
             withCredentials: true,
           }
         );
-        
+
         if (response.data === 0) {
           setNotFound(true);
         } else {
           const jobData = response.data;
-          console.log("her1e", jobData)
+          console.log("her1e", jobData);
           setJobDetails({
             company_profile_id: jobData.company_profile_id,
             company_name: jobData.company_name,
@@ -85,8 +85,8 @@ function Page() {
           withCredentials: true,
         }
       );
-      
-      toast("Job Updated Successfully");
+
+      toast.success("Job Updated Successfully");
       console.log(response);
       router.push(`/job/${id}`);
     } catch (error) {

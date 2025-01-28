@@ -15,7 +15,6 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const token = localStorage.getItem("getjobs") || null;
-    console.log("bahii - ", token)
     if (token != null) {
       fetchProfile();
       console.log("Token found - ", token);
