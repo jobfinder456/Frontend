@@ -79,7 +79,7 @@ export default function Navbar() {
           {isAuth ? (
             <button
               onClick={() => {
-                localStorage.removeItem("getjobs");
+                localStorage.removeItem("isLogin");
                 setIsOpen(false);
                 router.push("/");
               }}

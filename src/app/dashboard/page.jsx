@@ -58,7 +58,7 @@ function Page() {
     if (isAuth) {
       fetchJobs();
     }
-  }, []);
+  }, [isAuth]);
 
   const handleLoadMore = () => {
     setPage((prevPage) => prevPage + 1); // Increment page
@@ -136,7 +136,7 @@ function Page() {
     return <Loader />;
   }
 
-  if (!isAuth) {
+  if (!isAuth && load) {
     return (
       <Modal
         title="First Sign In to Post a Job"
