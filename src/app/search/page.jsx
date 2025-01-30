@@ -101,7 +101,7 @@ function JobSearchComponent() {
 
   return (
     <div className="max-w-[73.75rem] mx-auto flex flex-col items-center justify-center gap-[2rem] px-[1rem]">
-      <Navbar />
+  
 
       <div className="flex flex-col gap-[2rem] sm:px-[20px]">
         <div className="w-[100%] text-center flex flex-col items-center justify-center gap-[1rem]">

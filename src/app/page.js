@@ -9,16 +9,13 @@ import Button from "@/components/Button";
 export default function Home() {
   return (
     <div className="max-w-[73.75rem] mx-auto flex flex-col items-center justify-center gap-[2rem] overflow-x-hidden mb-[2rem] px-[1rem]">
-      
-      <Navbar />
-
-      <div className="z-50 w-[100%] text-center flex flex-col items-center justify-center gap-[1rem] mt-[1rem]">
+      <div className="z-10 w-[100%] text-center flex flex-col items-center justify-center gap-[1rem] mt-[1rem]">
         <h1 className="text-[2.5rem] md:text-[4rem] font-light leading-tight">
           <span className="font-medium">Get</span> your dream{" "}
           <span className="font-medium">job today</span>
         </h1>
 
-        <h3 className="md:px-[4rem] text-sm md:text-[20px] ">
+        <h3 className="sm:px-[4rem] text-sm md:text-[20px] sm:leading-[1.2rem] md:leading-[2rem]">
           Boost your career growth, by joining one of the the latest growing
           company, browse through our immense library of jobs of the growing
           startups.
@@ -36,7 +33,6 @@ export default function Home() {
         {/* <h2 className="text-[16px] md:text-[20px] font-medium pl-[1rem]">Latest Jobs</h2> */}
 
         <LatestJobs></LatestJobs>
-        
       </div>
 
       <div className="w-[100%] p-[1rem] md:p-[2rem]">

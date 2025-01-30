@@ -62,13 +62,13 @@ function Page() {
       );
 
       console.log(response);
-      toast("Job successfully posted");
+      toast.success("Job successfully posted");
       router.push("/dashboard");
     } catch (error) {
       console.error(error);
 
       if (error.response && error.response.status === 400) {
-        toast("Enter details properly");
+        toast.error("Enter details properly");
       } else {
         setModal(true);
       }
@@ -78,9 +78,7 @@ function Page() {
   };
 
   return (
-    <div className=" realtive max-w-[73.75rem] mx-auto ">
-      <Navbar />
-
+    <div className=" relative max-w-[64rem] mx-auto px-[1rem]">
       {load ? <Loader></Loader> : null}
 
       {modal ? (
@@ -94,7 +92,7 @@ function Page() {
       ) : null}
 
       <div
-        className={`relative max-w-[980px] mx-auto my-[2rem] flex flex-col items-start justify-center gap-[1rem] p-[1rem] }`}
+        className={`relative mx-auto my-[2rem] flex flex-col items-start justify-center gap-[1rem] }`}
       >
         <h1 className="pl-[1rem] text-[24px] md:text-[2rem] leading-[2rem] md:leading-[2.5rem] font-light">
           <span className="font-medium">Recruit top talent!</span> Broadcast

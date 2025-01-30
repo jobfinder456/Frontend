@@ -1,32 +1,37 @@
 "use client";
 
 import Navbar from "@/components/Navbar";
-import withAuth from "@/components/WithAuth";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import Modal from "@/components/Modal";
 import Loader from "@/components/Loader";
+import { GoSortAsc } from "react-icons/go";
 import { RxExternalLink } from "react-icons/rx";
 import { FaRegEdit } from "react-icons/fa";
 import { MdDeleteOutline } from "react-icons/md";
 import Stats from "./stats";
+import Switch from "@/components/Switch";
 import Link from "next/link";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import { useAuthContext } from "../../app/provider";
 
 dayjs.extend(relativeTime);
 
 function Page() {
   const router = useRouter();
-  const [email, setEmail] = useState("");
   const [postData, setPostData] = useState([]);
   const [modal, setModal] = useState(false);
-  const [load, setLoad] = useState(true);
   const [postIdToDelete, setPostIdToDelete] = useState(null);
   const [selectedJobs, setSelectedJobs] = useState([]);
   const [page, setPage] = useState(1); // Current page
+  const [dateSort, setDateSort] = useState(true);
+  const [impSort, setImpSort] = useState(true);
+  const [load, setLoad] = useState(false);
+  const { isAuth, loading, setLoading } = useAuthContext();
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
 
   // Fetch jobs function
   const fetchJobs = async (isLoadMore = false) => {
@@ -50,8 +55,10 @@ function Page() {
   };
 
   useEffect(() => {
-    fetchJobs();
-  }, []);
+    if (isAuth) {
+      fetchJobs();
+    }
+  }, [isAuth]);
 
   const handleLoadMore = () => {
     setPage((prevPage) => prevPage + 1); // Increment page
@@ -71,28 +78,9 @@ function Page() {
       setPostIdToDelete(null);
     } catch (error) {
       console.log(error);
-    }
-    finally {
+    } finally {
       setLoad(false);
       window.location.reload();
-    }
-  };
-
-  const onBulkPay = async () => {
-    try {
-      setLoad(true);
-      const unLiveJobIds = postData.reduce((acc, job) => {
-        if (!job.is_ok) {
-          acc.push(job.id);
-        }
-        return acc;
-      }, []);
-      console.log(unLiveJobIds);
-      onPay(unLiveJobIds);
-
-      // Add logic for bulk payment here
-    } catch (error) {
-      console.log(error);
     }
   };
 
@@ -104,11 +92,64 @@ function Page() {
     );
   };
 
+  const toggleSwitch = async (jobId, is_ok) => {
+    // Show a load toast
+    const toastId = toast.load("Updating...");
+
+    try {
+      setLoad(true);
+      const res = await axios.put(
+        `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/toggle`,
+        {
+          job_id: jobId,
+          is_ok: !is_ok,
+        },
+        { withCredentials: true }
+      );
+
+      console.log(res);
+      if (res.data.success == true) {
+        // Dismiss the load toast and show success
+        toast.dismiss(toastId);
+        toast.success("Updated Successfully");
+
+        // Update the state
+        setPostData((prevData) =>
+          prevData.map((post) =>
+            post.id === jobId ? { ...post, is_ok: !is_ok } : post
+          )
+        );
+
+        setRefreshTrigger((prev) => prev + 1);
+      }
+    } catch (error) {
+      console.log(error);
+      // Dismiss the load toast and show error
+      toast.dismiss(toastId);
+      toast.error("Failed to update");
+    } finally {
+      setLoad(false);
+    }
+  };
+
+  if (loading) {
+    return <Loader />;
+  }
+
+  if (!isAuth && load) {
+    return (
+      <Modal
+        title="First Sign In to Post a Job"
+        button1Title="Sign In /  Create a Account"
+        button2Title="false"
+        button1Action={() => router.push("/login")}
+        button2Action=""
+      ></Modal>
+    );
+  }
+
   return (
     <div className="relative max-w-[73.75rem] mx-auto min-h-screen overflow-hidden px-[1rem]">
-      <Navbar />
-      <Toaster />
-      {load && <Loader />}
       {modal && (
         <Modal
           title="Are you sure you want to delete"
@@ -123,20 +164,14 @@ function Page() {
           load ? "opacity-50" : null
         }`}
       >
-        <Stats onBulkPay={onBulkPay} />
-        <div className="flex justify-between w-[100%]">
-          <button className="bg-accent-blue-1 text-white px-[1rem] py-[0.5rem] rounded-[8px] opacity-0">
-            Pay
+        <Stats refreshTrigger={refreshTrigger} />
+        <div className="flex justify-end w-[100%]">
+          <button
+            onClick={() => router.push("/postjob")}
+            className="bg-accent-blue-1 text-white px-[1rem] py-[0.5rem] rounded-[8px]"
+          >
+            Post a Job
           </button>
-
-          {selectedJobs.length > 0 && (
-            <button
-              onClick={() => console.log(selectedJobs)}
-              className="bg-accent-blue-1 text-white px-[1rem] py-[0.5rem] rounded-[8px]"
-            >
-              Pay
-            </button>
-          )}
         </div>
 
         <div className="relative overflow-x-auto w-full">
@@ -146,8 +181,18 @@ function Page() {
                 <th scope="col" className="px-6 py-3 rounded-l-[4px]">
                   Select
                 </th>
-                <th scope="col" className="px-6 py-3">
-                  Date
+                <th
+                  scope="col"
+                  className="px-6 py-3 flex items-center justify-between"
+                >
+                  Date{" "}
+                  <span
+                    onClick={() => setDateSort((prev) => !prev)}
+                    className="text-[1rem]"
+                    style={{ rotate: dateSort ? "180deg" : "" }}
+                  >
+                    <GoSortAsc />
+                  </span>
                 </th>
                 <th scope="col" className="px-6 py-3">
                   Job Title
@@ -155,8 +200,18 @@ function Page() {
                 <th scope="col" className="px-6 py-3">
                   Company
                 </th>
-                <th scope="col" className="px-6 py-3">
-                  Impessions
+                <th
+                  scope="col"
+                  className="px-6 py-3 flex items-center justify-between"
+                >
+                  Impessions{" "}
+                  <span
+                    onClick={() => setImpSort((prev) => !prev)}
+                    className="text-[1rem]"
+                    style={{ rotate: impSort ? "180deg" : "" }}
+                  >
+                    <GoSortAsc />
+                  </span>
                 </th>
                 <th scope="col" className="px-6 py-3">
                   Payment Status
@@ -198,21 +253,12 @@ function Page() {
                       </Link>
                     </td>
                     <td className="px-6 py-4">{post.company_name || "N/A"}</td>
-                    <td className="px-6 py-4">{post.impressions || "N/A"}</td>
+                    <td className="px-6 py-4">{post.impressions || "0"}</td>
                     <td className="px-6 py-4">
-                      <button
-                        onClick={() => router.push(`/pay?jobId=${[post.id]}`)}
-                        className="flex items-center gap-2"
-                      >
-                        {post.is_ok ? (
-                          "Success"
-                        ) : (
-                          <>
-                            Payment Needed!
-                            <RxExternalLink size={24} />
-                          </>
-                        )}
-                      </button>
+                      <Switch
+                        checked={post.is_ok}
+                        toggleSwitch={() => toggleSwitch(post.id, post.is_ok)}
+                      />
                     </td>
                     <td className="px-6 py-4">{post.name}</td>
                     <td className="px-6 py-4">
@@ -266,4 +312,4 @@ function Page() {
   );
 }
 
-export default withAuth(Page);
+export default Page;

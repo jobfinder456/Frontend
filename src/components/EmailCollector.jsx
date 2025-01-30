@@ -153,10 +153,15 @@ function EmailCollector({ isHome }) {
                   selectedSkill &&
                   skills.length < 3 &&
                   !skills.includes(selectedSkill)
-                    ? "#e4e4e7"
+                    ? "#000"
                     : "#fafafa",
+                  color: selectedSkill &&
+                  skills.length < 3 &&
+                  !skills.includes(selectedSkill)
+                    ? "#fff"
+                    : "#e0e0e0",
               }}
-              className="mt-2 px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-base-2"
+              className="mt-2 px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium"
             >
               Add Skill
             </button>

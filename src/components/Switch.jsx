@@ -1,0 +1,15 @@
+import React from "react";
+
+export default function Switch({ checked, toggleSwitch }) {
+  return (
+    <label className="inline-flex items-center cursor-pointer">
+      <input 
+        type="checkbox" 
+        checked={checked}
+        onClick={toggleSwitch}
+        className="sr-only peer" 
+      />
+      <div className="relative w-11 h-6 bg-zinc-300 rounded-full peer dark:bg-zinc-300 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-zinc-100 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-zinc-300 peer-checked:bg-accent-blue-1 dark:peer-checked:bg-accent-blue-1"></div>
+    </label>
+  );
+}

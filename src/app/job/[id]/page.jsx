@@ -45,8 +45,6 @@ function Page() {
 
   return (
     <div className="relative max-w-[73.75rem] mx-auto flex flex-col justify-between mb-[2rem] px-[1rem]">
-      <Navbar />
-      <Toaster />
 
       {details && (
         <div className="relative w-[100%] mx-auto flex flex-col justify-center gap-[2rem] md:gap-[0rem] text-[14px] md:text-[1rem] lg:text-[20px]">

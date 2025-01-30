@@ -8,7 +8,8 @@ function Modal({
   button2Action,
 }) {
   return (
-    <div className="z-50 fixed left-[50%] top-[50%] -translate-x-[50%] -translate-y-[50%] max-w-[25rem] bg-white p-[1rem] flex flex-wrap justify-evenly items-center gap-[2rem] rounded-[16px] shadow-[0px_0px_16px_4px_rgba(0,0,0,0.1)]">
+    <div className="z-50 fixed left-[50%] top-[50%] -translate-x-[50%] -translate-y-[50%] max-w-[25rem] bg-background p-[1rem] rounded-[1rem]">
+      <div className="flex flex-wrap justify-evenly items-center gap-[2rem] rounded-[14px] bg-white p-[1rem]">
       <h1 className="text-[1rem] w-[100%] text-center font-medium mt-[0.5rem] md:mt-[1rem] leading-[1.2rem]">
         {title}
       </h1>
@@ -31,6 +32,7 @@ function Modal({
             {button2Title}
           </button>
         )}
+      </div>
       </div>
     </div>
   );

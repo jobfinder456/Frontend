@@ -6,8 +6,6 @@ import { FaCheck } from "react-icons/fa6";
 const Page = () => {
   return (
     <div className="realtive max-w-[73.75rem] mx-auto ">
-      <Navbar></Navbar>
-
       <div className="max-w-[54.75rem] mx-auto p-[1rem]">
         <div className=" bg-background rounded-[1rem] p-[1rem] flex flex-col md:flex-row gap-[1rem] my-[2rem]">
           <div className="md:w-[50%] flex-grow flex flex-col text-base-1 bg-white p-[1rem] rounded-[12px] gap-[0.5rem]">

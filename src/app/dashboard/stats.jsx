@@ -2,54 +2,55 @@ import React, { useEffect, useState } from "react";
 import { RxExternalLink } from "react-icons/rx";
 import { IoClose } from "react-icons/io5";
 import axios from "axios";
+import { useAuthContext } from "../../app/provider";
 
-export default function Stats({ postData, onBulkPay }) {
+export default function Stats({ refreshTrigger }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [companyLogo, setCompanyLogo] = useState(null);
   const [companyLogoPreview, setCompanyLogoPreview] = useState(null);
   const [companyName, setCompanyName] = useState("");
   const [companyWebsite, setCompanyWebsite] = useState("");
-  const [companyProfiles, setCompanyProfiles] = useState([]);
-  const [stats, setStats] = useState(null);
+  const [stats, setStats] = useState({
+    total_impressions: 0,
+    jobs_ok_true: 0,
+    credits: 0,
+  });
+  const [loading, setLoading] = useState(false);
+  //const [profile, setProfile] = useState([]); // Stores company profiles
+  const { profile } = useAuthContext();
 
   useEffect(() => {
-    fetchProfile();
     fetchStats();
+    //fetchProfiles();
   }, []);
 
-  const fetchStats = async () => {
+const fetchStats = async () => {
     try {
       const res = await axios.get(
         `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/user/impressions`,
-        {
-          withCredentials: true,
-        }
+        { withCredentials: true }
       );
-      console.log(res.data);
       setStats(res.data);
     } catch (error) {
-      console.log(error);
+      console.error("Error fetching stats:", error);
     }
   };
 
-  const fetchProfile = async () => {
-    try {
-      const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/profile`,
-        {
-          withCredentials: true,
-        }
-      );
-      console.log(response.data);
-      // Set the company profiles from API response
-      setCompanyProfiles(response.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  useEffect(() => {
+    fetchStats();
+  }, [refreshTrigger]);
 
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+  // const fetchProfiles = async () => {
+  //   try {
+  //     const res = await axios.get(
+  //       `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/profile`,
+  //       { withCredentials: true }
+  //     );
+  //     setProfile(res.data);
+  //   } catch (error) {
+  //     console.error("Error fetching profiles:", error);
+  //   }
+  // };
 
   const handleFileChange = async (event) => {
     const file = event.target.files[0];
@@ -66,7 +67,6 @@ export default function Stats({ postData, onBulkPay }) {
         );
 
         const { signedUrl } = s3Response.data;
-        console.log(s3Response.data);
         setCompanyLogoPreview(s3Response.data.fileLink);
         await axios.put(signedUrl, file, {
           headers: {
@@ -90,64 +90,70 @@ export default function Stats({ postData, onBulkPay }) {
         },
         { withCredentials: true }
       );
-
       closeModal();
-      fetchProfile();
+      fetchProfiles(); // Refetch profiles after submission
     } catch (error) {
       console.error("Error submitting the form:", error);
     }
   };
 
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
   return (
-    <div className="w-[100%] bg-background flex flex-col gap-[1rem] p-[0.5rem] md:p-[1rem] rounded-[24px]">
+    <div className="w-[100%] bg-background flex flex-col gap-[0.5rem] sm:gap-[1rem] p-[0.5rem] md:p-[1rem] rounded-[24px]">
+      {/* Stats Section */}
       <div className="flex flex-wrap gap-[0.5rem] md:gap-[1rem]">
-        <div className="bg-white flex-grow flex flex-col items-start justify-center rounded-[1rem] p-[0.75rem] md:p-[2rem]">
+        <div className="bg-white flex-grow flex flex-col items-start justify-start rounded-[1rem] p-[0.75rem] md:p-[1.2rem]">
           <h3 className="text-[2.5rem] md:text-[4rem] font-medium text-accent-blue-1">
-            {stats?.total_impressions}
+            {loading ? stats.total_impressions : stats.total_impressions}
           </h3>
           <span className="text-[14px] md:text-[16px]">
             Total impressions on your job posts
           </span>
         </div>
-        <div className="bg-white flex-grow flex flex-col items-start justify-center rounded-[1rem] p-[0.75rem] md:p-[2rem]">
+        <div className="bg-white flex-grow flex flex-col items-start justify-start rounded-[1rem] p-[0.75rem] md:p-[1.2rem]">
           <h3 className="text-[2.5rem] md:text-[4rem] font-medium text-accent-blue-1">
-            {stats?.jobs_ok_true}
+            {loading ? stats.jobs_ok_true : stats.jobs_ok_true}
           </h3>
           <span className="text-[14px] md:text-[16px]">Jobs are live now</span>
         </div>
-        <div className="bg-white flex-grow flex flex-col items-start justify-center rounded-[1rem] p-[0.75rem] md:p-[2rem]">
+        <div className="bg-white flex-grow flex flex-col items-start justify-start rounded-[1rem] p-[0.75rem] md:p-[1.2rem]">
           <h3 className="text-[2.5rem] md:text-[4rem] font-medium text-accent-blue-1">
-            {stats?.jobs_ok_false}
+            {loading ? stats.credits : stats.credits}
           </h3>
           <span className="text-[14px] md:text-[16px]">
-            Jobs require payment.{" "}
-            <button
-              onClick={onBulkPay}
+            Available Credits{" "}
+            <a
+              href={`${process.env.NEXT_PUBLIC_FRONT}/pricing`}
               className="flex items-center gap-[0.5rem] underline"
             >
-              Pay Now <RxExternalLink />
-            </button>
+              Upgrade ? <RxExternalLink />
+            </a>
           </span>
         </div>
-        <div className="bg-white flex-grow flex flex-col items-start justify-start rounded-[1rem] p-[0.75rem] md:p-[2rem] min-h-[8rem]">
-          <div className="w-[100%] flex justify-between items-center">
-            <h3 className="text-[1rem] md:text-[1.2rem] font-medium text-accent-blue-1">
-              Company Profiles
-            </h3>
-            <button
-              onClick={openModal}
-              className="bg-accent-blue-1 text-white px-[0.5rem] py-[0.05rem] rounded-[8px]"
-            >
-              +
-            </button>
-          </div>
-          {/* Map over companyProfiles to render the profiles */}
-          {companyProfiles.map((company, index) => (
+      </div>
+
+      {/* Company Profiles Section */}
+      <div className="bg-white flex-grow flex flex-col items-start justify-start rounded-[1rem] p-[0.75rem] md:p-[1.2rem] min-h-[8rem]">
+        <div className="w-[100%] flex justify-between items-center">
+          <h3 className="text-[1rem] md:text-[1.2rem] font-medium text-accent-blue-1">
+            Company Profiles
+          </h3>
+          <button
+            onClick={openModal}
+            className="bg-accent-blue-1 text-white px-[0.5rem] py-[0.05rem] rounded-[8px]"
+          >
+            +
+          </button>
+        </div>
+        <div className="mt-[1rem] flex flex-col gap-[0.5rem]">
+          {profile.map((company, index) => (
             <div key={index} className="flex items-center gap-2">
               <img
                 src={company.image_url}
                 alt={`${company.company_name} logo`}
-                className="w-8 h-8 rounded-full"
+                className="w-8 h-8 rounded-[0.5rem]"
               />
               <span className="text-[14px] md:text-[16px]">
                 {company.company_name}
@@ -165,6 +171,7 @@ export default function Stats({ postData, onBulkPay }) {
         </div>
       </div>
 
+      {/* Modal for Adding a New Company */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
           <div className="bg-white p-[1rem] rounded-lg shadow-xl flex flex-col gap-[0.5rem]">
