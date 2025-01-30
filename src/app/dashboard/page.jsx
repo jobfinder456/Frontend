@@ -94,7 +94,7 @@ function Page() {
 
   const toggleSwitch = async (jobId, is_ok) => {
     // Show a load toast
-    const toastId = toast.load("Updating...");
+    const toastId = toast.loading("Updating...");
 
     try {
       setLoad(true);

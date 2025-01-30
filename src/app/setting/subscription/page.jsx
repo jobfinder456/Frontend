@@ -2,22 +2,25 @@
 import Loader from "@/components/Loader";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Copy } from "lucide-react";
+import toast from "react-hot-toast";
 
 export default function page() {
-  const [load, setLoad] = useState(false);
+  const [loading, setLoading] = useState(false);
 
+  const [subscription, setSubscription] = useState(null);
   const fetchSubscription = async () => {
     try {
-      setLoad(true);
+      setLoading(true);
       const response = await axios.get(
         `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/get-subscription`,
         { withCredentials: true }
       );
-      console.log(response);
+      setSubscription(response.data);
     } catch (error) {
-      console.error(error);
+      console.error("Failed to fetch subscription:", error);
     } finally {
-      setLoad(false);
+      setLoading(false);
     }
   };
 
@@ -25,16 +28,146 @@ export default function page() {
     fetchSubscription();
   }, []);
 
-  if (load) {
+  const handleCopy = (text) => {
+    navigator.clipboard.writeText(text);
+    toast.success("Copied to clipboard!");
+  };
+
+  if (loading) {
     return <Loader />;
   }
 
   return (
     <div className="w-[100%] bg-background p-[1rem] rounded-[1rem]">
-      <div className="flex flex-wrap justify-evenly items-center gap-[2rem] rounded-[14px] bg-white p-[1rem]">
-        <h1 className="text-[1rem] w-[100%] text-center font-medium mt-[0.5rem] md:mt-[1rem] leading-[1.2rem]">
-          Subscription
+      <div className="flex flex-col items-start justify-start gap-[1rem] rounded-[14px] bg-white p-[1rem]">
+        <h1 className="text-lg font-semibold text-center text-gray-600 mb-4">
+          Subscription Details
         </h1>
+        {subscription ? (
+          <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Email */}
+            <div>
+              <label className="text-sm font-medium text-gray-500">Email</label>
+              <input
+                className="w-full px-3 py-2 border rounded-md bg-gray-100 opacity-50 cursor-not-allowed"
+                type="text"
+                value={subscription.email}
+                disabled
+              />
+            </div>
+
+            {/* Subscription ID with Copy Button */}
+            <div>
+              <label className="text-sm font-medium text-gray-500">
+                Subscription ID
+              </label>
+              <div className="flex items-center gap-2">
+                <input
+                  className="w-full px-3 py-2 border rounded-md bg-gray-100 opacity-50 cursor-not-allowed"
+                  type="text"
+                  value={subscription.subscription_id}
+                  disabled
+                />
+                <button
+                  onClick={() => handleCopy(subscription.subscription_id)}
+                  className="p-2 bg-gray-200 rounded-md"
+                >
+                  <Copy size={16} />
+                </button>
+              </div>
+            </div>
+
+            {/* Plan Name */}
+            <div>
+              <label className="text-sm font-medium text-gray-500">
+                Plan Name
+              </label>
+              <input
+                className="w-full px-3 py-2 border rounded-md bg-gray-100 opacity-50 cursor-not-allowed"
+                type="text"
+                value={subscription.plan_name}
+                disabled
+              />
+            </div>
+
+            {/* Customer ID with Copy Button */}
+            <div>
+              <label className="text-sm font-medium text-gray-500">
+                Customer ID
+              </label>
+              <div className="flex items-center gap-2">
+                <input
+                  className="w-full px-3 py-2 border rounded-md bg-gray-100 opacity-50 cursor-not-allowed"
+                  type="text"
+                  value={subscription.customer_id}
+                  disabled
+                />
+                <button
+                  onClick={() => handleCopy(subscription.customer_id)}
+                  className="p-2 bg-gray-200 rounded-md"
+                >
+                  <Copy size={16} />
+                </button>
+              </div>
+            </div>
+
+            {/* Dates */}
+            <div>
+              <label className="text-sm font-medium text-gray-500">
+                Started
+              </label>
+              <input
+                className="w-full px-3 py-2 border rounded-md bg-gray-100 opacity-50 cursor-not-allowed"
+                type="text"
+                value={new Date(
+                  subscription.current_start * 1000
+                ).toLocaleDateString()}
+                disabled
+              />
+            </div>
+
+            <div>
+              <label className="text-sm font-medium text-gray-500">
+                Expiry Date
+              </label>
+              <input
+                className="w-full px-3 py-2 border rounded-md bg-gray-100 opacity-50 cursor-not-allowed"
+                type="text"
+                value={new Date(
+                  subscription.end_at * 1000
+                ).toLocaleDateString()}
+                disabled
+              />
+            </div>
+
+            <div className="md:col-span-2">
+              <label className="text-sm font-medium text-gray-500">
+                Renew Date
+              </label>
+              <input
+                className="w-full px-3 py-2 border rounded-md bg-gray-100 opacity-50 cursor-not-allowed"
+                type="text"
+                value={new Date(
+                  subscription.charge_at * 1000
+                ).toLocaleDateString()}
+                disabled
+              />
+            </div>
+            <div></div>
+            <div className="flex gap-[1rem] w-full justify-end">
+              <button className="button-secondary bg-accent-red-2 text-accent-red-1">
+                Cancel Subscription
+              </button>
+              <button className="button-secondary bg-accent-blue-2 text-accent-blue-1">
+                Upgrade
+              </button>
+            </div>
+          </div>
+        ) : (
+          <p className="text-center text-gray-500 mt-4">
+            No subscription data available.
+          </p>
+        )}
       </div>
     </div>
   );
