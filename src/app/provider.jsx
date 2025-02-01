@@ -12,11 +12,13 @@ export const AuthProvider = ({ children }) => {
   const [profile, setProfile] = useState([]);
   const [isAuth, setIsAuth] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     const token = localStorage.getItem("isLogin") || null;
     if (token != null) {
       fetchProfile();
+      fetchUser()
       console.log("Token found - ", token);
     } else {
       setIsAuth(false);
@@ -44,6 +46,21 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const fetchUser = async () => {
+    try {
+      setLoading(true);
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/get-user`,
+        { withCredentials: true }
+      );
+
+      console.log("User fetched successfully:", res.data);
+      setUser(res.data.user);
+    } catch (error) {
+      console.error("Error fetching user:", error);
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -51,7 +68,9 @@ export const AuthProvider = ({ children }) => {
         isAuth,
         fetchProfile,
         loading,
-        setLoading
+        setLoading,
+        user,
+
       }}
     >
       {children}

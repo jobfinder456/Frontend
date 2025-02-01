@@ -5,10 +5,12 @@ import Marquee from "@/components/Marquee";
 import EmailCollector from "@/components/EmailCollector";
 import LatestJobs from "@/components/LatestJobs";
 import Button from "@/components/Button";
+import BookmarkAlert from "@/components/BookmarkAlert";
 
 export default function Home() {
   return (
-    <div className="max-w-[73.75rem] mx-auto flex flex-col items-center justify-center gap-[2rem] overflow-x-hidden mb-[2rem] px-[1rem]">
+    <div className="relative max-w-[73.75rem] mx-auto flex flex-col items-center justify-center gap-[2rem] overflow-x-hidden mb-[2rem] px-[1rem]">
+      <BookmarkAlert />
       <div className="z-10 w-[100%] text-center flex flex-col items-center justify-center gap-[1rem] mt-[1rem]">
         <h1 className="text-[2.5rem] md:text-[4rem] font-light leading-tight">
           <span className="font-medium">Get</span> your dream{" "}

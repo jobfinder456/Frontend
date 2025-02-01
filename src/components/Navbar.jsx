@@ -76,6 +76,14 @@ export default function Navbar() {
           >
             Dashboard
           </Link>
+          {isAuth && (
+            <Link
+              href="/setting/profile"
+              className="cursor-pointer hover:bg-zinc-100 px-4 py-2 rounded-md font-medium"
+            >
+              Setting
+            </Link>
+          )}
           {isAuth ? (
             <button
               onClick={() => {

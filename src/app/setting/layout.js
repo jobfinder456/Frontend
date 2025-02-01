@@ -1,15 +1,23 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 const Layout = ({ children }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const pathname = usePathname();
+  const [mounted, setMounted] = useState(false);
+  const pathname = mounted ? usePathname() : "";
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const navigationItems = [
     { id: 1, title: "Profile", href: "/setting/profile" },
-    { id: 2, title: "Subscription", href: "/setting/subscription" },
+    { id: 2, title: "Company", href: "/setting/company" },
+    { id: 3, title: "Subscription", href: "/setting/subscription" },
+
   ];
 
   return (
@@ -40,7 +48,7 @@ const Layout = ({ children }) => {
             <nav>
               <div className="space-y-2">
                 {navigationItems.map((item) => (
-                  <a
+                  <Link
                     key={item.id}
                     href={item.href}
                     className={`block py-2 px-3 rounded-md transition-colors ${
@@ -50,7 +58,7 @@ const Layout = ({ children }) => {
                     }`}
                   >
                     {item.title}
-                  </a>
+                  </Link>
                 ))}
               </div>
             </nav>

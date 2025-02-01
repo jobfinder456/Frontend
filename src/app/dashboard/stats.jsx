@@ -173,8 +173,9 @@ const fetchStats = async () => {
 
       {/* Modal for Adding a New Company */}
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white p-[1rem] rounded-lg shadow-xl flex flex-col gap-[0.5rem]">
+        <div className="fixed inset-0 bg-white bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-background p-[1rem] rounded-[1rem] shadow-xl ">
+            <div className="bg-white p-[1.2rem] rounded-[0.85rem] flex flex-col gap-[0.5rem]">
             <div className="flex justify-between items-center">
               <h2 className="text-xl font-bold">Create New Company</h2>
               <IoClose size={24} onClick={closeModal} />
@@ -223,6 +224,7 @@ const fetchStats = async () => {
             <button onClick={handleSubmit} className="button-primary">
               Submit
             </button>
+            </div>
           </div>
         </div>
       )}
