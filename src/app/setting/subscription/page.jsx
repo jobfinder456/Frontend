@@ -7,8 +7,8 @@ import toast from "react-hot-toast";
 
 export default function page() {
   const [loading, setLoading] = useState(false);
-
   const [subscription, setSubscription] = useState(null);
+
   const fetchSubscription = async () => {
     try {
       setLoading(true);
@@ -31,6 +31,45 @@ export default function page() {
   const handleCopy = (text) => {
     navigator.clipboard.writeText(text);
     toast.success("Copied to clipboard!");
+  };
+
+  const handleCancelSubscription = async () => {
+    try {
+      setLoading(true);
+      if (!subscription.subscription_id) {
+        toast.error("Subscription ID not found");
+        return;
+      }
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/cancel-subscription`,
+        { subscription_id: subscription.subscription_id },
+        { withCredentials: true }
+      );
+      toast.success(res.data.message);
+    } catch (error) {
+      console.error("Failed to cancel subscription:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleUpgradeSubscription = async () => {
+    try {
+      setLoading(true);
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/upgrade-subscription`,
+        {
+          subscription_id: subscription.subscription_id,
+          new_plan_id: "plan_PpJsHEenU2Bkid",
+        },
+        { withCredentials: true }
+      );
+      toast.success(res.data.message);
+    } catch (error) {
+      console.error("Failed to upgrade subscription:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (loading) {
@@ -155,7 +194,10 @@ export default function page() {
             </div>
             <div></div>
             <div className="flex gap-[1rem] w-full justify-end">
-              <button className="button-secondary bg-accent-red-2 text-accent-red-1">
+              <button
+                onClick={() => handleCancelSubscription()}
+                className="button-secondary bg-accent-red-2 text-accent-red-1"
+              >
                 Cancel Subscription
               </button>
               <button className="button-secondary bg-accent-blue-2 text-accent-blue-1">

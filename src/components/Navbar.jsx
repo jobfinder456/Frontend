@@ -38,12 +38,12 @@ export default function Navbar() {
       </Link>
 
       <div className="flex items-center gap-2 sm:gap-4 relative">
-        <a
+        <Link
           href="/blogs"
           className="cursor-pointer bg-background px-4 py-2 sm:py-3 rounded-md text-sm sm:text-base font-medium"
         >
           Study
-        </a>
+        </Link>
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="cursor-pointer bg-background px-4 py-2 sm:py-3 rounded-md text-sm sm:text-base font-medium"
@@ -58,24 +58,24 @@ export default function Navbar() {
               : "opacity-0 scale-95 pointer-events-none"
           } flex flex-col gap-2 absolute top-14 right-0 bg-zinc-50 p-2 rounded-md text-base shadow-lg transition ease-in-out duration-300 z-50 border-[1px] border-zinc-200/75`}
         >
-          <a
+          <Link
             href="/business"
             className="cursor-pointer hover:bg-zinc-100 px-4 py-2 rounded-md font-medium"
           >
             What we offer
-          </a>
-          <a
+          </Link>
+          <Link
             href="/postjob"
             className="cursor-pointer hover:bg-zinc-100 px-4 py-2 rounded-md font-medium"
           >
             Post a Job
-          </a>
-          <a
+          </Link>
+          <Link
             href="/dashboard"
             className="cursor-pointer hover:bg-zinc-100 px-4 py-2 rounded-md font-medium"
           >
             Dashboard
-          </a>
+          </Link>
           {isAuth ? (
             <button
               onClick={() => {
@@ -88,12 +88,12 @@ export default function Navbar() {
               Log Out
             </button>
           ) : (
-            <a
+            <Link
               href="/login"
               className="cursor-pointer hover:bg-blue-100 bg-blue-50 text-accent-blue-1 px-4 py-2 rounded-md font-medium"
             >
               Sign In
-            </a>
+            </Link>
           )}
         </div>
       </div>

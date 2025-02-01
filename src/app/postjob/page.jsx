@@ -2,16 +2,16 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Form from "@/components/Form";
-import Navbar from "@/components/Navbar";
 import { useRouter } from "next/navigation";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import Modal from "@/components/Modal";
 import Loader from "@/components/Loader";
+import { useAuthContext } from "@/app/provider";
 
 function Page() {
   const router = useRouter();
-  const [modal, setModal] = useState(false);
   const [load, setLoad] = useState(false);
+  const { isAuth, loading, setLoading } = useAuthContext();
   const [jobDetails, setJobDetails] = useState({
     job_title: "", //
     work_loc: "", //
@@ -26,15 +26,6 @@ function Page() {
     categories: "tech",
     company_profile_id: "",
   });
-
-  useEffect(() => {
-    const isLogin = localStorage.getItem("getjobs") || false;
-
-    console.log(isLogin);
-    if (!isLogin) {
-      setModal(true);
-    }
-  }, []);
 
   const onSubmit = async () => {
     const addHttps = (url) => {
@@ -67,30 +58,30 @@ function Page() {
     } catch (error) {
       console.error(error);
 
-      if (error.response && error.response.status === 400) {
-        toast.error("Enter details properly");
-      } else {
-        setModal(true);
-      }
+      toast.error("Enter details properly");
     } finally {
       setLoad(false);
     }
   };
 
+  if (load || loading) {
+    <Loader />;
+  }
+
+  if (!isAuth) {
+    return (
+      <Modal
+        title="First Sign In to Post a Job"
+        button1Title="Sign In /  Create a Account"
+        button2Title="false"
+        button1Action={() => router.push("/login")}
+        button2Action=""
+      ></Modal>
+    );
+  }
+
   return (
     <div className=" relative max-w-[64rem] mx-auto px-[1rem]">
-      {load ? <Loader></Loader> : null}
-
-      {modal ? (
-        <Modal
-          title="First Sign In to Post a Job"
-          button1Title="Sign In /  Create a Account"
-          button2Title="false"
-          button1Action={() => router.push("/login")}
-          button2Action=""
-        ></Modal>
-      ) : null}
-
       <div
         className={`relative mx-auto my-[2rem] flex flex-col items-start justify-center gap-[1rem] }`}
       >

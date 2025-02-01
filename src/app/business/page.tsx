@@ -166,7 +166,7 @@ export default function LandingPage() {
                   <span>Priority email support</span>
                 </li>
               </ul>
-              <a href="http://localhost:3000/pay/PoTHJFNlL9SzHX" className="w-full text-center py-3 px-4 bg-white text-accent-blue-1 border border-acbg-accent-blue-1 rounded-lg font-medium hover:bg-blue-50 transition-colors">
+              <a href={`${process.env.NEXT_PUBLIC_FRONT}/pay/${process.env.NEXT_PUBLIC_PLAN1}`} className="w-full text-center py-3 px-4 bg-white text-accent-blue-1 border border-acbg-accent-blue-1 rounded-lg font-medium hover:bg-blue-50 transition-colors">
                 Get started
               </a>
             </div>
@@ -201,7 +201,7 @@ export default function LandingPage() {
                   <span>Priority email support</span>
                 </li>
               </ul>
-              <a href="http://localhost:3000/pay/PoTI8RZDB76ZyV" className="w-[100%] text-center py-3 px-4 bg-accent-blue-1 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors">
+              <a href={`${process.env.NEXT_PUBLIC_FRONT}/pay/${process.env.NEXT_PUBLIC_PLAN2}`} className="w-[100%] text-center py-3 px-4 bg-accent-blue-1 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors">
                 Get started
               </a>
             </div>
