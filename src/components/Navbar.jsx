@@ -88,6 +88,7 @@ export default function Navbar() {
             <button
               onClick={() => {
                 localStorage.removeItem("isLogin");
+                cookies.remove("token");
                 setIsOpen(false);
                 router.push("/");
               }}

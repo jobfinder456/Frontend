@@ -136,7 +136,7 @@ function Page() {
     return <Loader />;
   }
 
-  if (!isAuth && load) {
+  if (!isAuth) {
     return (
       <Modal
         title="First Sign In to Post a Job"

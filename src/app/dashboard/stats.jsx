@@ -106,7 +106,7 @@ const fetchStats = async () => {
       <div className="flex flex-wrap gap-[0.5rem] md:gap-[1rem]">
         <div className="bg-white flex-grow flex flex-col items-start justify-start rounded-[1rem] p-[0.75rem] md:p-[1.2rem]">
           <h3 className="text-[2.5rem] md:text-[4rem] font-medium text-accent-blue-1">
-            {loading ? stats.total_impressions : stats.total_impressions}
+            {loading ? stats.total_impressions : stats.total_impressions == null ? 0 : stats.total_impressions}
           </h3>
           <span className="text-[14px] md:text-[16px]">
             Total impressions on your job posts

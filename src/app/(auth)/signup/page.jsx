@@ -9,6 +9,7 @@ import OtpInput from "@/components/OTP-Input";
 
 const Signup = () => {
   const router = useRouter();
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [otp, setOtp] = useState("");
@@ -19,6 +20,7 @@ const Signup = () => {
     setIsSubmitting(true);
     try {
       await axios.post(`${process.env.NEXT_PUBLIC_BACK_AUTH}/api/v1/signup`, {
+        name: name,
         email: email,
         password: password,
       });
@@ -63,6 +65,19 @@ const Signup = () => {
               otpEnabled ? "opacity-50 pointer-events-none" : ""
             }`}
           >
+            <label htmlFor="name" className="form-label">
+              Name
+            </label>
+            <input
+              className="form-inp"
+              type="text"
+              id="name"
+              autoComplete="on"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Full Name"
+              disabled={otpEnabled || isSubmitting}
+            />
             <label htmlFor="email" className="form-label">
               Email
             </label>

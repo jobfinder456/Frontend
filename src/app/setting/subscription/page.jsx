@@ -82,9 +82,17 @@ export default function page() {
         <h1 className="text-lg font-semibold text-center text-gray-600 mb-4">
           Subscription Details
         </h1>
+
         {subscription ? (
           <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Email */}
+            {subscription.status == "cancel" ? (
+              <div className="w-[100%] bg-background text-zinc-600 text-sm p-1 rounded-lg">
+                {" "}
+                Note : Your Subscriptions has been cancelled, you will be no
+                longer charged, your credits will expire end of this month
+              </div>
+            ) : null}
             <div>
               <label className="text-sm font-medium text-gray-500">Email</label>
               <input
@@ -179,19 +187,21 @@ export default function page() {
               />
             </div>
 
-            <div className="md:col-span-2">
-              <label className="text-sm font-medium text-gray-500">
-                Renew Date
-              </label>
-              <input
-                className="w-full px-3 py-2 border rounded-md bg-gray-100 opacity-50 cursor-not-allowed"
-                type="text"
-                value={new Date(
-                  subscription.charge_at * 1000
-                ).toLocaleDateString()}
-                disabled
-              />
-            </div>
+            {subscription.status == "cancel" ? null : (
+              <div className="md:col-span-2">
+                <label className="text-sm font-medium text-gray-500">
+                  Renew Date
+                </label>
+                <input
+                  className="w-full px-3 py-2 border rounded-md bg-gray-100 opacity-50 cursor-not-allowed"
+                  type="text"
+                  value={new Date(
+                    subscription.charge_at * 1000
+                  ).toLocaleDateString()}
+                  disabled
+                />
+              </div>
+            )}
             <div></div>
             <div className="flex gap-[1rem] w-full justify-end">
               <button
