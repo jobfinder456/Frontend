@@ -52,7 +52,7 @@ export default function Home() {
       </div>
 
       <div className="w-[100%] flex flex-col-reverse md:flex-row gap-[2rem] md:justify-between items-start p-[2rem] text-[14px] md:text-[16px]">
-        <img src="/images/logo.svg" className="w-[100px] md:self-end"></img>
+        <img src="/images/logo.svg" alt="logo" className="w-[100px] md:self-end"></img>
 
         <div className="flex flex-col text-[1rem] gap-[0.35rem] md:gap-[1rem]">
           <h3 className="text-[14px] font-medium">Get Jobs Today</h3>

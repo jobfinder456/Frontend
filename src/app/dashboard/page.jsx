@@ -56,9 +56,10 @@ function Page() {
 
   useEffect(() => {
     if (isAuth) {
-      fetchJobs();
+      fetchJobs(); 
     }
-  }, [isAuth]);
+    
+  }, [isAuth]); 
 
   const handleLoadMore = () => {
     setPage((prevPage) => prevPage + 1); // Increment page

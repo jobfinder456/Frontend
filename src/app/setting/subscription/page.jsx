@@ -5,7 +5,7 @@ import axios from "axios";
 import { Copy } from "lucide-react";
 import toast from "react-hot-toast";
 
-export default function page() {
+export default function Page() {
   const [loading, setLoading] = useState(false);
   const [subscription, setSubscription] = useState(null);
 
