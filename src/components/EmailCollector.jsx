@@ -20,7 +20,7 @@ function EmailCollector({ isHome }) {
     try {
       console.log(1);
       // Get signed URL for S3
-      const res = await axios.post(`http://localhost:8282/api/v1/s3Resume`, {
+      const res = await axios.post(`${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/s3Resume`, {
         contentType: resume.type,
       });
       console.log(2);
@@ -34,7 +34,7 @@ function EmailCollector({ isHome }) {
       console.log(3);
 
       // Submit form data
-      const response = await axios.post(`http://localhost:8282/api/v1/resume`, {
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/resume`, {
         name: name,
         email: email,
         fileLink: res.data.data.fileLink,

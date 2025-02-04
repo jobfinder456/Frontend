@@ -39,7 +39,7 @@ export default function Pay() {
       await new Promise(resolve => setTimeout(resolve, 5000));
       
       console.log('Verifying subscription:', subscriptionId);
-      const response = await axios.post('http://localhost:8282/api/v1/verify-subscription', {
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/verify-subscription`, {
         subscriptionId: subscriptionId,
         plan_id: planId,
       }, {withCredentials: true});
@@ -87,7 +87,7 @@ export default function Pay() {
     try {
       setIsLoading(true);
       
-      const response = await axios.post('http://localhost:8282/api/v1/create-subscription', {
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/create-subscription`, {
         plan_id: planId,
         quantity: quantity
       }, {withCredentials: true});

@@ -6,12 +6,7 @@ import Link from "next/link";
 
 const Layout = ({ children }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
-  const pathname = mounted ? usePathname() : "";
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const pathname = usePathname()
 
   const navigationItems = [
     { id: 1, title: "Profile", href: "/setting/profile" },

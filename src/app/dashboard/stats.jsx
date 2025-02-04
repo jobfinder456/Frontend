@@ -1,3 +1,4 @@
+"use client"
 import React, { useEffect, useState } from "react";
 import { RxExternalLink } from "react-icons/rx";
 import { IoClose } from "react-icons/io5";
