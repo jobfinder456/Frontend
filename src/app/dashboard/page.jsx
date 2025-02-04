@@ -62,7 +62,7 @@ function Page() {
   }, [isAuth]); 
 
   const handleLoadMore = () => {
-    setPage((prevPage) => prevPage + 1); // Increment page
+    setPage((prevPage) => prevPage + 1); // Increment page number
     fetchJobs(true); // Fetch new jobs and append
   };
 
