@@ -31,7 +31,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-, "src/app/pay/PpJsHEenU2Bkid/page.jsx", "src/app/(auth)/forgotpassword/page.jsx"  ],
+, "src/app/pay/PoTI8RZDB76ZyV/page.jsx", "src/app/(auth)/forgotpassword/page.jsx"  ],
   "exclude": [
     "node_modules"
   ]
