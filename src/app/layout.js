@@ -6,6 +6,7 @@ import { GoogleTagManager } from "@next/third-parties/google";
 import { Toaster } from "react-hot-toast";
 import { AuthProvider } from "./provider";
 import Navbar from "@/components/Navbar";
+import HelpComponent from "@/components/HelpModal";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -39,10 +40,11 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <AuthProvider>
           <main className="bg-zinc-50 w-full min-h-screen"> 
-            <div className="max-w-[72rem] mx-auto">
+            <div className="relative max-w-[72rem] mx-auto">
             <Toaster />
             <Navbar />
             {children}
+            <HelpComponent />
             </div>
           </main>
         </AuthProvider>

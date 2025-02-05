@@ -38,7 +38,7 @@ export default function Home() {
       </div>
 
       <div className="w-[100%] p-[1rem] md:p-[2rem]">
-        <div className=" bg-background flex flex-col p-[1rem] md:p-[2rem] rounded-[1rem] gap-[0.35rem] md:gap-[1rem] text-base-1">
+        <div className="relative overflow-hidden bg-background flex flex-col p-[1rem] md:p-[2rem] rounded-[1rem] gap-[0.35rem] md:gap-[1rem] text-base-1">
           <h1 className=" text-[1.1rem] md:text-[2rem] font-medium">
             Hey Job Seekers
           </h1>
@@ -47,12 +47,22 @@ export default function Home() {
             drop your mail below to know latest job opening you looking for.
           </h5>
 
+          <img
+            src="/images/resume.png"
+            alt="resume"
+            className="absolute hidden sm:block w-[15rem] md:w-[22rem] top-4 md:top-12 right-4 saturate-100  rotate-[15deg]"
+          />
+
           <EmailCollector isHome={false}></EmailCollector>
         </div>
       </div>
 
       <div className="w-[100%] flex flex-col-reverse md:flex-row gap-[2rem] md:justify-between items-start p-[2rem] text-[14px] md:text-[16px]">
-        <img src="/images/logo.svg" alt="logo" className="w-[100px] md:self-end"></img>
+        <img
+          src="/images/logo.svg"
+          alt="logo"
+          className="w-[100px] md:self-end"
+        ></img>
 
         <div className="flex flex-col text-[1rem] gap-[0.35rem] md:gap-[1rem]">
           <h3 className="text-[14px] font-medium">Get Jobs Today</h3>

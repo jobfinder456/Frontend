@@ -11,11 +11,10 @@ import {
   Briefcase,
   Phone,
 } from "lucide-react";
-import Navbar from "@/components/Navbar";
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-white relative px-[1rem]">
+    <div className="min-h-screen relative px-[1rem]">
      
       {/* Header 
       <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b">
@@ -127,7 +126,7 @@ export default function LandingPage() {
       </section>
 
       {/* Pricing Section */}
-      <section className="py-24 px-4 bg-gradient-to-b from-white to-gray-50">
+      <section className="py-24 px-4 bg-gradient-to-b from-white to-zinc-50 rounded-[1rem]">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-4">
@@ -222,11 +221,7 @@ export default function LandingPage() {
               <ul className="space-y-4 mb-8">
                 <li className="flex items-start gap-2">
                   <CheckCircle className="w-5 h-5 text-green-500 shrink-0 mt-0.5" />
-                  <span>Unlimited job postings</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="w-5 h-5 text-green-500 shrink-0 mt-0.5" />
-                  <span>Custom integration options</span>
+                  <span>Customized job postings</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle className="w-5 h-5 text-green-500 shrink-0 mt-0.5" />
@@ -234,16 +229,16 @@ export default function LandingPage() {
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle className="w-5 h-5 text-green-500 shrink-0 mt-0.5" />
-                  <span>Custom analytics and reporting</span>
+                  <span>Advance analytics and reporting</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle className="w-5 h-5 text-green-500 shrink-0 mt-0.5" />
                   <span>24/7 priority support</span>
                 </li>
               </ul>
-              <button className="mt-auto w-full py-3 px-4 bg-white text-accent-blue-1 border border-acbg-accent-blue-1 rounded-lg font-medium hover:bg-blue-50 transition-colors">
+              <a href="mailto:hq@getjobs.today" title="hq@getjobs.today" className="mt-auto w-full py-3 px-4 bg-white text-accent-blue-1 border border-acbg-accent-blue-1 rounded-lg font-medium hover:bg-blue-50 transition-colors">
                 Contact founders
-              </button>
+              </a>
             </div>
           </div>
         </div>
