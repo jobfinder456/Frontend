@@ -13,7 +13,7 @@ const Layout = ({ children }) => {
   if (!isAuth && !loading) {
     return (
       <Modal
-        title="First Sign In to Post a Job"
+        title="First Sign In to Post a Job !"
         button1Title="Sign In /  Create a Account"
         button2Title="false"
         button1Action={() => router.push("/login")}
