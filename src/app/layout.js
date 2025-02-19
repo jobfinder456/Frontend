@@ -1,3 +1,5 @@
+"use client";
+
 import { Inter } from "next/font/google";
 import Head from "next/head";
 import Script from "next/script";
@@ -7,51 +9,42 @@ import { Toaster } from "react-hot-toast";
 import { AuthProvider } from "./provider";
 import Navbar from "@/components/Navbar";
 import HelpComponent from "@/components/HelpModal";
+import TitleUpdater from "@/components/TitleUpdater"; // ✅ Import new component
 
 const inter = Inter({ subsets: ["latin"] });
-
-export const metadata = {
-  icons: {
-    icon: [
-      {
-        url: "/images/favicon.png",
-        href: "/images/favicon.png",
-      },
-    ],
-  },
-  title: "Find Developer, Designer, Finance & Engineering Jobs | GetJobs.today",
-  description:
-    "Kickstart your career with GetJobs.today! Explore top job listings in development, design, sales, finance, engineering, healthcare, marketing, and more. Our platform connects job seekers with tailored opportunities. Find and apply for your dream job today!",
-};
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <Head>
-        <title>{metadata.title}</title>
-        <meta property="og:title" content={metadata.title} />
-        <meta property="og:description" content={metadata.description} />
+        <meta property="og:title" content="Find Developer, Designer, Finance & Engineering Jobs | GetJobs.today" />
+        <meta name="description" content="Find remote and onsite jobs in development, design, finance, and engineering. GetJobs.today helps job seekers connect with top employers. Apply now!" />
+        <meta name="keywords" content="jobs, job search, developer jobs, designer jobs, remote jobs, engineering jobs, software jobs, IT jobs, marketing jobs, finance jobs" />
+        <meta name="robots" content="index, follow" />
+        <meta name="author" content="GetJobs.today" />
         <meta property="og:site_name" content="Get Jobs Today" />
         <meta property="og:url" content="https://getjobs.today/" />
         <meta property="og:image" content="/images/favicon.png" />
-        <meta name="twitter:card" content="summary"></meta>
-        <link rel="icon" href={metadata.icons.icon[0].href} />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Find Developer, Designer, Finance & Engineering Jobs | GetJobs.today" />
+        <meta name="twitter:description" content="Find remote and onsite jobs in development, design, finance, and engineering." />
+        <meta name="twitter:image" content="/images/favicon.png" />
+        <link rel="canonical" href="https://getjobs.today/" />
+        <link rel="icon" href="/images/favicon.png" />
       </Head>
       <body className={inter.className}>
         <AuthProvider>
-          <main className="bg-zinc-50 w-full min-h-screen"> 
+          <main className="bg-zinc-50 w-full min-h-screen">
             <div className="relative max-w-[72rem] mx-auto">
-            <Toaster />
-            <Navbar />
-            {children}
-            <HelpComponent />
+              <Toaster />
+              <Navbar />
+              {children}
+              <HelpComponent />
             </div>
           </main>
         </AuthProvider>
-        <Script
-          strategy="afterInteractive"
-          src="https://www.googletagmanager.com/gtag/js?id=G-S3V1MYKXW3"
-        ></Script>
+        <Script strategy="afterInteractive" src="https://www.googletagmanager.com/gtag/js?id=G-S3V1MYKXW3"></Script>
         <Script id="google-analytics" strategy="afterInteractive">
           {`window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}

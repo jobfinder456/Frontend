@@ -1,4 +1,5 @@
-User-agent: *
-Disallow: 
-Crawl-delay: 5
-Disallow: /cgi-bin/
+User-Agent: *
+Allow: /
+Disallow: /private/
+
+Sitemap: https://getjobs.today/sitemap.xml
