@@ -1,7 +1,5 @@
-"use client";
 
 import { Inter } from "next/font/google";
-import Head from "next/head";
 import Script from "next/script";
 import "./globals.css";
 import { GoogleTagManager } from "@next/third-parties/google";
@@ -9,30 +7,36 @@ import { Toaster } from "react-hot-toast";
 import { AuthProvider } from "./provider";
 import Navbar from "@/components/Navbar";
 import HelpComponent from "@/components/HelpModal";
-import TitleUpdater from "@/components/TitleUpdater"; // ✅ Import new component
 
 const inter = Inter({ subsets: ["latin"] });
+
+// ✅ Define metadata for SEO (Next.js 13+ App Router)
+export const metadata = {
+  title: "GetJobs.today | Find Remote, Onsite, Tech, Design, Marketing Jobs and More",
+  description:
+    "Discover top remote and onsite jobs in tech, design, marketing, finance, and more. GetJobs.today connects job seekers with leading companies hiring talent.",
+  keywords:
+    "job search, hiring now, remote jobs, onsite jobs, tech jobs, design jobs, marketing jobs, IT jobs, engineering jobs, digital marketing jobs, startup jobs, freelance jobs, full-time jobs, part-time jobs, career opportunities",
+  robots: "index, follow",
+  authors: [{ name: "GetJobs.today" }],
+  openGraph: {
+    siteName: "GetJobs.today",
+    url: "https://getjobs.today/",
+    type: "website",
+    images: ["/images/favicon.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "GetJobs.today | Find Remote, Onsite, Tech, Design, Marketing Jobs and More",
+    description:
+      "Find remote and onsite jobs in development, design, finance, and engineering. GetJobs.today helps job seekers connect with top employers.",
+    images: ["/images/favicon.png"],
+  },
+};
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <Head>
-        <meta property="og:title" content="Find Developer, Designer, Finance & Engineering Jobs | GetJobs.today" />
-        <meta name="description" content="Find remote and onsite jobs in development, design, finance, and engineering. GetJobs.today helps job seekers connect with top employers. Apply now!" />
-        <meta name="keywords" content="jobs, job search, developer jobs, designer jobs, remote jobs, engineering jobs, software jobs, IT jobs, marketing jobs, finance jobs" />
-        <meta name="robots" content="index, follow" />
-        <meta name="author" content="GetJobs.today" />
-        <meta property="og:site_name" content="Get Jobs Today" />
-        <meta property="og:url" content="https://getjobs.today/" />
-        <meta property="og:image" content="/images/favicon.png" />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Find Developer, Designer, Finance & Engineering Jobs | GetJobs.today" />
-        <meta name="twitter:description" content="Find remote and onsite jobs in development, design, finance, and engineering." />
-        <meta name="twitter:image" content="/images/favicon.png" />
-        <link rel="canonical" href="https://getjobs.today/" />
-        <link rel="icon" href="/images/favicon.png" />
-      </Head>
       <body className={inter.className}>
         <AuthProvider>
           <main className="bg-zinc-50 w-full min-h-screen">
