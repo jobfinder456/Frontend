@@ -48,14 +48,25 @@ export default function RootLayout({ children }) {
             </div>
           </main>
         </AuthProvider>
-        <Script strategy="afterInteractive" src="https://www.googletagmanager.com/gtag/js?id=G-S3V1MYKXW3"></Script>
+
+        {/* ✅ Ahrefs Analytics Script */}
+        <Script
+          src="https://analytics.ahrefs.com/analytics.js"
+          data-key="55Ya04Gl3i+OBNXtOBawdA"
+          strategy="afterInteractive"
+        />
+
+        {/* ✅ Google Analytics */}
+        <Script strategy="afterInteractive" src="https://www.googletagmanager.com/gtag/js?id=G-S3V1MYKXW3" />
         <Script id="google-analytics" strategy="afterInteractive">
           {`window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
           gtag('config', 'G-S3V1MYKXW3');`}
         </Script>
-        <Script src="https://checkout.razorpay.com/v1/checkout.js"></Script>
+
+        {/* ✅ Razorpay Payment Gateway */}
+        <Script src="https://checkout.razorpay.com/v1/checkout.js" />
       </body>
     </html>
   );
