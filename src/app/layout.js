@@ -7,6 +7,7 @@ import { Toaster } from "react-hot-toast";
 import { AuthProvider } from "./provider";
 import Navbar from "@/components/Navbar";
 import HelpComponent from "@/components/HelpModal";
+import Footer from "@/components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -46,6 +47,7 @@ export default function RootLayout({ children }) {
               {children}
               <HelpComponent />
             </div>
+            <Footer />
           </main>
         </AuthProvider>
 

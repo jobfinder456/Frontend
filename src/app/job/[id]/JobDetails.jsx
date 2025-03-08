@@ -22,7 +22,7 @@ function JobDetails({ details }) {
     <div className="relative max-w-[73.75rem] mx-auto flex flex-col justify-between mb-[2rem] px-[1rem]">
       <div className="relative w-[100%] mx-auto flex flex-col justify-center gap-[2rem] md:gap-[0rem] text-[14px] md:text-[1rem] lg:text-[20px]">
         <div className="w-[100%] flex flex-col items-center justify-center gap-[1rem] mt-[1rem]">
-          <a href={details.website} className="w-[40px] h-[40px] md:w-[80px] md:h-[80px] rounded-md">
+          <a href={`/company/${details.company_name}`} className="w-[40px] h-[40px] md:w-[80px] md:h-[80px] rounded-md">
             {details.image_url ? (
               <img
                 src={details.image_url}
