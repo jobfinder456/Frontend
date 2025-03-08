@@ -5,7 +5,7 @@ import { Eye, X, ChevronDown, ArrowUpRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import blogs from "@/lib/blogs"; // Import blogs array
 import Head from "next/head";
-
+ 
 // Fetching blogs data directly in the client-side component
 export default function BlogPage() {
   const [selectedTags, setSelectedTags] = useState([]);
