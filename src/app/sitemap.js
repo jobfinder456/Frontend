@@ -5,7 +5,7 @@ const baseUrl = "https://getjobs.today"; // Change to your actual domain
 export default async function sitemap() {
   try {
     // Fetch job IDs using axios
-    const response = await axios.get("http://localhost:8282/api/v1/sitemap/jobs");
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/sitemap/jobs`);
 
     const jobIds = response.data.jobIds; // Access `data.jobIds`
 
