@@ -18,7 +18,7 @@ export default function Page() {
   const handleSubmit = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:8282/api/v1/blogs",
+        `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/blogs`,
         blog
       );
       if (response.data.success) {

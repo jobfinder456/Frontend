@@ -9,7 +9,7 @@ export default function BlogPage() {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await axios.get("http://localhost:8282/api/v1/blogs");
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/blogs`);
         if (response.data.success) {
           setBlogs(response.data.blogs);
         }

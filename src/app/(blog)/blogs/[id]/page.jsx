@@ -16,7 +16,7 @@ export default function BlogDetail() {
 
     const fetchBlog = async () => {
       try {
-        const response = await axios.get(`http://localhost:8282/api/v1/blogs/${id}`);
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/blogs/${id}`);
         if (response.data.success) {
           setBlog(response.data.blog);
         }
