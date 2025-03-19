@@ -35,10 +35,11 @@ async function Page({ params }) {
   return (
     <Suspense fallback={<h1>Loading...</h1>}>
       <div className="container mx-auto p-4">
-        <JobDetails details={jobData} />
+        <JobDetails details={jobData} />  {/* Pass details instead of jobId */}
       </div>
     </Suspense>
   );
 }
+
 
 export default Page;
