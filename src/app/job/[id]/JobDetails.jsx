@@ -1,59 +1,85 @@
-import Head from "next/head";
+"use client";
+import React from "react";
+import EmailCollector from "@/components/EmailCollector";
+import Navbar from "@/components/Navbar";
+import NotFound from "@/components/NotFound";
+import toast, { Toaster } from "react-hot-toast";
 
-export default function JobDetails({ details }) {
-  if (!details) return <p className="text-center text-gray-600">Loading job details...</p>;
-
-  const jobData = details; // Use the passed data directly
-
-  // Generate JSON-LD structured data
-  const jobSchema = {
-    "@context": "https://schema.org/",
-    "@type": "JobPosting",
-    "title": jobData.job_title,
-    "description": jobData.description.replace(/(<([^>]+)>)/gi, ""), // Strips HTML tags
-    "hiringOrganization": {
-      "@type": "Organization",
-      "name": jobData.company_name,
-      "sameAs": jobData.company_website || ""
-    },
-    "jobLocation": {
-      "@type": "Place",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": jobData.address || "",
-        "addressLocality": jobData.work_loc || "Unknown",
-        "addressRegion": jobData.state || "",
-        "postalCode": jobData.zip_code || "",
-        "addressCountry": jobData.country || "Unknown"
-      }
-    },
-    "datePosted": jobData.date_posted || new Date().toISOString(),
-    "validThrough": jobData.valid_through || new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
-    "employmentType": jobData.employment_type || "FULL_TIME",
-    "baseSalary": {
-      "@type": "MonetaryAmount",
-      "currency": jobData.currency || "USD",
-      "value": {
-        "@type": "QuantitativeValue",
-        "value": jobData.salary || 0,
-        "unitText": "YEAR"
-      }
-    },
-    "jobLocationType": jobData.remote ? "TELECOMMUTE" : "OnSite",
-    "applicantLocationRequirements": jobData.remote ? { "@type": "Country", "name": "Remote" } : undefined
-  };
+const JobDetails = ({ job }) => {
+  if (!job) {
+    return <NotFound />;
+  }
 
   return (
-    <div className="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-lg">
-      <Head>
-        <script type="application/ld+json">{JSON.stringify(jobSchema)}</script>
-      </Head>
-      <h1 className="text-2xl font-bold text-gray-900 mb-2">{jobData.job_title}</h1>
-      <h2 className="text-lg font-semibold text-gray-700 mb-4">{jobData.company_name}</h2>
-      <p className="text-gray-600 mb-2 flex items-center">
-        📍 <span className="ml-1">{jobData.remote ? "Remote" : jobData.work_loc}</span>
-      </p>
-      <p className="text-gray-800 leading-6">{jobData.description}</p>
+    <div className="relative max-w-[73.75rem] mx-auto flex flex-col justify-between mb-[2rem]">
+      
+      <Toaster />
+
+      <div className="relative w-[100%] mx-auto flex flex-col justify-center gap-[2rem] md:gap-[0rem] px-[1rem] text-[14px] md:text-[1rem] lg:text-[20px]">
+        <div className="w-[100%] flex flex-col items-center justify-center gap-[1rem] mt-[1rem]">
+          <a
+            href={job.website}
+            className="w-[40px] h-[40px] md:w-[80px] md:h-[80px] bg-zinc-400 rounded-md"
+          >
+            {job.image_url ? (
+              <img
+                src={job.image_url}
+                alt="company_logo"
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <span className="flex items-center justify-center h-full text-white">
+                {job.company_name}
+              </span>
+            )}
+          </a>
+
+          <h3 className="text-[1rem] md:text-[20px] font-medium text-base-2">
+            {job.company_name}
+          </h3>
+          <h1 className="text-[28px] md:text-[40px] font-bold text-base-1 mb-[1rem] md:mb-[3rem] text-center">
+            {job.job_title}
+          </h1>
+        </div>
+
+        <div className="flex flex-col md:flex-row gap-[20px]">
+          <div className="flex-grow w-[100%] bg-background rounded-[20px] p-[20px]">
+            <div className="flex flex-wrap gap-[20px]">
+              <div className="bg-[#DBDBDB] px-4 py-2 rounded-md">
+                {job.work_loc} {job.remote ? " | Remote" : null}
+              </div>
+              <div className="bg-[#DBDBDB] px-4 py-2 rounded-md">
+                {job.commitment}
+              </div>
+              {job.compensation && (
+                <div className="bg-[#DBDBDB] px-4 py-2 rounded-md">
+                  ${job.compensation}
+                </div>
+              )}
+              <div className="bg-[#DBDBDB] px-4 py-2 rounded-md">
+                {job.level}
+              </div>
+            </div>
+
+            <div className="mt-6">
+              <div dangerouslySetInnerHTML={{ __html: job.description }} />
+            </div>
+          </div>
+
+          <div className="sticky top-20 w-full md:w-1/3 flex flex-col gap-6">
+            <a
+              href={`${job.job_link}?utm_source=your-site&utm_medium=organic`}
+              className="bg-blue-600 text-white p-4 rounded-lg text-center"
+            >
+              Apply for this job
+            </a>
+
+            <EmailCollector isHome={true} />
+          </div>
+        </div>
+      </div>
     </div>
   );
-}
+};
+
+export default JobDetails;
