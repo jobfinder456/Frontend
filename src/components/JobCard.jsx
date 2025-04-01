@@ -14,7 +14,9 @@ function JobCard({
   return (
     <div className="w-[100%] flex justify-between items-center px-[8px] sm:px-[24px] py-[8px] sm:py-[1rem] rounded-[12px] hover:bg-background hover:bg-opacity-50">
       <Link
-        href={`/job/${id}`}
+        href={`/job/${id}-${jobTitle
+          .replace(/\s+/g, "-")
+          .toLowerCase()}-${companyName.replace(/\s+/g, "-").toLowerCase()}`}
         target="_blank"
         className=" flex flex-grow items-center justify-start gap-[1rem]"
       >

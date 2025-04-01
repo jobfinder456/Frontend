@@ -1,11 +1,13 @@
 import React from "react";
 import Head from "next/head";
-import Navbar from "@/components/Navbar";
+import JobDescription from "./JobDesc";
 import NotFound from "@/components/NotFound";
 import EmailCollector from "@/components/EmailCollector";
 
 async function getJobDetails(id) {
   try {
+    console.log("Job ID:", id.split("-")[0]);
+    id = id.split("-")[0];
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/jobs/${id}`,
       { cache: "no-store" } // Ensures fresh data
@@ -25,6 +27,7 @@ async function getJobDetails(id) {
 
 export default async function Page({ params }) {
   const { id } = params;
+  // Log the job ID for debugging
   const details = await getJobDetails(id);
 
   if (!details) {
@@ -34,41 +37,39 @@ export default async function Page({ params }) {
   const jobSchema = {
     "@context": "https://schema.org/",
     "@type": "JobPosting",
-    "title": details.job_title,
-    "description": details.description.replace(/(<([^>]+)>)/gi, ""),
-    "datePosted": details.date_posted || new Date().toISOString(),
-    "validThrough":
-      details.valid_through ||
-      new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
-    "employmentType": details.commitment || "FULL_TIME",
-    "hiringOrganization": {
+    title: details.job_title,
+    description: details.description.replace(/(<([^>]+)>)/gi, ""),
+    datePosted: details.date_posted || "",
+    validThrough: details.valid_through || "",
+    employmentType: details.commitment || "FULL_TIME",
+    hiringOrganization: {
       "@type": "Organization",
-      "name": details.company_name,
-      "sameAs": details.website || "",
-      "logo": details.image_url || "",
+      name: details.company_name,
+      sameAs: details.website || "",
+      logo: details.image_url || "",
     },
-    "jobLocation": {
+    jobLocation: {
       "@type": "Place",
-      "address": {
+      address: {
         "@type": "PostalAddress",
-        "streetAddress": details.address || "",
-        "addressLocality": details.work_loc || "Unknown",
-        "addressRegion": details.state || "",
-        "postalCode": details.zip_code || "",
-        "addressCountry": details.country || "Unknown",
+        streetAddress: details.address || "",
+        addressLocality: details.work_loc || "Unknown",
+        addressRegion: details.state || "",
+        postalCode: details.zip_code || "",
+        addressCountry: details.country || "Unknown",
       },
     },
-    "jobLocationType": details.remote ? "TELECOMMUTE" : "OnSite",
-    "applicantLocationRequirements": details.remote
-      ? { "@type": "Country", "name": "Remote" }
+    jobLocationType: details.remote ? "TELECOMMUTE" : "OnSite",
+    applicantLocationRequirements: details.remote
+      ? { "@type": "Country", name: "Remote" }
       : undefined,
-    "baseSalary": {
+    baseSalary: {
       "@type": "MonetaryAmount",
-      "currency": "USD",
-      "value": {
+      currency: "USD",
+      value: {
         "@type": "QuantitativeValue",
-        "value": details.compensation || 0,
-        "unitText": "YEAR",
+        value: details.compensation || 0,
+        unitText: "YEAR",
       },
     },
   };
@@ -81,11 +82,12 @@ export default async function Page({ params }) {
           name="description"
           content={`${details.company_name} is hiring for ${details.job_title} in ${details.work_loc}`}
         />
+        {/* <meta
+          name="description"
+          content={details.description.replace(/(<([^>]+)>)/gi, "")} // Remove HTML tags
+        /> */}
         <meta name="robots" content="index, follow" />
-        <link
-          rel="canonical"
-          href={`https://yourwebsite.com/jobs/${id}`}
-        />
+        <link rel="canonical" href={`https://yourwebsite.com/jobs/${id}`} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jobSchema) }}
@@ -96,7 +98,7 @@ export default async function Page({ params }) {
         <div className="w-[100%] flex flex-col items-center justify-center gap-[1rem] mt-[1rem]">
           <a
             href={details.website}
-            className="w-[40px] h-[40px] md:w-[80px] md:h-[80px] bg-zinc-400 rounded-md"
+            className="w-[40px] h-[40px] md:w-[80px] md:h-[80px] bg-zinc-100 rounded-md"
           >
             {details.image_url ? (
               <img
@@ -141,10 +143,7 @@ export default async function Page({ params }) {
             </div>
             <div className="">
               {details.description && (
-                <p
-                  className=""
-                  dangerouslySetInnerHTML={{ __html: details.description }}
-                />
+                <JobDescription description={details.description} />
               )}
             </div>
           </div>

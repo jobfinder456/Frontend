@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+::selection{
+  color: rgb(255, 255, 255);
+  background-color: rgb(43, 59, 234)
+}
+
 @layer components {
     .form-label {
       @apply text-[1rem] text-base-1 font-medium;
