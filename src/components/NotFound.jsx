@@ -6,7 +6,7 @@ import Link from "next/link";
 function NotFound() {
   return (
     <div className="max-w-[73.75rem] mx-auto flex flex-col justify-center items-center">
-      <Navbar></Navbar>
+      
 
       <div className="w-[100%] min-h-screen flex flex-col md:flex-row gap-[2rem] lg:gap-[4rem] justify-center items-center">
         <img
