@@ -3,13 +3,13 @@ import Head from "next/head";
 import JobDescription from "./JobDesc";
 import NotFound from "@/components/NotFound";
 import EmailCollector from "@/components/EmailCollector";
+import DOMPurify from "isomorphic-dompurify";
 
 async function getJobDetails(id) {
   try {
-    console.log("Job ID:", id.split("-")[0]);
-    id = id.split("-")[0];
+    id = id.split("-");
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/jobs/${id}`,
+      `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/jobs/${id.pop()}`,
       { cache: "no-store" } // Ensures fresh data
     );
 
@@ -29,6 +29,9 @@ export default async function Page({ params }) {
   const { id } = params;
   // Log the job ID for debugging
   const details = await getJobDetails(id);
+  const sanitizedData = () => ({
+    __html: DOMPurify.sanitize(details?.description || "")
+  });
 
   if (!details) {
     return <NotFound />;
@@ -141,11 +144,14 @@ export default async function Page({ params }) {
                 {details.level}
               </div>
             </div>
-            <div className="">
+            
               {details.description && (
-                <JobDescription description={details.description} />
+                <div
+                  className=""
+                  dangerouslySetInnerHTML={sanitizedData()}
+                />
               )}
-            </div>
+            
           </div>
 
           <div className="top-[20px] sticky w-[100%] md:w-[40%] flex flex-col gap-[20px]">
