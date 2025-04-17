@@ -48,7 +48,7 @@ export default function Navbar() {
           Companies
         </Link>
         <Link href="/blogs" className="bg-background px-4 py-2 rounded-md text-[1.1rem] font-medium">
-          Study
+          Blogs
         </Link>
 
         {/* Employer Dropdown */}
@@ -122,7 +122,7 @@ export default function Navbar() {
               Companies
             </Link>
             <Link href="/blogs" className="text-lg font-medium" onClick={() => setIsMenuOpen(false)}>
-              Study
+              Blogs
             </Link>
             <hr className="border-gray-300" />
             <Link href="/business" className="text-lg font-medium" onClick={() => setIsMenuOpen(false)}>
