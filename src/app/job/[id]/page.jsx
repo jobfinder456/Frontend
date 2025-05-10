@@ -5,11 +5,12 @@ import DOMPurify from "isomorphic-dompurify";
 import axios from "axios";
 import generateMetadataFromJob from "./metadata";
 
-
 export async function generateMetadata({ params }) {
   try {
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/jobs/${params.id.split("-").pop()}`
+      `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/jobs/${params.id
+        .split("-")
+        .pop()}`
     );
 
     if (!response.data) return { title: "Job Not Found" };
@@ -58,7 +59,9 @@ export default async function Page({ params }) {
       <div className="relative w-[100%] mx-auto flex flex-col justify-center gap-[2rem] md:gap-[0rem] px-[1rem] text-[14px] md:text-[1rem] lg:text-[20px]">
         <div className="w-[100%] flex flex-col items-center justify-center gap-[1rem] mt-[1rem]">
           <a
-            href={details.website}
+            href={`https://${details.website}`}
+            target="_blank"
+            rel="noopener noreferrer"
             className="w-[40px] h-[40px] md:w-[80px] md:h-[80px] bg-zinc-100 rounded-md"
           >
             {details.image_url ? (
