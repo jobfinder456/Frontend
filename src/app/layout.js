@@ -34,6 +34,10 @@ export const metadata = {
       "Find remote and onsite jobs in development, design, finance, and engineering. GetJobs.today helps job seekers connect with top employers.",
     images: ["/images/favicon.png"],
   },
+  // ✅ Add this to define the canonical URL
+  alternates: {
+    canonical: "https://getjobs.today/",
+  },
 };
 
 export default function RootLayout({ children }) {
