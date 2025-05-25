@@ -3,6 +3,7 @@ import React from "react";
 import { useAuthContext } from "@/app/provider";
 import Modal from "@/components/Modal";
 import Loader from "@/components/Loader";
+import Script from "next/script";
 
 const Layout = ({ children }) => {
   const { isAuth, loading } = useAuthContext();
@@ -25,6 +26,8 @@ const Layout = ({ children }) => {
     <>
       {/* Main Content */}
       <div className="flex-1 p-6 sm:pl-6">{children}</div>
+      {/* ✅ Razorpay Payment Gateway */}
+      <Script src="https://checkout.razorpay.com/v1/checkout.js" />
     </>
   );
 };

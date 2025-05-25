@@ -75,8 +75,7 @@ export default function RootLayout({ children }) {
           gtag('config', 'G-S3V1MYKXW3');`}
         </Script>
 
-        {/* ✅ Razorpay Payment Gateway */}
-        <Script src="https://checkout.razorpay.com/v1/checkout.js" />
+        
       </body>
     </html>
   );
