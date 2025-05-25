@@ -20,10 +20,14 @@ function CompanyPage({ companyId }) {
     const fetchCompanyData = async () => {
       try {
         console.log("Fetching data for:", companyId);
-        
+
         const [companyRes, jobsRes] = await Promise.all([
-          axios.get(`${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/companies/${companyId}`),
-          axios.get(`${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/companies/info/${companyId}`),
+          axios.get(
+            `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/companies/${companyId}`
+          ),
+          axios.get(
+            `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/companies/info/${companyId}`
+          ),
         ]);
 
         setData({
@@ -31,6 +35,8 @@ function CompanyPage({ companyId }) {
           jobs: jobsRes.data.data.jobs || [],
           isLoading: false,
         });
+        console.log("Company data fetched successfully:", companyRes.data.data);
+        console.log("Jobs data fetched successfully:", jobsRes.data.data.jobs);
       } catch (error) {
         console.error("Error fetching company data:", error);
         setData({ company: null, jobs: [], isLoading: false });
@@ -50,7 +56,10 @@ function CompanyPage({ companyId }) {
       {/* Dynamic Page Title */}
       <Head>
         <title>{company.company} - Job Listings</title>
-        <meta name="description" content={`Explore job openings at ${company.company}.`} />
+        <meta
+          name="description"
+          content={`Explore job openings at ${company.company}.`}
+        />
       </Head>
 
       <div className="flex flex-col gap-4">
@@ -73,7 +82,7 @@ function CompanyPage({ companyId }) {
                 key={job.id}
                 id={job.id}
                 jobTitle={job.job_title}
-                companyName={job.company_name}
+                companyName={companyId}
                 isRemote={job.remote}
                 loc={job.work_loc}
                 img={job.image_url}
