@@ -4,6 +4,7 @@ import EmailCollector from "@/components/EmailCollector";
 import DOMPurify from "isomorphic-dompurify";
 import axios from "axios";
 import generateMetadataFromJob from "./metadata";
+import { redirect } from "next/navigation";
 
 export async function generateMetadata({ params }) {
   try {
@@ -25,6 +26,7 @@ export async function generateMetadata({ params }) {
 async function getJobDetails(id) {
   try {
     id = id.split("-");
+
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/jobs/${id.pop()}`,
       { cache: "no-store" } // Ensures fresh data
@@ -44,6 +46,10 @@ async function getJobDetails(id) {
 
 export default async function Page({ params }) {
   const { id } = params;
+
+  if (/^\d+$/.test(id)) {
+    redirect("/search");
+  }
   // Log the job ID for debugging
   const details = await getJobDetails(id);
   const sanitizedData = () => ({
