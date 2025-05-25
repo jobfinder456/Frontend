@@ -12,6 +12,7 @@ function NotFound() {
         <img
           className="w-[160px] md:w-[280px]"
           src="/images/notFound.svg"
+          alt="Not Found"
         ></img>
 
         <div className="flex flex-col md:items-start justify-center items-center md:justify-start gap-[0.2rem] text-base-1">

@@ -65,7 +65,7 @@ export default function BookmarkAlert() {
             <img
               src="/images/arrow.png"
               className="w-[8rem] absolute -top-1 scale-x-[-1] rotate-12 opacity-90"
-              alt=""
+              alt="arrow decoration"
             />
             <IoIosClose
               size={24}
