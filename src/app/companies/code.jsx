@@ -10,7 +10,7 @@ function Companies() {
 
   const fetchCompanies = async () => {
     try {
-      const res = await axios.get(`${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/companies`);
+      const res = await axios.get(`${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/job/companies`);
       setData(res.data.data);
     } catch (error) {
       console.log(error);

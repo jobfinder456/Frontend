@@ -34,7 +34,7 @@ function EmailCollector({ isHome }) {
       console.log(3);
 
       // Submit form data
-      const response = await axios.post(`${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/resume`, {
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/auth/resume`, {
         name: name,
         email: email,
         fileLink: res.data.data.fileLink,

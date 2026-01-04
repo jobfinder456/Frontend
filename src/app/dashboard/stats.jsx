@@ -1,9 +1,10 @@
-"use client"
+"use client";
 import React, { useEffect, useState } from "react";
 import { RxExternalLink } from "react-icons/rx";
 import { IoClose } from "react-icons/io5";
 import axios from "axios";
 import { useAuthContext } from "../../app/provider";
+import { IKContext, IKUpload } from "imagekitio-react";
 
 export default function Stats({ refreshTrigger }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -25,7 +26,7 @@ export default function Stats({ refreshTrigger }) {
     //fetchProfiles();
   }, []);
 
-const fetchStats = async () => {
+  const fetchStats = async () => {
     try {
       const res = await axios.get(
         `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/user/impressions`,
@@ -44,7 +45,7 @@ const fetchStats = async () => {
   // const fetchProfiles = async () => {
   //   try {
   //     const res = await axios.get(
-  //       `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/profile`,
+  //       `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/company/profile`,
   //       { withCredentials: true }
   //     );
   //     setProfile(res.data);
@@ -53,37 +54,10 @@ const fetchStats = async () => {
   //   }
   // };
 
-  const handleFileChange = async (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      setCompanyLogo(file);
-
-      try {
-        const { data: s3Response } = await axios.post(
-          `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/s3logo`,
-          {
-            contentType: file.type,
-          },
-          { withCredentials: true }
-        );
-
-        const { signedUrl } = s3Response.data;
-        setCompanyLogoPreview(s3Response.data.fileLink);
-        await axios.put(signedUrl, file, {
-          headers: {
-            "Content-Type": file.type,
-          },
-        });
-      } catch (error) {
-        console.error("Error uploading the file:", error);
-      }
-    }
-  };
-
   const handleSubmit = async () => {
     try {
       await axios.post(
-        `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/profile`,
+        `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/company/profile`,
         {
           company_name: companyName,
           website: companyWebsite,
@@ -98,8 +72,46 @@ const fetchStats = async () => {
     }
   };
 
+  const onUploadSuccess = (res) => {
+    console.log("✅ IMAGEKIT SUCCESS FULL RESPONSE:", res);
+    console.log("✅ IMAGE URL:", res.url);
+
+    setCompanyLogoPreview(res.url);
+  };
+
+  const onUploadError = (err) => {
+    console.error("❌ IMAGEKIT ERROR FULL:", err);
+  };
+
+  const authenticator = async () => {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/company/imagekit-auth`,
+      { credentials: "include" }
+    );
+
+    if (!res.ok) {
+      throw new Error("ImageKit auth failed");
+    }
+
+    const data = await res.json();
+
+    return {
+      token: data.token,
+      expire: data.expire,
+      signature: data.signature,
+    };
+  };
+
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+
+  useEffect(() => {
+    console.log("IMAGEKIT CONFIG CHECK 👉", {
+      publicKey: process.env.NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY,
+      urlEndpoint: process.env.NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT,
+      authEndpoint: `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/company/imagekit-auth`,
+    });
+  }, []);
 
   return (
     <div className="w-[100%] bg-background flex flex-col gap-[0.5rem] sm:gap-[1rem] p-[0.5rem] md:p-[1rem] rounded-[24px]">
@@ -107,7 +119,11 @@ const fetchStats = async () => {
       <div className="flex flex-wrap gap-[0.5rem] md:gap-[1rem]">
         <div className="bg-white flex-grow flex flex-col items-start justify-start rounded-[1rem] p-[0.75rem] md:p-[1.2rem]">
           <h3 className="text-[2.5rem] md:text-[4rem] font-medium text-accent-blue-1">
-            {loading ? stats.total_impressions : stats.total_impressions == null ? 0 : stats.total_impressions}
+            {loading
+              ? stats.total_impressions
+              : stats.total_impressions == null
+              ? 0
+              : stats.total_impressions}
           </h3>
           <span className="text-[14px] md:text-[16px]">
             Total impressions on your job posts
@@ -177,54 +193,66 @@ const fetchStats = async () => {
         <div className="fixed inset-0 bg-white bg-opacity-50 flex justify-center items-center z-50">
           <div className="bg-background p-[1rem] rounded-[1rem] shadow-xl ">
             <div className="bg-white p-[1.2rem] rounded-[0.85rem] flex flex-col gap-[0.5rem]">
-            <div className="flex justify-between items-center">
-              <h2 className="text-xl font-bold">Create New Company</h2>
-              <IoClose size={24} onClick={closeModal} />
-            </div>
-            <div className="flex flex-col">
-              <label htmlFor="companylogo" className="form-label">
-                Company Logo
-              </label>
-              <input id="companylogo" type="file" onChange={handleFileChange} />
-              {companyLogoPreview && (
-                <div className="mt-2">
-                  <img
-                    src={`${companyLogoPreview}`}
-                    alt="Company Logo Preview"
-                    className="w-32 h-32 object-contain"
+              <div className="flex justify-between items-center">
+                <h2 className="text-xl font-bold">Create New Company</h2>
+                <IoClose size={24} onClick={closeModal} />
+              </div>
+              <div className="flex flex-col">
+                <label htmlFor="companylogo" className="form-label">
+                  Company Logo
+                </label>
+                <IKContext
+                  publicKey={process.env.NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY}
+                  urlEndpoint={process.env.NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT}
+                  authenticator={authenticator}
+                >
+                  <IKUpload
+                    fileName={`company-logo-${Date.now()}`}
+                    onSuccess={onUploadSuccess}
+                    onError={onUploadError}
+                    className="form-inp"
                   />
-                </div>
-              )}
-            </div>
-            <div>
-              <label htmlFor="companyName" className="form-label">
-                Company Name
-              </label>
-              <input
-                className="form-inp"
-                id="companyName"
-                type="text"
-                placeholder="Company Name"
-                value={companyName}
-                onChange={(e) => setCompanyName(e.target.value)}
-              />
-            </div>
-            <div>
-              <label htmlFor="companyWebsite" className="form-label">
-                Company Website
-              </label>
-              <input
-                className="form-inp"
-                id="companyWebsite"
-                type="text"
-                placeholder="https://abc.com"
-                value={companyWebsite}
-                onChange={(e) => setCompanyWebsite(e.target.value)}
-              />
-            </div>
-            <button onClick={handleSubmit} className="button-primary">
-              Submit
-            </button>
+                </IKContext>
+
+                {companyLogoPreview && (
+                  <div className="mt-2">
+                    <img
+                      src={`${companyLogoPreview}`}
+                      alt="Company Logo Preview"
+                      className="w-32 h-32 object-contain"
+                    />
+                  </div>
+                )}
+              </div>
+              <div>
+                <label htmlFor="companyName" className="form-label">
+                  Company Name
+                </label>
+                <input
+                  className="form-inp"
+                  id="companyName"
+                  type="text"
+                  placeholder="Company Name"
+                  value={companyName}
+                  onChange={(e) => setCompanyName(e.target.value)}
+                />
+              </div>
+              <div>
+                <label htmlFor="companyWebsite" className="form-label">
+                  Company Website
+                </label>
+                <input
+                  className="form-inp"
+                  id="companyWebsite"
+                  type="text"
+                  placeholder="https://abc.com"
+                  value={companyWebsite}
+                  onChange={(e) => setCompanyWebsite(e.target.value)}
+                />
+              </div>
+              <button onClick={handleSubmit} className="button-primary">
+                Submit
+              </button>
             </div>
           </div>
         </div>

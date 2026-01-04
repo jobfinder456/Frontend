@@ -1,6 +1,5 @@
 "use client";
 
-import Navbar from "@/components/Navbar";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
@@ -8,7 +7,6 @@ import toast, { Toaster } from "react-hot-toast";
 import Modal from "@/components/Modal";
 import Loader from "@/components/Loader";
 import { GoSortAsc } from "react-icons/go";
-import { RxExternalLink } from "react-icons/rx";
 import { FaRegEdit } from "react-icons/fa";
 import { MdDeleteOutline } from "react-icons/md";
 import Stats from "./stats";
@@ -38,7 +36,7 @@ function Page() {
     setLoad(true);
     try {
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/jobs?page=${page}`,
+        `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/job/jobs?page=${page}`,
         { withCredentials: true }
       );
 
@@ -71,7 +69,7 @@ function Page() {
       setLoad(true);
       console.log(id);
       const response = await axios.delete(
-        `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/jobs/${id}`,
+        `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/job/jobs/${id}`,
         { withCredentials: true }
       );
       toast("Deleted Successfully");

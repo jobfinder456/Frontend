@@ -7,7 +7,7 @@ export default async function LatestJobs() {
     { name: "Design Jobs", category: "design" },
   ];
 
-  const baseApiUrl = `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/list?search=&loc=&remote=&commitment=&level=&page=1`;
+  const baseApiUrl = `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/job/list?search=&loc=&remote=&commitment=&level=&page=1`;
 
   try {
     // Fetch jobs for each category

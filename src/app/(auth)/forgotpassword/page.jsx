@@ -42,7 +42,7 @@ const ForgotPassword = () => {
     setIsSubmitting(true);
     try {
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_BACK_AUTH}/api/v1/resetpass`,
+        `${process.env.NEXT_PUBLIC_BACK_AUTH}/api/v1/auth/resetpass`,
         { email, otp, newPassword: password }
       );
       localStorage.setItem("isLogin", new Date().toISOString());

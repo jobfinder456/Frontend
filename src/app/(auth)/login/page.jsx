@@ -21,7 +21,7 @@ const Login = () => {
   const onEmailSubmit = async () => {
     setIsSubmitting(true);
     try {
-      await axios.post(`${process.env.NEXT_PUBLIC_BACK_AUTH}/api/v1/signin`, {
+      await axios.post(`${process.env.NEXT_PUBLIC_BACK_AUTH}/api/v1/auth/signin`, {
         email: email,
         password: password,
       });
@@ -38,7 +38,7 @@ const Login = () => {
     setIsSubmitting(true);
     try {
       await axios.post(
-        `${process.env.NEXT_PUBLIC_BACK_AUTH}/api/v1/check`,
+        `${process.env.NEXT_PUBLIC_BACK_AUTH}/api/v1/auth/check`,
         { email: email, otp: otp },
         { withCredentials: true }
       );

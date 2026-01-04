@@ -86,7 +86,7 @@ export default function CompaniesPage() {
 
       // Update the company profile
       const updateResponse = await axios.put(
-        `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/profile`,
+        `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/company/profile`,
         {
           company_id: selectedCompany.id,
           company_name: companyName,

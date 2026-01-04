@@ -3,7 +3,7 @@ import axios from "axios";
 export async function generateMetadataFromCompany(params) {
   try {
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/companies/${params.id}`
+      `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/job/companies/${params.id}`
     );
 
     if (!response.data) return { title: "Company Not Found" };

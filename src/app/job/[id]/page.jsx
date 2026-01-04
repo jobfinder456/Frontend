@@ -8,7 +8,7 @@ import generateMetadataFromJob from "./metadata";
 export async function generateMetadata({ params }) {
   try {
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/jobs/${params.id
+      `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/job/jobs/${params.id
         .split("-")
         .pop()}`
     );
@@ -26,7 +26,7 @@ async function getJobDetails(id) {
   try {
     id = id.split("-");
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/jobs/${id.pop()}`,
+      `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/job/jobs/${id.pop()}`,
       { cache: "no-store" } // Ensures fresh data
     );
 

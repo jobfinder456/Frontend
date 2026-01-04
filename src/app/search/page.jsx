@@ -56,7 +56,7 @@ function JobSearchComponent() {
       try {
         setLoad(true);
         const { level, commitment, categories } = filters;
-        const url = `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/list?page=${page}&search=${debouncedSearchTerm}&loc=${debouncedLoc}&remote=${remote}&commitment=${commitment}&level=${level}&categories=${categories}`;
+        const url = `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/job/list?page=${page}&search=${debouncedSearchTerm}&loc=${debouncedLoc}&remote=${remote}&commitment=${commitment}&level=${level}&categories=${categories}`;
         const response = await axios.get(url);
         setPosts((prevPosts) => [...prevPosts, ...response.data.all]);
       } catch (error) {

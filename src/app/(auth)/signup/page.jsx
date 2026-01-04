@@ -19,16 +19,21 @@ const Signup = () => {
   const onEmailSubmit = async () => {
     setIsSubmitting(true);
     try {
-      await axios.post(`${process.env.NEXT_PUBLIC_BACK_AUTH}/api/v1/signup`, {
-        name: name,
-        email: email,
-        password: password,
-      });
+      await axios.post(
+        `${process.env.NEXT_PUBLIC_BACK_AUTH}/api/v1/auth/signup`,
+        {
+          name: name,
+          email: email,
+          password: password,
+        }
+      );
       toast.success("OTP sent successfully!");
       setOtpEnabled(true);
     } catch (error) {
       console.log(error);
-      toast.error(error.response?.data || "Failed to send OTP.");
+      error.response?.data?.error ||
+        error.response?.data?.message ||
+        "Failed to send OTP.";
     } finally {
       setIsSubmitting(false);
     }
@@ -38,8 +43,12 @@ const Signup = () => {
     setIsSubmitting(true);
     try {
       await axios.post(
-        `${process.env.NEXT_PUBLIC_BACK_AUTH}/api/v1/check`,
-        { email: email, otp: otp }
+        `${process.env.NEXT_PUBLIC_BACK_AUTH}/api/v1/auth/check`,
+        {
+          email: email,
+          otp: otp,
+        },
+        { withCredentials: true }
       );
       localStorage.setItem("isLogin", new Date().toISOString());
       router.push("/dashboard");
@@ -52,7 +61,6 @@ const Signup = () => {
 
   return (
     <div className="max-w-[48rem] mx-auto min-h-screen px-[1rem] pb-[1rem]">
-      
       <div className="bg-background max-w-[32rem] mx-auto rounded-[1rem] p-[0.75rem] md:p-[1rem] mt-[2rem]">
         <div className="relative bg-white p-[1rem] md:p-[2rem] text-black flex flex-col justify-center items-start gap-4 rounded-[14px]">
           <h1 className="text-[1.2rem] md:text-[1.5rem] font-medium">

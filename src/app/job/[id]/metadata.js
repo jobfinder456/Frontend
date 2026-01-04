@@ -6,7 +6,7 @@ export default async function generateMetadataFromJob(params) {
     const jobId = params.id.split("-").pop();
 
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/jobs/${jobId}`
+      `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/job/jobs/${jobId}`
     );
 
     const details = response.data;

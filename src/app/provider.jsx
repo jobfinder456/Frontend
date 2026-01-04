@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }) => {
   const fetchProfile = async () => {
     try {
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/profile`,
+        `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/company/profile`,
         { withCredentials: true }
       );
       console.log("Profile fetched successfully:", response.data);
@@ -50,7 +50,7 @@ export const AuthProvider = ({ children }) => {
     try {
       setLoading(true);
       const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/get-user`,
+        `${process.env.NEXT_PUBLIC_BACK_MAIN}/api/v1/company/get-user`,
         { withCredentials: true }
       );
 
